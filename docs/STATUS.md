@@ -10,22 +10,27 @@ Last planning update: 7 October 2026. No local implementation verified.
 - cutoff_time_and_timezone: UNCONFIRMED
 - official_evidence_reference: NONE
 - person_A: Fredrick Onyango — Git identity configured (name and email)
-- person_B: colleague — actual name/identity to be supplied
+- active_contributor: Fredrick Onyango — temporarily owns both workstreams
+- person_B: colleague — GitHub username ianmuriuki; actual name remains unconfirmed
+- colleague_participation: UNCONFIRMED
+- colleague_invitation_acceptance: UNCONFIRMED
+- colleague_clone: UNCONFIRMED
 - person_A_P00_audit: COMPLETED — driver-confirmed in P05.2 prompt
-- person_B_P00_audit: OUTSTANDING
+- person_B_P00_audit: OUTSTANDING — completion unconfirmed
 - docker_server: 29.8.2 — verified in ordinary Ubuntu terminal per driver; access inside Codex previously failed
 - daily_available_hours_A: UNKNOWN
 - daily_available_hours_B: UNKNOWN
 - overlap_time: UNKNOWN
 - repository_local: Dedicated project repository initialized on main at /home/fred/Projects/market-intelligence-challenge
-- repository_remote: NOT_CREATED
+- repository_remote: https://github.com/Fredrick-owino/market-price-intelligence-agent.git (origin)
+- initial_preparation_commit: bce05d079ebb88d77d1e55d3a797a37de1487668 — pushed and remote main verified in P04.2; main tracks origin/main
 - P05.1_driver_review: REVIEWED — ignore/licence preparation, confirmed in P05.2 prompt
 - team_licence_review: PENDING — proposed MIT for original work only
 - target_institution_and_reviewer: NOT_CONFIRMED
 - crop_origin_and_three_markets: NOT_CONFIRMED
 - data_access_and_redistribution_rights: NOT_VERIFIED
 - runtime_model_and_dependency_versions: NOT_BENCHMARKED
-- current_task: P05.2 initial preparation commit
+- current_task: P01/P04 temporary solo working arrangement documentation
 - next_task_after_P00: P01 team capacity/roles
 
 | Gate | Status | Evidence needed |
@@ -48,5 +53,14 @@ The published deadline above is retained from the planning pack, not newly
 verified official evidence; implementation dates and exact cutoff remain
 unconfirmed. Earlier planning-pack and P05.1 statements describe their original
 preparation state; this status records the supplied updates.
+
+Temporary arrangement recorded at the user's direction: Fredrick may continue
+independently on permitted work in both workstreams. Colleague participation
+or review is not implied, and no peer-review gate is passed by solo work.
+Colleague onboarding resumes when ianmuriuki becomes available, including
+confirmation of participation, invitation acceptance, clone and audit.
+Implementation remains disabled pending the existing official-window gate.
+P04.2 execution verified that the initial preparation commit above matched
+remote main after the push; this does not establish colleague access or review.
 
 Decisions pending: colleague details; both contributors' availability and overlap; team licence review; exact crop/market coverage; allowed dataset/snapshots; inference hardware; validated open-weights model; compatible MCP adapter/library set; officer identity mechanism; fresh-price threshold; bounded live retrieval; deadline/window clarification.

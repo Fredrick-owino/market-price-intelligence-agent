@@ -1,5 +1,26 @@
 # Collaboration and local Codex execution
 
+## Temporary solo working arrangement
+
+Fredrick Onyango is the active contributor and temporarily owns both workstreams:
+backend/runtime/infrastructure and data/frontend/evaluation. He may continue
+independently on permitted tasks while the colleague is unavailable. This
+temporary ownership supersedes the normal A/B division below; it does not
+constitute colleague review or satisfy gates that require peer evidence.
+`implementation_start_confirmed` remains false, so application implementation
+is not authorized.
+
+The colleague's GitHub username is `ianmuriuki`. Participation, invitation
+acceptance, clone and audit remain unconfirmed. Resume colleague onboarding
+when they become available; confirm those steps before recording them complete.
+Availability, team licence review and other unresolved facts remain pending.
+
+The configured GitHub origin is
+`https://github.com/Fredrick-owino/market-price-intelligence-agent.git`.
+The initial preparation commit `bce05d079ebb88d77d1e55d3a797a37de1487668`
+was pushed and verified against remote main during P04.2; local main tracks
+origin/main. This confirms the preparation push, not colleague access or review.
+
 ## Repository setup after audits
 Person A is provisional repository custodian; B reviews root setup. Create a new repository or verify an existing one first. Set the actual contributor identity; do not invent email/name or globally overwrite an existing identity. Create a named shared remote under the agreed owner, authenticate using each person’s normal account and invite the colleague. Never share a token/private key. During preparation, only documentation and allowed structure are committed.
 
