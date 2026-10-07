@@ -1,0 +1,73 @@
+# Python environments, caches, packaging and generated coverage
+.venv/
+venv/
+env/
+.tox/
+.nox/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+coverage/
+/build/
+/dist/
+
+# Frontend dependencies and generated builds
+node_modules/
+/frontend/dist/
+/frontend/build/
+.next/
+.vite/
+*.tsbuildinfo
+
+# Local secrets; harmless environment examples remain trackable
+.env
+.env.*
+!.env.example
+.envrc
+.secrets/
+secrets/
+*.local
+*.pem
+*.key
+/config/local.*
+/config/secrets.*
+
+# Local databases and journals
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+/volumes/
+
+# Local logs, private data and unsanitized runtime evidence
+*.log
+logs/
+private/
+private_data/
+/data/private/
+/data/local/
+/evals/results/private/
+
+# Downloaded model weights and caches (model source code stays trackable)
+.cache/
+model_weights/
+*.gguf
+*.ggml
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+/models/weights/
+/models/downloads/
+
+# Do not blanket-ignore data/, evals/results/, docs/ or source directories.
+# Keep permitted demo datasets and reviewed, sanitized evidence trackable.
