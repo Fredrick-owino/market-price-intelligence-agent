@@ -4,7 +4,7 @@ Version 1.0 | 9 October 2026 | Project lead: Fredrick Onyango
 
 Repository: https://github.com/Fredrick-owino/market-price-intelligence-agent
 
-> **Preparation only:** This guide describes the target workflow and proposed responsibilities, not implemented capabilities or completed onboarding. [Current status](STATUS.md) keeps `implementation_start_confirmed: false`; official window evidence and colleague participation remain unconfirmed. Follow the [collaboration agreement](COLLABORATION.md) and [shared contracts](ARCHITECTURE_AND_CONTRACTS.md).
+> **Readiness:** This guide describes the target workflow and proposed responsibilities, not implemented capabilities or completed onboarding. [Current status](STATUS.md) records `implementation_start_confirmed: true` and a build-start date of 9 October 2026 based on lead-reported organiser confirmation. Other task prerequisites and gates remain independently applicable; I00 is not passed and no implementation task is yet dependency-ready. Colleague participation remains unconfirmed. Follow the [collaboration agreement](COLLABORATION.md) and [shared contracts](ARCHITECTURE_AND_CONTRACTS.md).
 
 
 ## 1. What we are building
@@ -183,7 +183,7 @@ These commands are for a new clone; its folder name differs from Fredrick's loca
 5. Perform P00 using `prompts/00_ENVIRONMENT_AUDIT.md`. Return actual versions, hardware, Git root/status and blockers. Do not install packages as part of the read-only audit.
 6. Tell Fredrick your name, daily available hours, overlap time and current skills. Confirm your first task, branch and file boundaries.
 7. Verify your own collaborator access using a lead-approved task branch. Do not assume invitation acceptance or read access proves push permission.
-8. Begin the first dependency-ready assigned task. The lead must record the confirmed build start in repository status before enabling evaluated implementation. Report stale or contradictory status rather than silently overriding it.
+8. Begin the first dependency-ready assigned task. The lead-reported build-start date is now recorded in repository status; evaluated implementation still requires the applicable task dependencies and I00 evidence. Report stale or contradictory status rather than silently overriding it.
 
 ## 9. Your first work sequence
 
@@ -241,11 +241,12 @@ The driver chat supplies bounded next steps based on these reports. Each local C
 
 ## 12. Current evidence and remaining decisions
 
-The following reflects repository evidence and the fetched remote main checked for this documentation publication on 9 October 2026. It does not verify source observations anew or establish organizer approval:
+The following reflects repository evidence checked for the guide publication and the dated lead statement supplied for P02.1 on 9 October 2026. It does not verify source observations anew or claim independent inspection of the organiser’s message:
 
 | Item | Verified repository state or remaining limitation |
 |---|---|
-| Official build start | UNCONFIRMED in STATUS; no dated official evidence recorded; implementation remains disabled |
+| Official build start | 2026-10-09; lead-reported organiser confirmation recorded in STATUS; start flag true, other prerequisites and gates still apply |
+| Exact start time and timezone | UNCONFIRMED; the date does not establish an exact timestamp |
 | Exact build end/cutoff time and timezone | UNCONFIRMED in STATUS; do not infer |
 | Published deadline | STATUS retains 15 October 2026 from the planning pack; not independently reverified for this guide |
 | Source audit | P08.1/P08.2 documentation committed; source access observed, rights/comparability unresolved |
@@ -255,6 +256,8 @@ The following reflects repository evidence and the fetched remote main checked f
 | Colleague onboarding and machine audit | Not yet evidenced |
 | Target institution/reviewer and final market scope | Not yet confirmed |
 | Runtime, final model and compatible dependency versions | Still require measured verification |
+
+On 9 October 2026, Fredrick stated: “Organizers have confirmed that the build starts today at 9th”. This is lead-reported organiser confirmation supplied in the P02.1 prompt; the original organiser message was not independently inspected. Exact start time, end date/time and cutoff timezone remain unconfirmed. This dated update supersedes earlier false/disabled calendar wording in [COLLABORATION.md](COLLABORATION.md), whose other requirements remain applicable. See the [P02.1 readiness assessment](handoffs/P02.1-A-2026-10-09.md): I00 remains incomplete, and no implementation task is dependency-ready.
 
 The source audit reported white-maize records for Kutus, Eldoret Main and Kerugoya on 31 August 2026 with wholesale/retail columns and KES/kg evidence. Missing grades and conflicting records prevent an assumption of full comparability. This is historical evidence, not proof of today's prices. Original temporary HTML was later reported missing, which limits independent rechecking; retain permitted evidence durably in future work.
 
