@@ -1,5 +1,7 @@
 # Start here
 
+**Joining the project? Read the [SokoSignal colleague guide](docs/COLLEAGUE_GUIDE.md) for the proposed workflow, responsibilities and onboarding steps.**
+
 This pack contains planning documents and Codex task instructions. It does not contain a runnable competition entry. Build application code only in local Codex, within the verified competition window.
 
 Read in this order:
