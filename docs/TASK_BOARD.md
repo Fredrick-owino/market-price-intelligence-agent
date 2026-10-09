@@ -6,6 +6,31 @@ Each task has the following micro-steps: (1) confirm prerequisites and official 
 
 Do not tick a box for an expected result. For every completion record date, branch/commit, report path, actual command results and reviewer. A blocked task stays unchecked with a blocker owner and next action. If a task proves too large, the driver splits it into numbered substeps within that ID; none of its acceptance checks may be dropped.
 
+## P11.1 phased entry rule — 9 October 2026
+
+[ADR 0002](adr/0002-phased-implementation-readiness.md) changes start sequencing
+for bounded synthetic foundation experiments only. The original task rows,
+dependencies, ordered work, acceptance requirements and gate mapping below are
+retained verbatim as full-task completion/integration requirements. Their
+blanket prohibition on starting foundation work before I00 is superseded only
+within the ADR's scope; no task checkbox or gate status is changed.
+
+- Foundation entry: confirmed start + Fredrick's recorded machine/repository
+  evidence + temporary solo ownership + explicit experiment scope/contracts.
+- First bounded task: **I01.1**, read-only toolchain readiness verification and
+  two evidence reports, exactly as specified in ADR 0002. Not executed here.
+- Then separately assign compatible project-toolchain/model/real-MCP and
+  private recovery experiments; synthetic I03 arithmetic and I04 state
+  experiments may proceed once their own runtime/contract prerequisites hold.
+- Real-data integration retains permission/provenance/normalization/
+  comparability requirements; field claims retain practitioner validation.
+- Full task acceptance and release retain every original evaluation, review,
+  reproducibility, access, calendar/eligibility and submission requirement.
+  Fredrick executes solo; independent peer review remains outstanding.
+
+P11.1 evidence: [handoff](handoffs/P11.1-A-2026-10-09.md). This sequencing
+decision does not complete P11, I00, I01 or G0–G6.
+
 ## Suggested parallel scheduling
 
 | Point | A | B |

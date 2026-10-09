@@ -4,7 +4,7 @@ Version 1.0 | 9 October 2026 | Project lead: Fredrick Onyango
 
 Repository: https://github.com/Fredrick-owino/market-price-intelligence-agent
 
-> **Readiness:** This guide describes the target workflow and proposed responsibilities, not implemented capabilities or completed onboarding. [Current status](STATUS.md) records `implementation_start_confirmed: true` and a build-start date of 9 October 2026 based on lead-reported organiser confirmation. Other task prerequisites and gates remain independently applicable; I00 is not passed and no implementation task is yet dependency-ready. Colleague participation remains unconfirmed. Follow the [collaboration agreement](COLLABORATION.md) and [shared contracts](ARCHITECTURE_AND_CONTRACTS.md).
+> **Readiness:** This guide describes the target workflow and proposed responsibilities, not implemented capabilities or completed onboarding. [Current status](STATUS.md) records `implementation_start_confirmed: true` and a build-start date of 9 October 2026 based on lead-reported organiser confirmation. Under [ADR 0002](adr/0002-phased-implementation-readiness.md), bounded synthetic foundation experiments may proceed from the recorded foundation prerequisites. I00 and full-task/gate acceptance remain incomplete; real-data, field-validity and release requirements still apply. Colleague participation remains unconfirmed. Follow the [collaboration agreement](COLLABORATION.md) and [shared contracts](ARCHITECTURE_AND_CONTRACTS.md).
 
 
 ## 1. What we are building
@@ -183,7 +183,7 @@ These commands are for a new clone; its folder name differs from Fredrick's loca
 5. Perform P00 using `prompts/00_ENVIRONMENT_AUDIT.md`. Return actual versions, hardware, Git root/status and blockers. Do not install packages as part of the read-only audit.
 6. Tell Fredrick your name, daily available hours, overlap time and current skills. Confirm your first task, branch and file boundaries.
 7. Verify your own collaborator access using a lead-approved task branch. Do not assume invitation acceptance or read access proves push permission.
-8. Begin the first dependency-ready assigned task. The lead-reported build-start date is now recorded in repository status; evaluated implementation still requires the applicable task dependencies and I00 evidence. Report stale or contradictory status rather than silently overriding it.
+8. Begin the first dependency-ready assigned task. The lead-reported build-start date is now recorded in repository status; bounded synthetic foundation work follows ADR 0002, while full integration/completion retains the original task dependencies and I00 evidence. Report stale or contradictory status rather than silently overriding it.
 
 ## 9. Your first work sequence
 
@@ -196,6 +196,8 @@ These commands are for a new clone; its folder name differs from Fredrick's loca
 | 5 | Begin assigned implementation tasks after their prerequisites | Reviewed data/frontend changes and actual checks |
 | 6 | Freeze independent evaluation cases, then run the integrated agent | Expected versus actual results and failure evidence |
 | 7 | Perform fresh-clone verification and support the demo/release | Reproducible run, documentation corrections and tested public artifacts |
+
+Foundation sequencing: confirmed start, recorded machine/repository evidence, temporary solo ownership and defined scope/contracts permit labelled synthetic toolchain, model, real-MCP, calculation and private recovery experiments. Real-data integration still needs source permission, provenance, normalization and comparability evidence. Field claims need practitioner validation. Release retains every original evaluation, independent review, reproducibility, access and submission requirement; solo execution does not satisfy peer review.
 
 Practical parallelism: while Fredrick builds deterministic services and the MCP/agent runtime, you prepare evidence and evaluation expectations, then implement the frontend once the API contract is stable. Do not create a second competing backend or redesign the product in parallel.
 
@@ -257,7 +259,7 @@ The following reflects repository evidence checked for the guide publication and
 | Target institution/reviewer and final market scope | Not yet confirmed |
 | Runtime, final model and compatible dependency versions | Still require measured verification |
 
-On 9 October 2026, Fredrick stated: “Organizers have confirmed that the build starts today at 9th”. This is lead-reported organiser confirmation supplied in the P02.1 prompt; the original organiser message was not independently inspected. Exact start time, end date/time and cutoff timezone remain unconfirmed. This dated update supersedes earlier false/disabled calendar wording in [COLLABORATION.md](COLLABORATION.md), whose other requirements remain applicable. See the [P02.1 readiness assessment](handoffs/P02.1-A-2026-10-09.md): I00 remains incomplete, and no implementation task is dependency-ready.
+On 9 October 2026, Fredrick stated: “Organizers have confirmed that the build starts today at 9th”. This is lead-reported organiser confirmation supplied in the P02.1 prompt; the original organiser message was not independently inspected. Exact start time, end date/time and cutoff timezone remain unconfirmed. This dated update supersedes earlier false/disabled calendar wording in [COLLABORATION.md](COLLABORATION.md), whose other requirements remain applicable. The [P02.1 assessment](handoffs/P02.1-A-2026-10-09.md) remains historical evidence; [P11.1](handoffs/P11.1-A-2026-10-09.md) supersedes its blanket start-order conclusion. I00 remains incomplete. The first bounded task is I01.1: verify available tools and write readiness/handoff reports, with no installation or model execution. No missing software is established from the retained records; I01.1 must report actual availability and blockers.
 
 The source audit reported white-maize records for Kutus, Eldoret Main and Kerugoya on 31 August 2026 with wholesale/retail columns and KES/kg evidence. Missing grades and conflicting records prevent an assumption of full comparability. This is historical evidence, not proof of today's prices. Original temporary HTML was later reported missing, which limits independent rechecking; retain permitted evidence durably in future work.
 

@@ -1,6 +1,6 @@
 # Project status — update from execution evidence
 
-Last evidence update: 9 October 2026 (P02.1). No local implementation verified.
+Last evidence update: 9 October 2026 (P11.1). No local implementation verified.
 
 - stage: PREPARATION
 - implementation_start_confirmed: true
@@ -31,7 +31,7 @@ Last evidence update: 9 October 2026 (P02.1). No local implementation verified.
 - crop_origin_and_three_markets: NOT_CONFIRMED
 - data_access_and_redistribution_rights: NOT_VERIFIED
 - runtime_model_and_dependency_versions: NOT_BENCHMARKED
-- current_task: P02.1 build-start evidence and implementation-readiness assessment
+- current_task: P11.1 phased implementation-readiness documentation
 - next_task_after_P00: P01 team capacity/roles
 
 | Gate | Status | Evidence needed |
@@ -83,17 +83,17 @@ any other task or gate. Stage remains PREPARATION because no implementation is
 verified. Exact start time/timezone, end date/time and cutoff timezone remain
 unconfirmed; the retained published deadline is not an inferred cutoff.
 
-This dated calendar update supersedes the earlier false/disabled calendar
-wording in COLLABORATION.md and historical preparation records. Their ownership,
-review and task-dependency requirements still apply. COLLABORATION.md is outside
-this task's edit scope and remains unchanged.
+P02.1 superseded earlier false/disabled calendar wording in preparation
+records. P11.1 now aligns COLLABORATION.md and defines the limited foundation
+entry path below; ownership and independent review requirements still apply.
 
 Evidence already present: driver-confirmed Person A P00/Docker facts, named
 lead and temporary solo ownership, Git repository/remote and documentation
 commits, ignore rules/proposed MIT licence, and the bounded P08 source audit.
 These are partial prerequisite evidence, not completed peer-reviewed tasks.
 
-**No implementation task is dependency-ready under the current task board.**
+**Historical P02.1 conclusion before the P11.1 sequencing change:** no
+implementation task was dependency-ready under the original ordering.
 I00 requires P02, P04 and P11 plus preparation/eligibility evidence and two-person
 signoff. P02 still lacks eligibility/form and remaining calendar evidence;
 P04 lacks colleague access/clone/audit evidence; P11 depends on unresolved
@@ -106,3 +106,26 @@ and owners. Next independent preparation can collect the outstanding P02
 calendar/eligibility facts and colleague P00 evidence; no such task is executed
 here. No colleague onboarding, practitioner validation, data permission or
 peer review is implied, and all gates above remain NOT_PASSED.
+
+## P11.1 — phased readiness
+
+[ADR 0002](adr/0002-phased-implementation-readiness.md) supersedes only the
+blanket P02.1 start-order restriction. Confirmed start, Fredrick's recorded
+machine/repository evidence, temporary solo ownership and defined experiment
+scope/contracts permit bounded foundation work on labelled synthetic fixtures.
+This includes toolchain/model/real-MCP, deterministic calculation and private
+checkpoint/recovery experiments. Stage remains PREPARATION until actual
+execution evidence is recorded; no experiment has run in this task.
+
+**First dependency-ready subtask: I01.1**, read-only toolchain readiness checks
+and the two reports specified in ADR 0002. No missing software is established
+from retained evidence; versions/runtime/model availability need checking.
+The earlier Docker access error must be distinguished from missing software.
+
+Real-data integration still needs permission, provenance, normalization and
+comparability evidence; field-validity claims need practitioner validation.
+I00 and all original full-task/gate acceptance requirements remain incomplete.
+Release still requires evaluation, independent review, reproducibility, access,
+calendar/eligibility and submission evidence. Solo execution is not peer review.
+The ADR lists unresolved facts with owners; [P11.1 handoff](handoffs/P11.1-A-2026-10-09.md)
+records this documentation task. No next task is executed here.

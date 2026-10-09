@@ -7,8 +7,14 @@ backend/runtime/infrastructure and data/frontend/evaluation. He may continue
 independently on permitted tasks while the colleague is unavailable. This
 temporary ownership supersedes the normal A/B division below; it does not
 constitute colleague review or satisfy gates that require peer evidence.
-`implementation_start_confirmed` remains false, so application implementation
-is not authorized.
+[STATUS](STATUS.md) records the lead-reported confirmed start of 9 October
+2026 and `implementation_start_confirmed: true`. Under
+[ADR 0002](adr/0002-phased-implementation-readiness.md), Fredrick may execute
+separately assigned synthetic foundation experiments with recorded machine/
+repository evidence, explicit solo ownership and bounded scope/contracts.
+This is not completion of I00 or any preparation/gate requirement. Real-data
+integration, field claims and release retain their original evidence barriers.
+Exact start/end times and cutoff timezone remain unconfirmed.
 
 The colleague's GitHub username is `ianmuriuki`. Participation, invitation
 acceptance, clone and audit remain unconfirmed. Resume colleague onboarding
@@ -41,7 +47,7 @@ git switch -c task/PXX-short-description
 If status is dirty, inspect and preserve changes. If main has diverged, stop for a reviewed resolution. If the task branch exists already, resume it after checking its history rather than recreating it. Each machine/checkout can have one active editing session. On one machine, separate worktrees need unique paths, branches and development ports; choose those only after the initial repository commit exists.
 
 ## Task execution and handoff
-Use prompts/TASK_PROMPT_TEMPLATE.md with one task row. A owns the shared Python/API contract editor role, B reviews it; agree that ownership can be reassigned explicitly. Root docs/TASK_BOARD.md and docs/STATUS.md are updated by A after B supplies evidence, preventing concurrent board edits. Each person’s handoff file has a unique task/owner/date name.
+Use prompts/TASK_PROMPT_TEMPLATE.md with one task row. A owns the shared Python/API contract editor role, B reviews it; agree that ownership can be reassigned explicitly. Root docs/TASK_BOARD.md and docs/STATUS.md are updated by A after B supplies evidence, preventing concurrent board edits. Each person’s handoff file has a unique task/owner/date name. For P11.1, Fredrick is the designated editor of the six authorized documents under the temporary solo arrangement; this does not imply B supplied evidence or review.
 
 Codex implements task scope, runs relevant checks and reports results. The owner reads the diff. Commit only explicit intended files after checking for secrets/data permission. Push the task branch and request the other person’s review through the team’s normal repository workflow. No automatic reviewer message is sent by this chat.
 
