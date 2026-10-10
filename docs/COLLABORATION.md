@@ -61,3 +61,16 @@ Keep .env/private datasets/model weights/generated databases out of commits. Pre
 
 ## Release freeze
 Before the confirmed deadline, record the judged commit and package version. Do not push later changes to the submitted repository under the current post-deadline rule. The live-review exercise uses a separate clone/branch that remains local unless organizers explicitly permit a later push. Document every exception using actual dated organizer evidence.
+
+## Standing sole-contributor arrangement — 11 October 2026
+
+Source: Fredrick’s explicit I01.9 ownership clarification in the task conversation.
+Fredrick is the sole active contributor and owns both Person A and Person B
+workstreams, including all existing uncommitted I01.9 changes. No other Codex
+session is editing this project. Continue those changes without asking again
+about ownership unless new evidence indicates another contributor or concurrent
+editing. Use isolated task branches, appropriate checks and accurate handoffs.
+Attribute reviews as solo reviews; they are not independent peer review. This
+arrangement does not complete any project gate. Earlier collaboration and status
+records remain historical; this standing arrangement supersedes their temporary
+ownership wording for ongoing work.

@@ -1,4 +1,4 @@
-"""One stdio MCP tool and one synthetic resource; diagnostics only on stderr."""
+"""Three stdio MCP tools and one synthetic resource; diagnostics only on stderr."""
 
 import json
 import logging
@@ -16,6 +16,10 @@ from backend.app.domain.synthetic_comparison import (
     ComparisonError,
     compare,
     load_fixture,
+    validate_advisory,
+)
+from backend.app.domain.synthetic_comparison import (
+    retrieve_quotes as filter_quotes,
 )
 from backend.app.services.draft_store import DraftStore
 
@@ -36,6 +40,41 @@ STORE_PATH = os.environ.get("SOKOSIGNAL_STATE_DB", ".state/I01.8.sqlite")
 def synthetic_market_fixture() -> str:
     fixture, digest = load_fixture()
     return json.dumps({**fixture, "snapshot_sha256": digest})
+
+
+@server.tool(
+    description="Retrieve matching quote records from the labelled synthetic snapshot only."
+)
+def search_market_quotes(
+    commodity: Annotated[str, Field(min_length=1, max_length=40)],
+    market_ids: Annotated[
+        list[Annotated[str, Field(min_length=1, max_length=36)]], Field(min_length=1, max_length=4)
+    ],
+    variant: Annotated[str, Field(min_length=1, max_length=40)],
+    sale_basis: Annotated[str, Field(min_length=1, max_length=40)],
+    grade: Annotated[str, Field(min_length=1, max_length=32)],
+    as_of_date: Annotated[str, Field(min_length=10, max_length=10)],
+) -> CallToolResult:
+    try:
+        result = filter_quotes(
+            {
+                "commodity": commodity,
+                "market_ids": market_ids,
+                "variant": variant,
+                "sale_basis": sale_basis,
+                "grade": grade,
+                "as_of_date": as_of_date,
+            }
+        )
+        failed = False
+    except ComparisonError as error:
+        result = {"synthetic": True, "data_status": "synthetic", "error": error.detail}
+        failed = True
+    return CallToolResult(
+        content=[TextContent(type="text", text=json.dumps(result))],
+        structured_content=result,
+        is_error=failed,
+    )
 
 
 @server.tool(
@@ -79,16 +118,20 @@ def save_advisory_draft(
     workflow_id: Annotated[str, Field(min_length=1, max_length=80)],
     idempotency_key: Annotated[str, Field(min_length=1, max_length=120)],
     comparison: dict,
+    advisory: dict | None = None,
 ) -> CallToolResult:
     try:
         expected = compare(comparison["request"])
         if expected != comparison.get("result"):
             raise ValueError("Comparison does not match the server-owned synthetic calculation.")
+        if advisory is not None:
+            validate_advisory(advisory, expected)
         result = DraftStore(STORE_PATH).create_draft(
             workflow_id=workflow_id,
             idempotency_key=idempotency_key,
             request=comparison["request"],
             comparison=expected,
+            advisory=advisory,
         )
         failed = False
     except (KeyError, TypeError, ValueError) as error:

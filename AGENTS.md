@@ -33,3 +33,16 @@ Agriculture competition entry: market access and price intelligence for a named 
 
 ## Local collaboration
 One person owns each branch/task. Person A owns backend/runtime/infra; Person B owns data/frontend/evaluation. Shared files have one editor per task. Use separate checkouts/worktrees for simultaneous Codex sessions. No subagents or autonomous delegation are requested by this project guide; keep each local session focused on its assigned human-owned task.
+
+## Standing sole-contributor arrangement — 11 October 2026
+
+Source: Fredrick’s explicit I01.9 ownership clarification in the task conversation.
+Fredrick is the sole active contributor and owns both Person A and Person B
+workstreams, including all existing uncommitted I01.9 changes. No other Codex
+session is editing this project. Continue those changes without asking again
+about ownership unless new evidence indicates another contributor or concurrent
+editing. Use isolated task branches, appropriate checks and accurate handoffs.
+Attribute reviews as solo reviews; they are not independent peer review. This
+arrangement does not complete any project gate. Earlier collaboration and status
+records remain historical; this standing arrangement supersedes their temporary
+ownership wording for ongoing work.

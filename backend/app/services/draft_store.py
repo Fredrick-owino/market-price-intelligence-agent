@@ -86,14 +86,30 @@ class DraftStore:
         )
 
     def create_draft(
-        self, workflow_id: str, idempotency_key: str, request: dict, comparison: dict
+        self,
+        workflow_id: str,
+        idempotency_key: str,
+        request: dict,
+        comparison: dict,
+        advisory: dict | None = None,
     ) -> dict:
         content = self._content(workflow_id, 1, request, comparison)
+        if advisory is not None:
+            from backend.app.domain.synthetic_comparison import validate_advisory
+
+            validate_advisory(advisory, comparison)
+            content["advisory"] = advisory
         body = canonical(content)
         digest = hashlib.sha256(body.encode()).hexdigest()
         comparison_hash = hashlib.sha256(canonical(comparison).encode()).hexdigest()
         payload_hash = hashlib.sha256(
-            canonical({"request": request, "comparison_hash": comparison_hash}).encode()
+            canonical(
+                {
+                    "request": request,
+                    "comparison_hash": comparison_hash,
+                    **({"advisory": advisory} if advisory is not None else {}),
+                }
+            ).encode()
         ).hexdigest()
         draft_id = str(uuid5(NAMESPACE_URL, f"sokosignal:{workflow_id}:{idempotency_key}"))
         with self.connect() as db:
@@ -288,6 +304,30 @@ class DraftStore:
             if not row:
                 raise StoreConflict("No recorded simulated review decision exists.")
             return dict(row)
+
+    def validate_review(self, workflow_id: str, draft: dict, review: dict) -> dict:
+        """Resume authority comes only from the stored decision for the current version."""
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT d.*, v.status FROM decisions d JOIN drafts v "
+                "ON d.workflow_id=v.workflow_id AND d.draft_id=v.draft_id "
+                "WHERE d.workflow_id=? AND v.version=(SELECT MAX(version) FROM drafts "
+                "WHERE workflow_id=?)",
+                (workflow_id, workflow_id),
+            ).fetchone()
+            if not row:
+                raise StoreConflict("No decision exists for the current draft.")
+            record = dict(row)
+            status = record.pop("status")
+            if not isinstance(review, dict) or review != record:
+                raise StoreConflict("Resume payload does not match the recorded decision.")
+            if any(
+                record[key] != draft.get(key) for key in ("draft_id", "version", "content_hash")
+            ):
+                raise StoreConflict("Stored decision does not match the checkpointed draft.")
+            if status != {"approve": "APPROVED", "reject": "REJECTED"}.get(record["decision"]):
+                raise StoreConflict("Current draft is not in the recorded decision state.")
+            return record
 
     def counts(self, workflow_id: str) -> dict:
         with self.connect() as db:

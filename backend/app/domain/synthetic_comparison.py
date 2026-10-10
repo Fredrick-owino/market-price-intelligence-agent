@@ -43,6 +43,71 @@ def load_fixture() -> tuple[dict, str]:
     return fixture, hashlib.sha256(raw).hexdigest()
 
 
+def retrieve_quotes(filters: dict) -> dict:
+    """Contract filters over the synthetic baseline; negative-test variants are excluded."""
+    fixture, digest = load_fixture()
+    fields = ("commodity", "variant", "grade", "sale_basis")
+    if set(filters) != {*fields, "market_ids", "as_of_date"}:
+        reject("invalid_filters", "filters", "Provide the complete contracted search filters.")
+    try:
+        if date.fromisoformat(filters["as_of_date"]).isoformat() != filters["as_of_date"]:
+            raise ValueError
+    except (ValueError, TypeError):
+        reject("invalid_date", "as_of_date", "Use an ISO YYYY-MM-DD date.")
+    matches, exclusions = [], []
+    for quote in fixture["quotes"]:
+        reason = None
+        if quote["quote_id"] not in fixture["default_request"]["quote_ids"]:
+            reason = "negative_test_variant_not_market_evidence"
+        elif (
+            any(quote[field] != filters[field] for field in fields)
+            or quote["market_id"] not in filters["market_ids"]
+            or quote["observation_date"] != filters["as_of_date"]
+        ):
+            reason = "filter_mismatch"
+        if reason:
+            exclusions.append({"quote_id": quote["quote_id"], "reason": reason})
+        else:
+            matches.append(quote)
+    return {
+        "synthetic": True,
+        "data_status": "synthetic",
+        "label": fixture["label"],
+        "snapshot_id": fixture["snapshot_id"],
+        "snapshot_sha256": digest,
+        "policy_version": POLICY,
+        "filters": filters,
+        "quotes": matches,
+        "source_manifests": [fixture["source"]],
+        "exclusions": exclusions,
+        "missing_data": not bool(matches),
+    }
+
+
+def advisory_for(comparison: dict) -> dict:
+    """Small structured language for a model summary; no unchecked prose claims."""
+    return {
+        "synthetic": True,
+        "currency": comparison["currency"],
+        "net_proceeds": {
+            row["market"]: row["estimated_net_proceeds"] for row in comparison["markets"]
+        },
+        "winner": comparison["winner"],
+        "advantage_kes": comparison["advantage_kes"],
+        "quote_ids": comparison["accepted_quote_ids"],
+        "source_references": sorted({row["source_reference"] for row in comparison["markets"]}),
+        "assumptions": comparison["assumptions"],
+        "review_status": "PENDING_REVIEW",
+    }
+
+
+def validate_advisory(advisory: dict, comparison: dict) -> None:
+    if json.dumps(advisory, sort_keys=True) != json.dumps(advisory_for(comparison), sort_keys=True):
+        raise ValueError(
+            "Advisory must match verified numbers, winner, assumptions, provenance, synthetic label and PENDING_REVIEW exactly."
+        )
+
+
 def money(value: Decimal) -> str:
     return format(value.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP), ".2f")
 

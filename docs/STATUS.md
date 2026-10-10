@@ -129,3 +129,26 @@ Release still requires evaluation, independent review, reproducibility, access,
 calendar/eligibility and submission evidence. Solo execution is not peer review.
 The ADR lists unresolved facts with owners; [P11.1 handoff](handoffs/P11.1-A-2026-10-09.md)
 records this documentation task. No next task is executed here.
+
+## Standing sole-contributor arrangement — 11 October 2026
+
+Source: Fredrick’s explicit I01.9 ownership clarification in the task conversation.
+Fredrick is the sole active contributor and owns both Person A and Person B
+workstreams, including all existing uncommitted I01.9 changes. No other Codex
+session is editing this project. Continue those changes without asking again
+about ownership unless new evidence indicates another contributor or concurrent
+editing. Use isolated task branches, appropriate checks and accurate handoffs.
+Attribute reviews as solo reviews; they are not independent peer review. This
+arrangement does not complete any project gate. Earlier collaboration and status
+records remain historical; this standing arrangement supersedes their temporary
+ownership wording for ongoing work.
+
+## I01.9 — bounded synthetic execution evidence (11 October 2026)
+
+The [I01.9 report](runs/I01.9-model-workflow.md) records an actual local
+qwen3:4b-instruct-2507-q4_K_M run selecting three own MCP tools, saving a
+private synthetic draft, pausing, and resuming after a separate simulated review.
+Earlier preparation/runtime status statements above are historical, not claims
+about this new run. This evidence does not change any gate status, establish
+independent peer review, complete I01, or authorize live data/release. See the
+[handoff](handoffs/I01.9-A-2026-10-11.md) for checks, publication and limitations.

@@ -1,0 +1,164 @@
+{
+  "audit_events": [
+    {
+      "event": {
+        "content": {
+          "advisory": {
+            "advantage_kes": "1000.00",
+            "assumptions": [
+              "Loss explicitly zero for baseline.",
+              "Handling and fees explicitly zero for baseline.",
+              "Capacity is confirmed only within this invented fixture; no real buyer commitment.",
+              "Exact as-of date required; no live freshness claim.",
+              "All costs are scenario totals; money rounded half-up to 0.01 KES only at output.",
+              "Only confirmed kg units supported by this spike."
+            ],
+            "currency": "KES",
+            "net_proceeds": {
+              "Market A": "38000.00",
+              "Market B": "37000.00"
+            },
+            "quote_ids": [
+              "00000000-0000-4000-8000-000000000001",
+              "00000000-0000-4000-8000-000000000002"
+            ],
+            "review_status": "PENDING_REVIEW",
+            "source_references": [
+              "synthetic://sokosignal/I01.7"
+            ],
+            "synthetic": true,
+            "winner": "Market A"
+          },
+          "assumptions": [
+            "Loss explicitly zero for baseline.",
+            "Handling and fees explicitly zero for baseline.",
+            "Capacity is confirmed only within this invented fixture; no real buyer commitment.",
+            "Exact as-of date required; no live freshness claim.",
+            "All costs are scenario totals; money rounded half-up to 0.01 KES only at output.",
+            "Only confirmed kg units supported by this spike."
+          ],
+          "calculation": {
+            "advantage_kes": "1000.00",
+            "currency": "KES",
+            "net_proceeds": {
+              "Market A": "38000.00",
+              "Market B": "37000.00"
+            },
+            "quantity": "1000",
+            "unit": "kg",
+            "winner": "Market A"
+          },
+          "label": "SYNTHETIC ONLY \u2014 no live prices or capacity",
+          "limitations": [
+            "Synthetic transport spike only; no model, delivery or officer approval implemented.",
+            "No delivery, order, live-data retrieval, or production approval is implemented."
+          ],
+          "quote_references": [
+            {
+              "quote_id": "00000000-0000-4000-8000-000000000001",
+              "source_reference": "synthetic://sokosignal/I01.7"
+            },
+            {
+              "quote_id": "00000000-0000-4000-8000-000000000002",
+              "source_reference": "synthetic://sokosignal/I01.7"
+            }
+          ],
+          "review_status": "PENDING_REVIEW",
+          "revision_note": null,
+          "version": 1,
+          "workflow_id": "I01.9-actual-02"
+        },
+        "content_hash": "19e819997bc8357d0146da38bf48de0b6c0d8c1e49307ef01efb471f9640243e",
+        "draft_id": "918a4902-cbd8-5291-be31-401f7c6a8104",
+        "review_status": "PENDING_REVIEW",
+        "synthetic": true,
+        "version": 1,
+        "workflow_id": "I01.9-actual-02"
+      },
+      "event_type": "draft_created",
+      "timestamp": "2026-10-10T21:39:29.556166+00:00"
+    },
+    {
+      "event": {
+        "content_hash": "19e819997bc8357d0146da38bf48de0b6c0d8c1e49307ef01efb471f9640243e",
+        "decided_at": "2026-10-10T21:42:30.811951+00:00",
+        "decision": "approve",
+        "draft_id": "918a4902-cbd8-5291-be31-401f7c6a8104",
+        "idempotency_key": "review-v1",
+        "reason": "Synthetic recovery test",
+        "reviewer_id": "simulated:officer-001",
+        "version": 1,
+        "workflow_id": "I01.9-actual-02"
+      },
+      "event_type": "simulated_review_decision",
+      "timestamp": "2026-10-10T21:42:30.812002+00:00"
+    }
+  ],
+  "checkpoint": {
+    "draft_hash": "19e819997bc8357d0146da38bf48de0b6c0d8c1e49307ef01efb471f9640243e",
+    "outcome": "approved_internal_review",
+    "pending_nodes": []
+  },
+  "content_hash": "19e819997bc8357d0146da38bf48de0b6c0d8c1e49307ef01efb471f9640243e",
+  "draft_id": "918a4902-cbd8-5291-be31-401f7c6a8104",
+  "installed_versions": {
+    "httpx": "0.28.1",
+    "langgraph": "1.2.14",
+    "langgraph-checkpoint-sqlite": "3.1.1",
+    "mcp": "2.3.0",
+    "pydantic": "2.14.0",
+    "pytest": "9.1.1",
+    "ruff": "0.16.10"
+  },
+  "mcp_calls": [
+    {
+      "latency_ms": 3.71,
+      "tool": "search_market_quotes"
+    },
+    {
+      "latency_ms": 2.523,
+      "tool": "compare_market_options"
+    },
+    {
+      "latency_ms": 3.815,
+      "tool": "save_advisory_draft"
+    }
+  ],
+  "model_requests": [
+    {
+      "done_reason": "stop",
+      "elapsed_ms": 22124.374,
+      "generated_tokens": 146,
+      "prompt_tokens": 829,
+      "step": 1
+    },
+    {
+      "done_reason": "stop",
+      "elapsed_ms": 71534.936,
+      "generated_tokens": 192,
+      "prompt_tokens": 1764,
+      "step": 2
+    },
+    {
+      "done_reason": "stop",
+      "elapsed_ms": 97368.535,
+      "generated_tokens": 282,
+      "prompt_tokens": 2141,
+      "step": 3
+    }
+  ],
+  "pause_utc": "2026-10-10T21:39:29.675072+00:00",
+  "review_to_resume_seconds": 0.008195,
+  "start_to_pause_seconds": 191.645741,
+  "start_utc": "2026-10-10T21:36:18.029331+00:00",
+  "synthetic": true,
+  "trace_sha256": {
+    "I01.9-model-attempt-01.jsonl": "5ca69c5deda64acd78355b8d534fcf851d584ba39bb148abc01a41bcf9b53180",
+    "I01.9-model-attempt-02.jsonl": "fa3892e5d9d8dec3faa4fd9c4f445944e377965b30a9518294321c8cae070b01",
+    "I01.9-model-replay-02.jsonl": "507cf97e08da3906593fdc4f7a09aadc0864955664783a27e3eb650f98f397a9",
+    "I01.9-model-review-02.jsonl": "2a6344b7d28800660518ceaf121351e2b8f8a2df63df7c3700b7ce119368a960"
+  },
+  "verification": "Actual traces and persisted DB checked; solo review",
+  "version": 1,
+  "workflow_id": "I01.9-actual-02"
+}

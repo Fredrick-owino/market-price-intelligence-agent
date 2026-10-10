@@ -152,7 +152,7 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Lead/reviewer: A; B reviews. Dependencies: I00, P00.
 - Ordered work: Use audit to choose project Python/Node/tool environments; install only required supported dependencies without replacing system Python. Validate Docker/Compose availability or resolve setup with explicit local instructions. Benchmark candidate open-weights model, record licence/digest/resources. Spike LangGraph checkpoint, compatible MCP adapter and both real MCP transports; discover/call tools, save a tiny private action, pause/restart/resume. Resolve SDK isolation and pin versions before full build.
 - Acceptance evidence: Actual versions/locks, commands, model/tool trace, memory/latency and restart evidence; fail early if full tool use cannot work.
-- Actual report/commit/reviewer/date: **not recorded**.
+- Bounded I01.9 evidence (11 October 2026): [model workflow run](runs/I01.9-model-workflow.md) and [handoff](handoffs/I01.9-A-2026-10-11.md). Actual local model + three own MCP tools + private review pause/resume verified; solo review only. Full I01 and gates remain incomplete; borrowed-server work is outstanding. Publication SHA is recorded in the handoff receipt.
 
 ## I02 — Normalized schema and permitted data import
 

@@ -1,4 +1,4 @@
-"""Actual stdio-MCP and LangGraph/SQLite recovery spike; deterministic, no model."""
+"""Synthetic MCP/LangGraph workflow with optional local-model tool selection."""
 
 import argparse
 import asyncio
@@ -15,6 +15,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 from mcp import Client, StdioServerParameters, stdio_client
 
+from backend.app.agent.model_workflow import DEFAULT_TASK, ModelWorkflowFailure, model_exchange
 from backend.app.services.draft_store import DraftStore, StoreConflict
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -39,6 +40,10 @@ class State(TypedDict, total=False):
     draft: dict
     review: dict
     outcome: str
+    mode: str
+    user_task: str
+    failure_code: str
+    failure_message: str
 
 
 async def exchange(workflow_id: str, idempotency_key: str, db_path: Path) -> dict:
@@ -134,10 +139,63 @@ async def conflict_call(workflow_id: str, idempotency_key: str, db_path: Path) -
         return {"is_error": result.is_error, "result": result.structured_content}
 
 
-def build_graph(db_path: Path):
+def build_graph(
+    db_path: Path,
+    *,
+    request_timeout_seconds: float = 120,
+    max_tool_steps: int = 3,
+    total_run_timeout_seconds: float = 900,
+):
     async def prepare(state: State) -> dict:
+        if state.get("mode") == "model":
+            try:
+                if not 0 < total_run_timeout_seconds <= 900:
+                    raise ModelWorkflowFailure(
+                        "invalid_limits", "Total run timeout must be in (0,900] seconds."
+                    )
+                async with asyncio.timeout(total_run_timeout_seconds):
+                    comparison, draft = await model_exchange(
+                        state["workflow_id"],
+                        state["idempotency_key"],
+                        db_path,
+                        user_task=state["user_task"],
+                        request_timeout_seconds=request_timeout_seconds,
+                        max_tool_steps=max_tool_steps,
+                    )
+                return {"comparison": comparison, "draft": draft}
+            except (
+                RuntimeError,
+                TimeoutError,
+                ExceptionGroup,
+                OSError,
+                ValueError,
+                KeyError,
+                TypeError,
+            ) as error:
+                if isinstance(error, ModelWorkflowFailure):
+                    code, message = error.code, str(error)
+                elif isinstance(error, TimeoutError):
+                    code, message = (
+                        "total_run_timeout",
+                        "Total model/MCP deadline expired. Inspect trace and persisted draft before explicit retry with a new workflow ID.",
+                    )
+                else:
+                    code, message = (
+                        "transport_or_provider_failure",
+                        f"{type(error).__name__}: inspect the recorded MCP/model events and local diagnostics; no fallback used.",
+                    )
+                event(
+                    "model_workflow_failed",
+                    workflow_id=state["workflow_id"],
+                    failure_code=code,
+                    message=message,
+                )
+                return {"failure_code": code, "failure_message": message}
         comparison, draft = await exchange(state["workflow_id"], state["idempotency_key"], db_path)
         return {"comparison": comparison, "draft": draft}
+
+    def fail(state: State) -> dict:
+        return {"outcome": "model_failed", "failure_code": state["failure_code"]}
 
     def pause(state: State) -> dict:
         review = interrupt(
@@ -153,23 +211,24 @@ def build_graph(db_path: Path):
         return {"review": review}
 
     def finalize(state: State) -> dict:
-        review = state["review"]
-        if (review["draft_id"], review["version"], review["content_hash"]) != (
-            state["draft"]["draft_id"],
-            state["draft"]["version"],
-            state["draft"]["content_hash"],
-        ):
-            raise StoreConflict("Resume decision does not match the checkpointed draft.")
+        review = DraftStore(str(db_path)).validate_review(
+            state["workflow_id"], state["draft"], state["review"]
+        )
         return {
             "outcome": "approved_internal_review" if review["decision"] == "approve" else "rejected"
         }
 
     graph = StateGraph(State)
     graph.add_node("prepare", prepare)
+    graph.add_node("model_failure", fail)
     graph.add_node("review_pause", pause)
     graph.add_node("finalize", finalize)
     graph.add_edge(START, "prepare")
-    graph.add_edge("prepare", "review_pause")
+    graph.add_conditional_edges(
+        "prepare",
+        lambda state: "model_failure" if state.get("failure_code") else "review_pause",
+    )
+    graph.add_edge("model_failure", END)
     graph.add_edge("review_pause", "finalize")
     graph.add_edge("finalize", END)
     return graph
@@ -181,15 +240,30 @@ def run_start(args) -> None:
 
     async def invoke():
         async with AsyncSqliteSaver.from_conn_string(str(args.db)) as saver:
-            app = build_graph(args.db).compile(checkpointer=saver)
+            app = build_graph(
+                args.db,
+                request_timeout_seconds=args.request_timeout_seconds,
+                max_tool_steps=args.max_tool_steps,
+                total_run_timeout_seconds=args.total_run_timeout_seconds,
+            ).compile(checkpointer=saver)
             snapshot = await app.aget_state(config)
+            if snapshot.values and snapshot.values.get("idempotency_key") != args.idempotency_key:
+                raise StoreConflict("Workflow start conflicts with its original idempotency key.")
+            if snapshot.values and (snapshot.values.get("mode") == "model") != args.model_driven:
+                raise StoreConflict("Workflow start conflicts with its original execution mode.")
+            if (
+                snapshot.values.get("mode") == "model"
+                and snapshot.values.get("user_task") != args.user_task
+            ):
+                raise StoreConflict("Workflow start conflicts with its original user task.")
             if snapshot.values.get("outcome") or snapshot.values.get("draft"):
                 return {"replay": True, "snapshot": snapshot}
             if snapshot.next:
                 return await app.ainvoke(None, config)
-            return await app.ainvoke(
-                {"workflow_id": args.workflow_id, "idempotency_key": args.idempotency_key}, config
-            )
+            state = {"workflow_id": args.workflow_id, "idempotency_key": args.idempotency_key}
+            if args.model_driven:
+                state.update({"mode": "model", "user_task": args.user_task})
+            return await app.ainvoke(state, config)
 
     result = asyncio.run(invoke())
     if result.get("replay"):
@@ -201,7 +275,18 @@ def run_start(args) -> None:
             pending_nodes=list(snapshot.next),
             persistent_counts=DraftStore(str(args.db)).counts(args.workflow_id),
         )
+        if snapshot.values.get("outcome") == "model_failed":
+            raise SystemExit(2)
         return
+    if result.get("outcome") == "model_failed":
+        event(
+            "workflow_failed",
+            workflow_id=args.workflow_id,
+            failure_code=result.get("failure_code"),
+            message=result.get("failure_message"),
+            persistent_counts=DraftStore(str(args.db)).counts(args.workflow_id),
+        )
+        raise SystemExit(2)
     pending = result.get("__interrupt__", [])
     if not pending:
         raise RuntimeError("Workflow did not pause for review")
@@ -253,6 +338,11 @@ def main() -> None:
     start = commands.add_parser("start")
     start.add_argument("--workflow-id", required=True)
     start.add_argument("--idempotency-key", required=True)
+    start.add_argument("--model-driven", action="store_true")
+    start.add_argument("--user-task", default=DEFAULT_TASK)
+    start.add_argument("--request-timeout-seconds", type=float, default=120)
+    start.add_argument("--total-run-timeout-seconds", type=float, default=900)
+    start.add_argument("--max-tool-steps", type=int, default=3)
     review = commands.add_parser("review")
     for key in ("workflow-id", "draft-id", "content-hash", "reviewer-id", "decision-key"):
         review.add_argument(f"--{key}", required=True)
@@ -282,7 +372,16 @@ def main() -> None:
             async def update_checkpoint():
                 async with AsyncSqliteSaver.from_conn_string(str(args.db)) as saver:
                     app = build_graph(args.db).compile(checkpointer=saver)
-                    await app.aupdate_state(config, {"draft": revised}, as_node="prepare")
+                    snapshot = await app.aget_state(config)
+                    # An idempotent revision retry must not reopen a completed revision.
+                    if snapshot.values.get("draft", {}).get("version", 0) >= revised["version"]:
+                        return
+                    await app.aupdate_state(
+                        config,
+                        {"draft": revised, "review": None, "outcome": None, "failure_code": None},
+                        as_node="prepare",
+                    )
+                    await app.ainvoke(None, config)
 
             asyncio.run(update_checkpoint())
             event("draft_revised", draft=revised)
