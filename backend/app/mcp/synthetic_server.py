@@ -17,12 +17,14 @@ from backend.app.domain.synthetic_comparison import (
     compare,
     load_fixture,
 )
+from backend.app.services.draft_store import DraftStore
 
 server = MCPServer(
     "sokosignal-synthetic-I01.7",
     version="0.1.0",
     instructions="Synthetic calculation only. No model, delivery, or officer approval.",
 )
+STORE_PATH = os.environ.get("SOKOSIGNAL_STATE_DB", ".state/I01.8.sqlite")
 
 
 @server.resource(
@@ -62,6 +64,35 @@ def compare_market_options(
         failed = False
     except ComparisonError as error:
         result = {"synthetic": True, "data_status": "synthetic", "error": error.detail}
+        failed = True
+    return CallToolResult(
+        content=[TextContent(type="text", text=json.dumps(result))],
+        structured_content=result,
+        is_error=failed,
+    )
+
+
+@server.tool(
+    description="Persist a private deterministic synthetic advisory draft bound to the comparison."
+)
+def save_advisory_draft(
+    workflow_id: Annotated[str, Field(min_length=1, max_length=80)],
+    idempotency_key: Annotated[str, Field(min_length=1, max_length=120)],
+    comparison: dict,
+) -> CallToolResult:
+    try:
+        expected = compare(comparison["request"])
+        if expected != comparison.get("result"):
+            raise ValueError("Comparison does not match the server-owned synthetic calculation.")
+        result = DraftStore(STORE_PATH).create_draft(
+            workflow_id=workflow_id,
+            idempotency_key=idempotency_key,
+            request=comparison["request"],
+            comparison=expected,
+        )
+        failed = False
+    except (KeyError, TypeError, ValueError) as error:
+        result = {"error": {"code": "invalid_draft", "message": str(error)}}
         failed = True
     return CallToolResult(
         content=[TextContent(type="text", text=json.dumps(result))],

@@ -34,7 +34,7 @@ def test_initialize_discovery_resource_and_shutdown(trace):
     assert events["initialize"]["protocol_version"] == "2025-11-25"
     assert events["initialize"]["server_info"]["name"] == "sokosignal-synthetic-I01.7"
     tools = events["tools/list"]["output"]["tools"]
-    assert [tool["name"] for tool in tools] == ["compare_market_options"]
+    assert [tool["name"] for tool in tools] == ["compare_market_options", "save_advisory_draft"]
     assert tools[0]["inputSchema"]["properties"]["quantity"]["type"] == "string"
     resources = events["resources/list"]["output"]["resources"]
     assert len(resources) == 1
