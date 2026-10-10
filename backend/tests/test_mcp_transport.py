@@ -118,6 +118,7 @@ def test_missing_cost_is_not_zero_or_net_winner(trace):
     assert data["ranking_basis"] == "gross_only_no_net_ranking"
     assert data["winner"] is None
     assert data["advantage_kes"] is None
+    assert data["tie"] is None
     assert data["markets"][1]["estimated_net_proceeds"] is None
     assert data["markets"][1]["costs"]["market_fees_total"] is None
     assert data["markets"][1]["missing_costs"] == ["market_fees_total"]

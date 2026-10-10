@@ -146,8 +146,8 @@ def compare(request: dict) -> dict:
             )
         winner = None
         advantage = None
-        tie = False
         complete = all(value is not None for value in net_values)
+        tie = None
         if complete:
             rounded = [Decimal(row["estimated_net_proceeds"]) for row in rows]
             tie = rounded[0] == rounded[1]
