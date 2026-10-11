@@ -27,7 +27,9 @@ ROOT = Path(__file__).resolve().parents[3]
 PYTHON = ROOT / "infra/borrowed-fetch/.venv/bin/python"
 
 
-async def exchange(trace):
+async def exchange(trace, *, evidence_mode="actual_public_http_real_mcp"):
+    from backend.app.domain.retrieved_snapshot import validate_snapshot
+
     verify_fixture((ROOT / "data/synthetic/I01.7-market-comparison.json").read_bytes())
     log_dir = ROOT / "logs"
     log_dir.mkdir(exist_ok=True)
@@ -116,6 +118,31 @@ async def exchange(trace):
     else:
         raise RuntimeError("borrowed_server_still_running")
     trace.emit("shutdown", server="mcp-fetch", client_context_closed=True, server_process_gone=True)
+    http = [e for e in lifecycle if e["event"] == "outbound_http"]
+    identity = lifecycle[0]
+    snapshot = {
+        "body": result["content"][0]["text"].partition(f"Contents of {FIXTURE_URL}:\n")[2],
+        "provenance": {
+            "url": FIXTURE_URL,
+            "commit": FIXTURE_COMMIT,
+            "sha256": EXPECTED_SHA256,
+            "bytes": len(
+                result["content"][0]["text"].partition(f"Contents of {FIXTURE_URL}:\n")[2].encode()
+            ),
+            "synthetic": True,
+            "transport": "stdio",
+            "run_id": trace.run_id,
+            "distribution": identity["distribution"],
+            "distribution_version": identity["version"],
+            "sdk_version": identity["sdk_version"],
+            "upstream_source_sha256": identity["source_sha256"],
+            "retrieved_at": http[-1]["timestamp"] if http else None,
+            "evidence_mode": evidence_mode,
+            "http": http,
+        },
+    }
+    validate_snapshot(snapshot)
+    return snapshot
 
 
 def main():

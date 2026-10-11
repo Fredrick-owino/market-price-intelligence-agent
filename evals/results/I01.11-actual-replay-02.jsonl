@@ -1,0 +1,1 @@
+{"event": "workflow_replay_noop", "outcome": "approved_internal_review", "pending_nodes": [], "persistent_counts": {"actions": 1, "audit": 2, "decisions": 1, "drafts": 1}, "synthetic": true, "timestamp": "2026-10-11T18:02:36.994937+00:00", "workflow_id": "I01.11-actual-02"}

@@ -5,6 +5,7 @@ import copy
 import json
 import os
 import sys
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 from time import monotonic
@@ -288,6 +289,8 @@ async def _model_exchange(
     request_timeout_seconds: float = 120,
     max_tool_steps: int = 3,
     provider=None,
+    snapshot_path: str | None = None,
+    model_metrics: dict | None = None,
 ) -> tuple[dict, dict]:
     if not 0 < request_timeout_seconds <= 300 or not 1 <= max_tool_steps <= 6:
         raise ModelWorkflowFailure(
@@ -315,7 +318,14 @@ async def _model_exchange(
         command=sys.executable,
         args=["-m", "backend.app.mcp.synthetic_server"],
         cwd=str(ROOT),
-        env={"PYTHONUNBUFFERED": "1", "SOKOSIGNAL_STATE_DB": str(db_path)},
+        env={
+            "PYTHONUNBUFFERED": "1",
+            "SOKOSIGNAL_STATE_DB": str(db_path),
+            **({"SOKOSIGNAL_RETRIEVED_SNAPSHOT": snapshot_path} if snapshot_path else {}),
+        },
+    )
+    expected_provenance = (
+        json.loads(Path(snapshot_path).read_text())["provenance"] if snapshot_path else None
     )
     retrieved = comparison = draft = None
     previous_message = None
@@ -401,10 +411,13 @@ async def _model_exchange(
                 )
                 started = monotonic()
                 body = await provider.chat(payload)
+                elapsed_ms = round((monotonic() - started) * 1000, 3)
+                if model_metrics is not None:
+                    model_metrics["model_ms"] = model_metrics.get("model_ms", 0) + elapsed_ms
                 emit(
                     "model_response",
                     step=step,
-                    elapsed_ms=round((monotonic() - started) * 1000, 3),
+                    elapsed_ms=elapsed_ms,
                     response=body,
                     evidence_mode=provider.evidence_mode,
                 )
@@ -441,6 +454,17 @@ async def _model_exchange(
                         "mcp_tool_error",
                         "Actual MCP tool rejected the request; inspect its recorded error.",
                     )
+                if expected_provenance is not None:
+                    actual_provenance = (
+                        output.get("content", {}).get("retrieval_provenance")
+                        if name == "save_advisory_draft"
+                        else output.get("retrieval_provenance")
+                    )
+                    if actual_provenance != expected_provenance:
+                        raise ModelWorkflowFailure(
+                            "provenance_mismatch",
+                            "Own MCP output lost the verified retrieval provenance.",
+                        )
                 completed_tools.append(name)
                 if name == "search_market_quotes":
                     if output.get("synthetic") is not True or len(output.get("quotes", [])) != 2:
@@ -508,10 +532,18 @@ async def _model_exchange(
     return comparison, draft
 
 
-async def model_exchange(*args, **kwargs):
+async def model_exchange(*args, verified_snapshot=None, **kwargs):
     """MCP task groups wrap application failures; retain their actionable category."""
     try:
-        return await _model_exchange(*args, **kwargs)
+        if verified_snapshot is None:
+            return await _model_exchange(*args, **kwargs)
+        from backend.app.domain.retrieved_snapshot import validate_snapshot
+
+        validate_snapshot(verified_snapshot)
+        with tempfile.TemporaryDirectory(prefix="sokosignal-verified-") as directory:
+            path = Path(directory) / "snapshot.json"
+            path.write_text(canonical(verified_snapshot))
+            return await _model_exchange(*args, snapshot_path=str(path), **kwargs)
     except ExceptionGroup as group:
 
         def leaves(error):

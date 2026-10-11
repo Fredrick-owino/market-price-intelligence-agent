@@ -228,6 +228,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Acceptance evidence: Tool trace shows dynamic complete task with both servers; no hard-coded substitute or fabricated outputs. G2 evidence.
 - Actual report/commit/reviewer/date: **not recorded**.
 
+- Bounded I01.11 evidence (2026-10-11): [report](runs/I01.11-integrated-workflow.md), [handoff](handoffs/I01.11-A-2026-10-11.md). Actual public borrowed retrieval, pinned Qwen selection of all three own tools, provenance-bound draft and stored simulated review/resume verified. 136 tests passed; failed model-unavailable attempt retained. 282.448s pre-review; authentication and reliability remain open. Solo review; I10/gates remain incomplete.
+
 ## I11 — Named reviewer authentication and decision API
 
 - [ ] Complete and peer-reviewed

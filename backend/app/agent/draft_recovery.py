@@ -7,6 +7,7 @@ import os
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
+from time import monotonic
 from typing import TypedDict
 from uuid import uuid4
 
@@ -16,6 +17,9 @@ from langgraph.types import Command, interrupt
 from mcp import Client, StdioServerParameters, stdio_client
 
 from backend.app.agent.model_workflow import DEFAULT_TASK, ModelWorkflowFailure, model_exchange
+from backend.app.domain.retrieved_snapshot import validate_snapshot
+from backend.app.mcp.borrowed_client import exchange as borrowed_exchange
+from backend.app.mcp.transport_client import Trace
 from backend.app.services.draft_store import DraftStore, StoreConflict
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -44,6 +48,11 @@ class State(TypedDict, total=False):
     user_task: str
     failure_code: str
     failure_message: str
+    verified_snapshot: dict
+    retrieval_ms: float
+    pre_review_started_at: str
+    timings: dict
+    final_provenance: dict
 
 
 async def exchange(workflow_id: str, idempotency_key: str, db_path: Path) -> dict:
@@ -146,13 +155,59 @@ def build_graph(
     max_tool_steps: int = 3,
     total_run_timeout_seconds: float = 900,
 ):
+    async def retrieve(state: State) -> dict:
+        if state.get("mode") != "integrated":
+            return {}
+        started = monotonic()
+        started_at = datetime.now(UTC).isoformat()
+        trace = Trace()
+        event(
+            "borrowed_retrieval_started",
+            workflow_id=state["workflow_id"],
+            borrowed_run_id=trace.run_id,
+        )
+        try:
+            snapshot = await borrowed_exchange(trace)
+            validate_snapshot(snapshot)
+        except Exception as error:  # noqa: BLE001 — durable sanitized boundary, no local fallback
+            event(
+                "borrowed_retrieval_failed",
+                workflow_id=state["workflow_id"],
+                error_type=type(error).__name__,
+            )
+            return {
+                "failure_code": "borrowed_retrieval_failed",
+                "failure_message": "Verified borrowed retrieval failed; no model calls or local-data fallback.",
+            }
+        duration = round((monotonic() - started) * 1000, 3)
+        event(
+            "borrowed_retrieval_verified",
+            workflow_id=state["workflow_id"],
+            retrieval_ms=duration,
+            provenance=snapshot["provenance"],
+        )
+        return {
+            "verified_snapshot": snapshot,
+            "retrieval_ms": duration,
+            "pre_review_started_at": started_at,
+        }
+
     async def prepare(state: State) -> dict:
-        if state.get("mode") == "model":
+        if state.get("mode") in {"model", "integrated"}:
             try:
                 if not 0 < total_run_timeout_seconds <= 900:
                     raise ModelWorkflowFailure(
                         "invalid_limits", "Total run timeout must be in (0,900] seconds."
                     )
+                metrics = {}
+                integrated = state.get("mode") == "integrated"
+                options = {}
+                if integrated:
+                    validate_snapshot(state["verified_snapshot"])
+                    options = {
+                        "verified_snapshot": state["verified_snapshot"],
+                        "model_metrics": metrics,
+                    }
                 async with asyncio.timeout(total_run_timeout_seconds):
                     comparison, draft = await model_exchange(
                         state["workflow_id"],
@@ -161,8 +216,44 @@ def build_graph(
                         user_task=state["user_task"],
                         request_timeout_seconds=request_timeout_seconds,
                         max_tool_steps=max_tool_steps,
+                        **options,
                     )
-                return {"comparison": comparison, "draft": draft}
+                if integrated:
+                    provenance = state["verified_snapshot"]["provenance"]
+                    if (
+                        comparison["result"].get("retrieval_provenance") != provenance
+                        or draft["content"].get("retrieval_provenance") != provenance
+                    ):
+                        raise ModelWorkflowFailure(
+                            "provenance_mismatch", "Retrieved provenance was not preserved."
+                        )
+                    metrics.update(
+                        {
+                            "retrieval_ms": state["retrieval_ms"],
+                            "pre_review_ms": round(
+                                (
+                                    datetime.now(UTC)
+                                    - datetime.fromisoformat(state["pre_review_started_at"])
+                                ).total_seconds()
+                                * 1000,
+                                3,
+                            ),
+                        }
+                    )
+                    event(
+                        "integrated_pre_review_complete",
+                        workflow_id=state["workflow_id"],
+                        timings=metrics,
+                        draft_id=draft["draft_id"],
+                        version=draft["version"],
+                        content_hash=draft["content_hash"],
+                        provenance=provenance,
+                    )
+                return {
+                    "comparison": comparison,
+                    "draft": draft,
+                    **({"timings": metrics} if integrated else {}),
+                }
             except (
                 RuntimeError,
                 TimeoutError,
@@ -206,6 +297,14 @@ def build_graph(
                 "content_hash": state["draft"]["content_hash"],
                 "review_status": "PENDING_REVIEW",
                 "reviewer_mode": "simulated command only",
+                **(
+                    {
+                        "retrieval_provenance": state["verified_snapshot"]["provenance"],
+                        "timings": state["timings"],
+                    }
+                    if state.get("mode") == "integrated"
+                    else {}
+                ),
             }
         )
         return {"review": review}
@@ -215,15 +314,26 @@ def build_graph(
             state["workflow_id"], state["draft"], state["review"]
         )
         return {
-            "outcome": "approved_internal_review" if review["decision"] == "approve" else "rejected"
+            "outcome": "approved_internal_review"
+            if review["decision"] == "approve"
+            else "rejected",
+            **(
+                {"final_provenance": state["draft"]["content"]["retrieval_provenance"]}
+                if state.get("mode") == "integrated"
+                else {}
+            ),
         }
 
     graph = StateGraph(State)
+    graph.add_node("retrieve", retrieve)
     graph.add_node("prepare", prepare)
     graph.add_node("model_failure", fail)
     graph.add_node("review_pause", pause)
     graph.add_node("finalize", finalize)
-    graph.add_edge(START, "prepare")
+    graph.add_edge(START, "retrieve")
+    graph.add_conditional_edges(
+        "retrieve", lambda state: "model_failure" if state.get("failure_code") else "prepare"
+    )
     graph.add_conditional_edges(
         "prepare",
         lambda state: "model_failure" if state.get("failure_code") else "review_pause",
@@ -237,6 +347,7 @@ def build_graph(
 def run_start(args) -> None:
     args.db.parent.mkdir(parents=True, exist_ok=True)
     config = {"configurable": {"thread_id": args.workflow_id}}
+    mode = "integrated" if args.integrated else ("model" if args.model_driven else None)
 
     async def invoke():
         async with AsyncSqliteSaver.from_conn_string(str(args.db)) as saver:
@@ -249,10 +360,10 @@ def run_start(args) -> None:
             snapshot = await app.aget_state(config)
             if snapshot.values and snapshot.values.get("idempotency_key") != args.idempotency_key:
                 raise StoreConflict("Workflow start conflicts with its original idempotency key.")
-            if snapshot.values and (snapshot.values.get("mode") == "model") != args.model_driven:
+            if snapshot.values and snapshot.values.get("mode") != mode:
                 raise StoreConflict("Workflow start conflicts with its original execution mode.")
             if (
-                snapshot.values.get("mode") == "model"
+                snapshot.values.get("mode") in {"model", "integrated"}
                 and snapshot.values.get("user_task") != args.user_task
             ):
                 raise StoreConflict("Workflow start conflicts with its original user task.")
@@ -261,8 +372,8 @@ def run_start(args) -> None:
             if snapshot.next:
                 return await app.ainvoke(None, config)
             state = {"workflow_id": args.workflow_id, "idempotency_key": args.idempotency_key}
-            if args.model_driven:
-                state.update({"mode": "model", "user_task": args.user_task})
+            if mode:
+                state.update({"mode": mode, "user_task": args.user_task})
             return await app.ainvoke(state, config)
 
     result = asyncio.run(invoke())
@@ -313,6 +424,12 @@ def run_review(args) -> None:
             snapshot = await app.aget_state(config)
             if not snapshot.next:
                 return None
+            if snapshot.next == ("finalize",):
+                # A rejected untrusted resume may have consumed the interrupt.
+                # Recover only with the now-stored decision validated against this draft.
+                store.validate_review(args.workflow_id, snapshot.values["draft"], record)
+                await app.aupdate_state(config, {"review": record}, as_node="review_pause")
+                return await app.ainvoke(None, config)
             return await app.ainvoke(Command(resume=record), config)
 
     result = asyncio.run(invoke())
@@ -327,6 +444,8 @@ def run_review(args) -> None:
         "workflow_resumed",
         workflow_id=args.workflow_id,
         outcome=result["outcome"],
+        final_provenance=result.get("final_provenance"),
+        draft=result.get("draft"),
         persistent_counts=store.counts(args.workflow_id),
     )
 
@@ -339,6 +458,11 @@ def main() -> None:
     start.add_argument("--workflow-id", required=True)
     start.add_argument("--idempotency-key", required=True)
     start.add_argument("--model-driven", action="store_true")
+    start.add_argument(
+        "--integrated",
+        action="store_true",
+        help="Require verified borrowed MCP retrieval before local-model preparation",
+    )
     start.add_argument("--user-task", default=DEFAULT_TASK)
     start.add_argument("--request-timeout-seconds", type=float, default=120)
     start.add_argument("--total-run-timeout-seconds", type=float, default=900)
@@ -378,7 +502,13 @@ def main() -> None:
                         return
                     await app.aupdate_state(
                         config,
-                        {"draft": revised, "review": None, "outcome": None, "failure_code": None},
+                        {
+                            "draft": revised,
+                            "review": None,
+                            "outcome": None,
+                            "failure_code": None,
+                            "final_provenance": None,
+                        },
                         as_node="prepare",
                     )
                     await app.ainvoke(None, config)

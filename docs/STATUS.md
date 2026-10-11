@@ -175,3 +175,15 @@ content-integrity controls. Full actual input/output and provenance are retained
 Review: Fredrick, solo. The original repository remains PRIVATE because its
 historical KAMIS rights blocker is unchanged. Model integration, independent
 review and all gate acceptance remain outstanding; no gate is marked complete.
+
+
+## I01.11 — integrated synthetic workflow (2026-10-11)
+
+[Execution report](runs/I01.11-integrated-workflow.md) and
+[handoff](handoffs/I01.11-A-2026-10-11.md): actual public borrowed Fetch plus
+pinned local Qwen selected all three own MCP tools, saved a provenance-bound
+private draft, paused, and resumed after a stored exact-hash simulated decision.
+136 regression tests passed. Initial model-unavailable attempt is retained.
+Pre-review time 282.448s exceeds the demo target; authentication, broader
+reliability and independent review remain open. Fredrick owns both workstreams;
+review is solo. No gate status, publication visibility or real-data rights changed.

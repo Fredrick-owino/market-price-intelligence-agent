@@ -58,6 +58,16 @@ class DraftStore:
             "label": "SYNTHETIC ONLY — no live prices or capacity",
             "workflow_id": workflow_id,
             "version": version,
+            **(
+                {
+                    "synthetic": True,
+                    "data_status": "synthetic",
+                    "snapshot_sha256": comparison["snapshot_sha256"],
+                    "retrieval_provenance": comparison["retrieval_provenance"],
+                }
+                if "retrieval_provenance" in comparison
+                else {}
+            ),
             "quote_references": [
                 {"quote_id": row["quote_id"], "source_reference": "synthetic://sokosignal/I01.7"}
                 for row in rows

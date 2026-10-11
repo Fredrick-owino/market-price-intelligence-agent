@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 import re
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal, localcontext
@@ -34,18 +35,29 @@ def decimal_string(value: str, field: str) -> Decimal:
 
 
 def load_fixture() -> tuple[dict, str]:
+    fixture, digest, _ = load_snapshot()
+    return fixture, digest
+
+
+def load_snapshot() -> tuple[dict, str, dict | None]:
+    if "SOKOSIGNAL_RETRIEVED_SNAPSHOT" in os.environ:
+        from backend.app.domain.retrieved_snapshot import validate_snapshot
+
+        # An absent, corrupt or unverified bundle fails; never fall back to local data.
+        path = Path(os.environ["SOKOSIGNAL_RETRIEVED_SNAPSHOT"])
+        return validate_snapshot(json.loads(path.read_text()))
     raw = FIXTURE_PATH.read_bytes()
     fixture = json.loads(raw)
     if fixture.get("synthetic") is not True or any(
         q.get("synthetic") is not True for q in fixture["quotes"]
     ):
         raise ValueError("I01.7 requires an explicitly synthetic fixture")
-    return fixture, hashlib.sha256(raw).hexdigest()
+    return fixture, hashlib.sha256(raw).hexdigest(), None
 
 
 def retrieve_quotes(filters: dict) -> dict:
     """Contract filters over the synthetic baseline; negative-test variants are excluded."""
-    fixture, digest = load_fixture()
+    fixture, digest, provenance = load_snapshot()
     fields = ("commodity", "variant", "grade", "sale_basis")
     if set(filters) != {*fields, "market_ids", "as_of_date"}:
         reject("invalid_filters", "filters", "Provide the complete contracted search filters.")
@@ -75,6 +87,7 @@ def retrieve_quotes(filters: dict) -> dict:
         "label": fixture["label"],
         "snapshot_id": fixture["snapshot_id"],
         "snapshot_sha256": digest,
+        **({"retrieval_provenance": provenance} if provenance is not None else {}),
         "policy_version": POLICY,
         "filters": filters,
         "quotes": matches,
@@ -113,7 +126,7 @@ def money(value: Decimal) -> str:
 
 
 def compare(request: dict) -> dict:
-    fixture, digest = load_fixture()
+    fixture, digest, provenance = load_snapshot()
     if request["snapshot_id"] != fixture["snapshot_id"]:
         reject(
             "unknown_snapshot", "snapshot_id", "Use the snapshot exposed by the synthetic resource."
@@ -225,6 +238,7 @@ def compare(request: dict) -> dict:
         "label": fixture["label"],
         "snapshot_id": fixture["snapshot_id"],
         "snapshot_sha256": digest,
+        **({"retrieval_provenance": provenance} if provenance is not None else {}),
         "policy_version": POLICY,
         "currency": "KES",
         "as_of_date": as_of.isoformat(),
