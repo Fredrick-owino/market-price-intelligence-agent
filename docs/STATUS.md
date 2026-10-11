@@ -162,3 +162,16 @@ runtime, implemented destination control or new retrieval test is established.
 Fetch 2026.8.18 requires an isolated MCP-1.x environment; no application SDK
 change was made. Owner: Fredrick; solo review. Continue the same bounded task
 after the public-fixture prerequisite is resolved. All gates remain unchanged.
+
+
+## I01.10 — synthetic public fixture and real borrowed retrieval (2026-10-11)
+
+The [resumed execution](runs/I01.10-borrowed-fetch-execution.md) resolves the
+previous fixture-access blocker using the authorized fresh public repository
+`Fredrick-owino/sokosignal-demo-fixtures`. Anonymous HTTP 200 and exact original
+fixture hash were verified. A real MCP 2.3.0 client called isolated Fetch
+2026.8.18 / MCP 1.30.0 through fixed URL, DNS/connection, redirect, size and
+content-integrity controls. Full actual input/output and provenance are retained.
+Review: Fredrick, solo. The original repository remains PRIVATE because its
+historical KAMIS rights blocker is unchanged. Model integration, independent
+review and all gate acceptance remain outstanding; no gate is marked complete.

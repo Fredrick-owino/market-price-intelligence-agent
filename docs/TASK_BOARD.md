@@ -218,6 +218,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Acceptance evidence: Actual borrowed-server trace and rationale; blocked unsafe URL and timeout behavior verified.
 - Bounded I01.10 prerequisite audit (2026-10-11): [report](runs/I01.10-borrowed-fetch.md), [handoff](handoffs/I01.10-A-2026-10-11.md). **BLOCKED**: repository PRIVATE; commit-pinned fixture returns 404 anonymously. Source/package inspected, no borrowed-MCP runtime or security-controls pass. Solo review; I09/gates remain incomplete.
 
+- I01.10 resumed evidence (2026-10-11): [execution](runs/I01.10-borrowed-fetch-execution.md). Separate original-synthetic repository published and anonymously hash-verified; real pinned borrowed Fetch call completed with bounded retrieval controls and retained provenance. Prior blocked attempt remains historical. Solo review; original repository stays private; I09/gates remain incomplete.
+
 ## I10 — Bounded agent graph and actual open-weights workflow
 
 - [ ] Complete and peer-reviewed

@@ -1,0 +1,78 @@
+{
+  "verified_at": "2026-10-11T17:42:05.654565+00:00",
+  "run_id": "6c19985b-4341-4031-811f-457f9d57bfab",
+  "mode": "actual_public_http_real_mcp_no_model",
+  "trace_sha256": "ba7c29a7555e58a79dabe7c9be3fba9207cc91ef76a2d5ed202403cdd01dc94d",
+  "fixture_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+  "fixture_bytes": 9196,
+  "fixture_matches_original": true,
+  "fixture_url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json",
+  "tool_latency_ms": 3936.134,
+  "http": [
+    {
+      "bytes": 14,
+      "connected_ip": "185.199.109.133",
+      "elapsed_seconds": 2.581959,
+      "event": "outbound_http",
+      "http_status": 404,
+      "proxy_used": false,
+      "redirects_followed": 0,
+      "resolved_ips": [
+        "185.199.109.133",
+        "185.199.111.133",
+        "185.199.108.133",
+        "185.199.110.133",
+        "2606:50c0:8000::154",
+        "2606:50c0:8001::154",
+        "2606:50c0:8002::154",
+        "2606:50c0:8003::154"
+      ],
+      "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+      "timestamp": "2026-10-11T17:41:12.322197+00:00",
+      "tls_hostname": "raw.githubusercontent.com",
+      "url": "https://raw.githubusercontent.com/robots.txt"
+    },
+    {
+      "bytes": 9196,
+      "connected_ip": "185.199.109.133",
+      "elapsed_seconds": 1.346471,
+      "event": "outbound_http",
+      "http_status": 200,
+      "proxy_used": false,
+      "redirects_followed": 0,
+      "resolved_ips": [
+        "185.199.109.133",
+        "185.199.108.133",
+        "185.199.110.133",
+        "185.199.111.133",
+        "2606:50c0:8001::154",
+        "2606:50c0:8003::154",
+        "2606:50c0:8002::154",
+        "2606:50c0:8000::154"
+      ],
+      "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+      "timestamp": "2026-10-11T17:41:13.670010+00:00",
+      "tls_hostname": "raw.githubusercontent.com",
+      "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+    }
+  ],
+  "server_process_gone": true,
+  "prior_trace_and_source_hashes_match": true,
+  "repository_visibility_recheck": {
+    "fixture_repository": "public",
+    "original_repository": "private"
+  },
+  "fixture_remote_main": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+  "review": "solo",
+  "checks": {
+    "full_backend_suite": {
+      "passed": 128,
+      "seconds": 84.93,
+      "exit_code": 0
+    },
+    "ruff_check": "passed",
+    "ruff_format_check": "14 files already formatted",
+    "isolated_pip_check": "43 packages compatible",
+    "unchanged_application_manifest_lock_fixture": true
+  }
+}

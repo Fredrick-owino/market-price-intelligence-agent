@@ -1,0 +1,30 @@
+{
+  "repository": "Fredrick-owino/sokosignal-demo-fixtures",
+  "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+  "file_count": 3,
+  "fresh_root_commit": true,
+  "review": "solo",
+  "fixture_matches_original": true,
+  "http": [
+    {
+      "url": "https://github.com/Fredrick-owino/sokosignal-demo-fixtures",
+      "started_at": "2026-10-11T10:48:04.163788+00:00",
+      "finished_at": "2026-10-11T10:48:09.239393+00:00",
+      "status": 200,
+      "bytes": 243804,
+      "sha256": "0ae518711a808e4a49ce163e69809d8134902bacf99a62c7f61f7a0836629d43",
+      "authenticated": false,
+      "redirects_followed": false
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json",
+      "started_at": "2026-10-11T10:48:09.239736+00:00",
+      "finished_at": "2026-10-11T10:48:09.831530+00:00",
+      "status": 200,
+      "bytes": 9196,
+      "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+      "authenticated": false,
+      "redirects_followed": false
+    }
+  ]
+}
