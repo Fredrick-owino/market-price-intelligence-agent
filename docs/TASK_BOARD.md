@@ -216,7 +216,7 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Lead/reviewer: A; B reviews. Dependencies: I01, I05, P08.
 - Ordered work: Pin upstream Fetch and preserve notices. Enforce approved public URLs, private-network/unsafe-redirect blocking, robots behavior, time/size caps and text-as-data boundary. Demonstrate useful contextual/evidence-gap retrieval via real MCP.
 - Acceptance evidence: Actual borrowed-server trace and rationale; blocked unsafe URL and timeout behavior verified.
-- Actual report/commit/reviewer/date: **not recorded**.
+- Bounded I01.10 prerequisite audit (2026-10-11): [report](runs/I01.10-borrowed-fetch.md), [handoff](handoffs/I01.10-A-2026-10-11.md). **BLOCKED**: repository PRIVATE; commit-pinned fixture returns 404 anonymously. Source/package inspected, no borrowed-MCP runtime or security-controls pass. Solo review; I09/gates remain incomplete.
 
 ## I10 — Bounded agent graph and actual open-weights workflow
 

@@ -1,0 +1,154 @@
+{
+  "base_commit": "0554c2c840e49a54558c2dc9425d73403883bc5e",
+  "checks": {
+    "local_links_and_json": "passed",
+    "new_retrieval_tests": 0,
+    "regression_outside_sandbox": {
+      "exit_code": 0,
+      "passed": 58,
+      "seconds": 82.5
+    },
+    "regression_sandbox_attempt": "interrupted exit 130 after stall and F; no summary; not passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "9 files already formatted"
+  },
+  "events": [
+    {
+      "bytes": 118,
+      "credentials_used": false,
+      "event": "unauthenticated_https_probe",
+      "finished_at": "2026-10-10T22:17:15.806199+00:00",
+      "follow_redirects": false,
+      "label": "public_repository_metadata",
+      "location": null,
+      "sha256": "4f50e254a719a6b1b06b529bdaa08980e4acf0878aad0090cba7771f6ebdf0b9",
+      "started_at": "2026-10-10T22:17:15.152051+00:00",
+      "status_code": 404,
+      "url": "https://api.github.com/repos/Fredrick-owino/market-price-intelligence-agent"
+    },
+    {
+      "bytes": 14,
+      "credentials_used": false,
+      "event": "unauthenticated_https_probe",
+      "finished_at": "2026-10-10T22:17:16.297554+00:00",
+      "follow_redirects": false,
+      "label": "public_fixture",
+      "location": null,
+      "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+      "started_at": "2026-10-10T22:17:15.806458+00:00",
+      "status_code": 404,
+      "url": "https://raw.githubusercontent.com/Fredrick-owino/market-price-intelligence-agent/0554c2c840e49a54558c2dc9425d73403883bc5e/data/synthetic/I01.7-market-comparison.json"
+    },
+    {
+      "bytes": 10643,
+      "credentials_used": false,
+      "event": "unauthenticated_https_probe",
+      "finished_at": "2026-10-10T22:17:16.888264+00:00",
+      "follow_redirects": false,
+      "label": "upstream_server",
+      "location": null,
+      "sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+      "started_at": "2026-10-10T22:17:16.297857+00:00",
+      "status_code": 200,
+      "url": "https://raw.githubusercontent.com/modelcontextprotocol/servers/956d36f8a148908b2e2394669ef5ae1f1230c9e9/src/fetch/src/mcp_server_fetch/server.py"
+    },
+    {
+      "bytes": 1303,
+      "credentials_used": false,
+      "event": "unauthenticated_https_probe",
+      "finished_at": "2026-10-10T22:17:17.339974+00:00",
+      "follow_redirects": false,
+      "label": "upstream_project",
+      "location": null,
+      "sha256": "d6be5ea069be22c5b7ae6922bf6c9d8483c1f02f44e53584578bea607b279069",
+      "started_at": "2026-10-10T22:17:16.888390+00:00",
+      "status_code": 200,
+      "url": "https://raw.githubusercontent.com/modelcontextprotocol/servers/956d36f8a148908b2e2394669ef5ae1f1230c9e9/src/fetch/pyproject.toml"
+    },
+    {
+      "bytes": 12227,
+      "credentials_used": false,
+      "event": "unauthenticated_https_probe",
+      "finished_at": "2026-10-10T22:17:17.750372+00:00",
+      "follow_redirects": false,
+      "label": "upstream_license",
+      "location": null,
+      "sha256": "0382b0057770ca05e9c350a50aa3b1c1fea84da0bc81d723bf00b9aa841be58a",
+      "started_at": "2026-10-10T22:17:17.340208+00:00",
+      "status_code": 200,
+      "url": "https://raw.githubusercontent.com/modelcontextprotocol/servers/956d36f8a148908b2e2394669ef5ae1f1230c9e9/LICENSE"
+    },
+    {
+      "command": "gh repo view Fredrick-owino/market-price-intelligence-agent --json nameWithOwner,url,isPrivate,visibility",
+      "event": "repository_visibility_read_only",
+      "finished_at": "2026-10-10T22:17:19.494835+00:00",
+      "note": "Existing GitHub CLI authentication used only for visibility metadata; no credential values recorded and no authenticated fixture retrieval.",
+      "output": {
+        "isPrivate": true,
+        "nameWithOwner": "Fredrick-owino/market-price-intelligence-agent",
+        "url": "https://github.com/Fredrick-owino/market-price-intelligence-agent",
+        "visibility": "PRIVATE"
+      },
+      "started_at": "2026-10-10T22:17:17.750924+00:00"
+    }
+  ],
+  "fixture": {
+    "data_status": "synthetic",
+    "expected_bytes": 9196,
+    "expected_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+    "local_path": "data/synthetic/I01.7-market-comparison.json",
+    "public_content_verified": false,
+    "quote_count": 8,
+    "synthetic": true,
+    "url": "https://raw.githubusercontent.com/Fredrick-owino/market-price-intelligence-agent/0554c2c840e49a54558c2dc9425d73403883bc5e/data/synthetic/I01.7-market-comparison.json"
+  },
+  "initial_probe": {
+    "request_timestamp": "not recorded in initial probe; reproduced with timestamps above",
+    "retained_body": "404: Not Found",
+    "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+    "status_code": 404
+  },
+  "mcp_tools_called": [],
+  "resumption_verification": {
+    "anonymous_fixture_body_sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+    "anonymous_fixture_http_status": 404,
+    "base_remote_sha": "0554c2c840e49a54558c2dc9425d73403883bc5e",
+    "base_worktree_clean": true,
+    "note": "Timestamp is recording time after rechecks, not precise HTTP request start time.",
+    "observed_at": "2026-10-11T10:31:38.916804+00:00",
+    "repository_visibility": "PRIVATE",
+    "task_worktree": "existing task worktree resumed; five task evidence files preserved",
+    "wheel_source_and_license_hashes_reverified": true
+  },
+  "review": "solo",
+  "runtime_executed": false,
+  "selected_upstream": {
+    "distribution": "mcp-server-fetch",
+    "license": "MIT",
+    "license_sha256": "8cc7c6e33b24ed4ee8fcccc33eccf102549d04fa4cb9737cecc9770dad1080ff",
+    "metadata_url": "https://pypi.org/pypi/mcp-server-fetch/2026.8.18/json",
+    "pin_scope": "Inspected wheel artifact and matching server.py only; reviewed source snapshot is not asserted to be the entire release provenance or a tested installed environment.",
+    "requires_dist": [
+      "httpx>=0.27",
+      "markdownify>=0.13.1",
+      "mcp<2,>=1.29.0",
+      "protego>=0.3.1",
+      "pydantic>=2.0.0",
+      "readabilipy>=0.2.0",
+      "requests>=2.32.3"
+    ],
+    "requires_python": ">=3.10",
+    "server_py_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+    "source_commit": "956d36f8a148908b2e2394669ef5ae1f1230c9e9",
+    "source_matches_wheel_server": true,
+    "source_project_version": "0.6.3",
+    "source_root_license_note": "Reviewed source commit root LICENSE describes an MIT-to-Apache-2.0 transition. The selected wheel carries an MIT notice; these are recorded separately, not treated as interchangeable.",
+    "source_url": "https://raw.githubusercontent.com/modelcontextprotocol/servers/956d36f8a148908b2e2394669ef5ae1f1230c9e9/src/fetch/src/mcp_server_fetch/server.py",
+    "version": "2026.8.18",
+    "wheel_sha256": "6642df733a1032e7f37d0f13849af8a944d46c02420d2c070cc14e0948f8fcc2",
+    "wheel_url": "https://files.pythonhosted.org/packages/5a/2d/c8d2e50796d6e3c77fa1932b9b010df36168edb5f5387c98a524ef77f110/mcp_server_fetch-2026.8.18-py3-none-any.whl"
+  },
+  "status": "BLOCKED_PUBLIC_FIXTURE_PREREQUISITE",
+  "task": "I01.10",
+  "unresolved": "Repository is private; no anonymous publicly accessible commit-pinned fixture verified. Do not substitute credentials, a different dataset or publication/visibility changes."
+}

@@ -152,3 +152,13 @@ Earlier preparation/runtime status statements above are historical, not claims
 about this new run. This evidence does not change any gate status, establish
 independent peer review, complete I01, or authorize live data/release. See the
 [handoff](handoffs/I01.9-A-2026-10-11.md) for checks, publication and limitations.
+
+## I01.10 — public-fixture prerequisite blocked (2026-10-11)
+
+[Actual prerequisite probes and source review](runs/I01.10-borrowed-fetch.md)
+found the repository PRIVATE and the required unauthenticated commit-pinned
+synthetic fixture returning 404. No public fixture hash match, borrowed-MCP
+runtime, implemented destination control or new retrieval test is established.
+Fetch 2026.8.18 requires an isolated MCP-1.x environment; no application SDK
+change was made. Owner: Fredrick; solo review. Continue the same bounded task
+after the public-fixture prerequisite is resolved. All gates remain unchanged.
