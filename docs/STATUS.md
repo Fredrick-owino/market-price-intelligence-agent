@@ -291,3 +291,22 @@ checks passed, original state/config preserved. The
 [execution handoff](handoffs/I01.13-one-hour-demo-A-2026-10-12.md) distinguishes
 prelaunch checks from actual exposure/login/workflow/expiry evidence. All gates
 remain NOT_PASSED; the prior no-launch wording describes preparation history.
+
+
+### I01.13 — authorized test expiry evidence, 12 October 2026
+
+The protected one-address test started at 15:04:54.200817 EAT and automatically
+stopped at 16:04:44.232186 EAT (Africa/Nairobi), within 3,600 seconds.
+[Expiry evidence](../evals/results/I01.13-one-hour-expiry.json) records absent
+connector/metrics, remote HTTP 502 without application content, and local
+API/model readiness immediately afterwards. Anonymous visitors were redirected
+to the email gate. The owner reported email verification and officer sign-in;
+remote officer completion remains unverified. One actual loopback synthetic
+Qwen/MCP workflow reached pending review in 249.488 s; zero decisions stored.
+A [later host recheck](../evals/results/I01.13-one-hour-post-expiry-recheck.json)
+found no connector, unresolved expired hostname and closed API/model ports.
+Services were running at expiry; continued uptime cannot be claimed.
+No second launch, audience expansion or public deployment occurred in this
+closeout. Review remains solo and all G0–G6 remain NOT_PASSED. Next bounded
+work: preserve/recover local pending review using the same private state and
+verifier, then collect missing practitioner/form and reliability evidence.

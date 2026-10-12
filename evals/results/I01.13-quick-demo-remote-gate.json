@@ -1,0 +1,32 @@
+{
+  "started_at_nairobi": "2026-10-12T15:04:54.200817+03:00",
+  "planned_expiry_nairobi": "2026-10-12T16:04:44.200817+03:00",
+  "limit_seconds": 3590,
+  "origin": "http://127.0.0.1:8000",
+  "allowed_address_count": 1,
+  "wildcard_rules": 0,
+  "anonymous_gate_checked_at_nairobi": "2026-10-12T15:06:06.287117+03:00",
+  "anonymous_checks": [
+    {
+      "path": "/",
+      "status": 302,
+      "redirect_host": "login.trycloudflare.com",
+      "application_content_absent": true
+    },
+    {
+      "path": "/health",
+      "status": 302,
+      "redirect_host": "login.trycloudflare.com",
+      "application_content_absent": true
+    },
+    {
+      "path": "/api/v1/drafts/pending",
+      "status": 302,
+      "redirect_host": "login.trycloudflare.com",
+      "application_content_absent": true
+    }
+  ],
+  "owner_email_login": "NOT_OBSERVED",
+  "remote_officer_test": "NOT_OBSERVED",
+  "remote_model_workflow": "NOT_OBSERVED"
+}

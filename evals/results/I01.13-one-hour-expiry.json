@@ -1,0 +1,27 @@
+{
+  "verified_at_nairobi": "2026-10-12T16:04:46.201553+03:00",
+  "connector_pid_absent": true,
+  "emergency_exact_pid_kill_required": false,
+  "watchdog_exit_code": 124,
+  "actual_stopped_at_nairobi": "2026-10-12T16:04:44.232186+03:00",
+  "remote_http_status": 502,
+  "remote_app_content_absent": true,
+  "local_api_ready": true,
+  "local_model_ready": true,
+  "connector_metrics_closed": true,
+  "run_statuses": [
+    [
+      "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+      "PENDING_REVIEW",
+      null
+    ]
+  ],
+  "draft_statuses": [
+    [
+      "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+      "PENDING_REVIEW",
+      1,
+      "c24938913f7f83b15ad477e526c1d51d9e171546f526fed35769bcf4c55470ab"
+    ]
+  ]
+}

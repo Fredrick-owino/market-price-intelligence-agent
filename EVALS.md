@@ -136,3 +136,35 @@ SQLite dispatch and reran. An earlier concurrent-review harness stall was fixed
 by using one TestClient context/event loop, matching single-worker deployment.
 These records do not erase the earlier failed/blocked checks. See the
 [authorized test handoff](docs/handoffs/I01.13-one-hour-demo-A-2026-10-12.md).
+
+
+## Authorized preview observations — evidence boundaries
+
+Protected connector startup: 12 October 2026 15:04:54 EAT; planned hard expiry
+16:04:44 EAT (3,590 seconds). Anonymous page/health/pending routes redirected
+to login.trycloudflare.com without app content. A signed-out HTTP redirect
+chain reached Cloudflare Access HTML with an email field. Mobile-user-agent
+HTTP probes also redirected and set state cookies; they are not actual phone
+browser tests. The owner reported “Bad request” on the tunnel hostname.
+Later the owner confirmed email verification and reaching officer sign-in.
+Officer access is owner-reported but remains uncorroborated by a stored decision.
+
+One actual **loopback** 500 kg API/Qwen/borrowed-and-own-MCP check reached
+PENDING_REVIEW in **249.488 s**; same fixture net results A 18,000 / B 14,500 KES.
+Duplicate start returned the same workflow; one draft/action was stored and
+no decision was made. This is neither remote phone success nor independent
+practitioner review. [Run](evals/results/I01.13-one-hour-local-workflow.json),
+[executed tool trace](evals/results/I01.13-one-hour-local-trace.jsonl),
+[gate evidence](evals/results/I01.13-quick-demo-remote-gate.json).
+The [expiry check](evals/results/I01.13-one-hour-expiry.json) recorded
+connector exit at **16:04:44.232186 EAT**, absent PID/metrics, remote HTTP
+**502** without app content, and local API/model readiness at 16:04:46 EAT.
+A [later recheck](evals/results/I01.13-one-hour-post-expiry-recheck.json)
+at 22:40 EAT found no connector, an unresolved expired hostname and closed
+local API/model ports. Continued local service uptime is not established.
+
+
+Phone follow-up: the owner confirmed successful email verification using the
+fresh root-query entry and then saw officer sign-in. This is owner-reported
+phone evidence; no agent screenshot/login interception. Invalid/valid officer
+and exact-draft decision results remain pending until actually observed.

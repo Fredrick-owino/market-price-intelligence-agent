@@ -117,5 +117,20 @@ preparation alone.
   hostname substitutes for the missing qualifying public video, final form
   answers, practitioner validation, final SHA or receipt.
 
-No domain is needed for this prepared preview. Remote tests remain unexecuted;
-local preparation continues and measured latency remains unchanged.
+No domain was needed for this preview. The subsequent one-hour test expired;
+see the [execution handoff](handoffs/I01.13-one-hour-demo-A-2026-10-12.md).
+Measured latency remains unchanged.
+
+
+A [provisional English description](submission-description-draft.md) now uses
+measured synthetic evidence and explicitly leaves the named institution and
+practitioner unconfirmed. It is a preparation draft, not a submitted answer.
+The phone test initially reported “Bad request”, then owner-confirmed email
+verification and officer sign-in. No stored remote officer decision or remote
+model run was verified; signed-out HTTP and loopback inference have separate
+evidence boundaries.
+
+
+Use the [practitioner feedback preparation](practitioner-feedback-preparation.md)
+to collect the missing institution, workflow, data, cost and latency answers.
+It contains questions only; no interview or endorsement has occurred.

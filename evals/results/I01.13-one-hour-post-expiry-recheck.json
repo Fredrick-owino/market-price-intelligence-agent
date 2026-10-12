@@ -1,0 +1,34 @@
+{
+  "verified_at_nairobi": "2026-10-12T22:40:01.965365+03:00",
+  "watchdog_pid_absent": true,
+  "connector_processes": [],
+  "local_api": {
+    "error_type": "URLError",
+    "reason": "Connection refused; separately verified direct loopback socket errno 111"
+  },
+  "local_model": {
+    "error_type": "URLError",
+    "reason": "Connection refused; separately verified direct loopback socket errno 111"
+  },
+  "remote": {
+    "error_type": "URLError",
+    "reason": "[Errno -2] Name or service not known",
+    "http_result": "NOT_OBTAINED"
+  },
+  "connector_metrics": {
+    "error_type": "URLError",
+    "reason": "Connection refused; separately verified direct loopback socket errno 111"
+  },
+  "run_statuses": [
+    [
+      "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+      "PENDING_REVIEW"
+    ]
+  ],
+  "decision_count": 0,
+  "public_network_control_probe": {
+    "host": "github.com",
+    "http_status": 200
+  },
+  "interpretation": "At expiry, prior evidence confirmed API/model healthy and remote HTTP 502; later recheck finds no connector and local service ports closed. Remote HTTP result unavailable in this recheck."
+}

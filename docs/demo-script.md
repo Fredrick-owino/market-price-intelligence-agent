@@ -67,8 +67,9 @@ Upload/public access, video URL and duration verification remain unperformed.
 
 ## Optional temporary remote presentation
 
-The [protected Quick Tunnel](../infra/QUICK_TUNNEL.md) is prepared but not
-launched. Initial access is limited to the owner's supplied email; it is not a
+The [protected Quick Tunnel](../infra/QUICK_TUNNEL.md) was subsequently launched
+for one owner-authorized, automatically bounded test. See the execution handoff
+for actual start/expiry and phone access results; setup is not a video rehearsal. Initial access is limited to the owner's supplied email; it is not a
 public judge link. Complete email PIN and dedicated synthetic test-officer login
 off-camera before capture. Say: “This is a temporary protected preview from the
 same Ubuntu machine. The URL changes when the connector restarts, and its
@@ -80,3 +81,15 @@ is not a measured speed improvement. Authentication/setup and human review
 cannot be silently removed from claimed end-to-end timings. Keep OTP inboxes,
 cookies, bearer tokens and tunnel diagnostics off screen. A completed recording
 must still meet the qualifying unedited duration/tool-visibility requirements.
+
+
+The one-hour check's local API/model run reached pending review in **249.488 s**
+for 500 kg; [actual record](../evals/results/I01.13-one-hour-local-workflow.json).
+This is loopback request-to-review time with polling, not phone/browser latency.
+Its actual three own calls and borrowed retrieval are in the
+[sanitized trace](../evals/results/I01.13-one-hour-local-trace.jsonl). Any replay
+of that trace in a video must retain the original run label and not represent
+new live execution. An initial phone “Bad request” was followed by owner-confirmed email
+verification and officer sign-in. No remote model run or stored officer
+decision was verified. The connector expired at 16:04:44 EAT; this URL
+is no longer a presentation option.

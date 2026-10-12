@@ -1,0 +1,29 @@
+{
+  "mobile_ua_http_probes": [
+    {
+      "user_agent_label": "Safari mobile",
+      "status": 302,
+      "redirect_host": "login.trycloudflare.com",
+      "app_content_absent": true,
+      "state_cookie_present": true
+    },
+    {
+      "user_agent_label": "Chrome mobile",
+      "status": 302,
+      "redirect_host": "login.trycloudflare.com",
+      "app_content_absent": true,
+      "state_cookie_present": true
+    }
+  ],
+  "actual_phone_report": "Bad request on tunnel hostname/root; not reproduced by these server-side mobile-user-agent probes",
+  "explicit_root_query_transport_checks": [
+    {
+      "client": "curl HTTP/2",
+      "status": 302
+    },
+    {
+      "client": "curl HTTP/1.1",
+      "status": 302
+    }
+  ]
+}

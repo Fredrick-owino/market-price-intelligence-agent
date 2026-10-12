@@ -1,0 +1,24 @@
+{
+  "redirect_chain": [
+    {
+      "host": "<temporary-demo-host>",
+      "path": "",
+      "status": 302
+    },
+    {
+      "host": "login.trycloudflare.com",
+      "path": "/authorize",
+      "status": 302
+    },
+    {
+      "host": "cf-cloudflare-quicktunnels.cloudflareaccess.com",
+      "path": "/cdn-cgi/access/login/login.trycloudflare.com",
+      "status": 200
+    }
+  ],
+  "final_title": "Sign in \u30fb Cloudflare Access",
+  "email_input_present": true,
+  "app_content_present": false,
+  "content_type": "text/html",
+  "phone_login": "Initial owner root-page Bad request; fresh entry later reached officer screen after owner-confirmed email verification"
+}

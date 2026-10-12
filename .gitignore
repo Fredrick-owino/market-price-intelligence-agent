@@ -40,6 +40,7 @@ secrets/
 /config/secrets.*
 
 # Local databases and journals
+/.state/
 *.db
 *.db-*
 *.sqlite

@@ -1,0 +1,32 @@
+{
+  "task": "I01.13 authorized one-hour protected preview",
+  "review": "Fredrick, solo",
+  "prelaunch_commit": "2c3c75b3cef92dfbbc31d0f9e1a974074f84e08d",
+  "git_push_before_launch": "SUCCEEDED",
+  "started_at_nairobi": "2026-10-12T15:04:54.200817+03:00",
+  "planned_expiry_nairobi": "2026-10-12T16:04:44.200817+03:00",
+  "limit_seconds": 3590,
+  "origin": "http://127.0.0.1:8000",
+  "allowed_address_count": 1,
+  "wildcard_rules": 0,
+  "watchdog": "GNU timeout --foreground --signal=KILL 3590s",
+  "anonymous_gate": "302 to login.trycloudflare.com for root, health and pending API",
+  "owner_phone_report": "Fresh root-query entry reaches officer sign-in after completed email verification",
+  "signed_out_login_http": "Cloudflare Access 200, email field present; app content absent",
+  "remote_email_login": "OWNER_CONFIRMED_COMPLETED_EMAIL_VERIFICATION",
+  "remote_officer_auth": "OWNER_REPORTED_INVALID_REJECTION_AND_VALID_DESK_ACCESS; then requested private token location; awaiting decision/server confirmation",
+  "local_temporary_auth": "verified: missing/invalid/original 401, temporary 200, wrong scope 403",
+  "local_workflow": {
+    "workflow_id": "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+    "status": "PENDING_REVIEW",
+    "measured_start_to_review_seconds": 249.488,
+    "arithmetic_and_actual_retrieval_verified": true,
+    "decision": "LEFT_PENDING_FOR_OWNER",
+    "evidence_boundary": "loopback API, not authenticated remote phone browser"
+  },
+  "expiry_verification": "VERIFIED: connector stopped 2026-10-12T16:04:44.232186+03:00; remote HTTP 502; local API/model ready at expiry",
+  "phone_recovery_suggestion": "Fresh root query entry in regular browser; same restriction and expiry",
+  "owner_token_location_help": "Supplied Ubuntu file path and private-terminal instructions; no credential requested or disclosed",
+  "remote_officer_decision": "NOT_VERIFIED: zero stored decisions; synthetic draft remains PENDING_REVIEW",
+  "later_recheck": "2026-10-12T22:40:01.965365+03:00: no connector; expired hostname unresolved; local API/model ports closed"
+}
