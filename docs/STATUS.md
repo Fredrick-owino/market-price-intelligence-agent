@@ -56,8 +56,8 @@ The [I01.13 report](runs/I01.13-demo-integration.md) and
 actual public synthetic borrowed fetch, actual local Qwen workflow, HTTP test
 officer approval, separate HTTP rejection, and restart persistence. Backend
 regression: 147 passed; frontend typecheck/build passed. The first live HTTP
-attempt timed out and remains retained. Browser UI interaction could not be
-performed because the computer-use browser surface was unavailable. Independent
+attempt timed out and remains retained. Browser UI interaction was subsequently
+verified in the Chrome addendum below. Independent
 officer/practitioner review, real data, public deployment and all G0–G6 gates
 remain outstanding.
 
