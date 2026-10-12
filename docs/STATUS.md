@@ -310,3 +310,17 @@ No second launch, audience expansion or public deployment occurred in this
 closeout. Review remains solo and all G0–G6 remain NOT_PASSED. Next bounded
 work: preserve/recover local pending review using the same private state and
 verifier, then collect missing practitioner/form and reliability evidence.
+
+
+### I01.13 — local service recovery and integration review
+
+Host power-off at 19:19:27 EAT and boot at 21:07:23 establish later host
+lifecycle as the service-loss explanation; the tunnel expired hours earlier
+with local services healthy. Restored API/model to loopback with existing
+pinned environment/model and dedicated private configuration. Original exact
+pending draft/checkpoint and zero decisions preserved. New distinct overlapping
+starts now reject atomically; retries and older recovery backlog remain safe.
+Full backend 155 passed; frontend type/build and Ruff passed.
+[Current handoff](handoffs/I01.13-local-recovery-video-A-2026-10-12.md) records
+merge/video/checklist continuation. No tunnel, upload or submission authorized;
+all release gates remain open and solo review is not independent review.

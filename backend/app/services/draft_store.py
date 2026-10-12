@@ -358,7 +358,9 @@ class DraftStore:
             or (prefix and row["workflow_id"].startswith(prefix))
         ]
 
-    def create_run(self, workflow_id: str, officer_id: str, request: dict) -> dict:
+    def create_run(
+        self, workflow_id: str, officer_id: str, request: dict, *, reject_if_running: bool = False
+    ) -> dict:
         body = canonical(request)
         digest = hashlib.sha256(body.encode()).hexdigest()
         prior = self.run(workflow_id)
@@ -368,6 +370,15 @@ class DraftStore:
             return prior
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            prior = db.execute("SELECT * FROM runs WHERE workflow_id=?", (workflow_id,)).fetchone()
+            if (
+                prior is None
+                and reject_if_running
+                and db.execute("SELECT 1 FROM runs WHERE status='RUNNING' LIMIT 1").fetchone()
+            ):
+                raise StoreConflict(
+                    "A model workflow is already running. Wait before starting another."
+                )
             db.execute(
                 "INSERT OR IGNORE INTO runs VALUES(?,?,?,?,?,?,?)",
                 (workflow_id, officer_id, body, digest, "RUNNING", None, now()),

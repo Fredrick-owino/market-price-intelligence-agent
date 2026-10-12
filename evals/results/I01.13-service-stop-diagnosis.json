@@ -1,0 +1,27 @@
+{
+  "task": "I01.13 local recovery and integration",
+  "boot_at_nairobi": "2026-10-12T21:07:23+03:00",
+  "previous_boot_poweroff_at_nairobi": "2026-10-12T19:19:27+03:00",
+  "journal_observations": [
+    "Reached poweroff.target - System Power Off",
+    "systemd-shutdown: Sending SIGTERM to remaining processes"
+  ],
+  "api_log_modified_at_nairobi": "2026-10-12T19:19:24.349918+03:00",
+  "api_log_last_lines": [
+    "INFO:     Shutting down",
+    "INFO:     Waiting for application shutdown.",
+    "INFO:     Application shutdown complete.",
+    "INFO:     Finished server process [34721]"
+  ],
+  "pre_restore_loopback_ports": {
+    "8000": 111,
+    "11434": 111,
+    "20241": 111
+  },
+  "ollama_system_unit_active": false,
+  "model_manifest_found_in_existing_owner_directory": true,
+  "conclusion": "Services did not survive a later host power-off and boot. API shutdown log aligns with power-off. Journal does not establish who requested shutdown or the precise Ollama exit time. No evidence that the 16:04:44 connector watchdog stopped either service.",
+  "retained_expiry_evidence": "I01.13-one-hour-expiry.json confirms API/model healthy at 16:04:46 EAT",
+  "persistent_autostart_configured": false,
+  "no_tunnel_launched": true
+}

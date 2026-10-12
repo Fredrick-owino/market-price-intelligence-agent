@@ -158,12 +158,17 @@ def test_decision_retry_conflict_and_status(tmp_path, decision, outcome, status)
 
 def test_stale_and_concurrent_decisions(tmp_path):
     db, pending, client = setup(tmp_path)
+    store = DraftStore(str(db))
+    store.create_run("allowed", "test:officer-a", {"synthetic": True})
+    store.update_run("allowed", "PENDING_REVIEW")
     path = "/api/v1/runs/allowed/decisions"
     assert (
         client.post(path, json=body(pending, content_hash="0" * 64), headers=auth()).status_code
         == 409
     )
     assert client.post(path, json=body(pending, version=2), headers=auth()).status_code == 409
+    assert store.run("allowed")["status"] == "PENDING_REVIEW"
+    assert store.counts("allowed")["decisions"] == 0
     # A running single-worker ASGI service has one event loop for all requests.
     with client, ThreadPoolExecutor(max_workers=2) as pool:
         results = list(

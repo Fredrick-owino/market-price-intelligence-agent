@@ -168,3 +168,16 @@ Phone follow-up: the owner confirmed successful email verification using the
 fresh root-query entry and then saw officer sign-in. This is owner-reported
 phone evidence; no agent screenshot/login interception. Invalid/valid officer
 and exact-draft decision results remain pending until actually observed.
+
+
+## Integrated recovery review — 12 October 2026
+
+Full backend regression: **155 passed in 112.52 s**; frontend typecheck/build
+and Ruff check/format passed. New atomic admission rejects distinct overlapping
+starts (409, no row); identical retries reuse the stored run. Failed runs release
+admission; older accepted RUNNING rows recover through one model slot.
+Responsive polling/review, idempotency and connector-only expiry remain tested.
+Stale review errors preserve pending run state rather than prematurely completing
+it. [Recovery/integration handoff](docs/handoffs/I01.13-local-recovery-video-A-2026-10-12.md).
+Host journal establishes later power-off, not tunnel-induced service shutdown.
+Loopback API/model and exact pending draft restored with no decision.

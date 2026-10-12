@@ -1,0 +1,28 @@
+{
+  "checked_at_nairobi": "2026-10-12T22:49:15.722817+03:00",
+  "health": [
+    200,
+    {
+      "status": "ready"
+    }
+  ],
+  "anonymous_pending": 401,
+  "invalid_pending": 401,
+  "authenticated_pending": 200,
+  "wrong_scope": 403,
+  "authenticated_draft": {
+    "http_status": 200,
+    "workflow_id": "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+    "draft_id": "9c6dea9f-070e-5fb2-b7c5-e05fcea18f36",
+    "version": 1,
+    "content_hash": "c24938913f7f83b15ad477e526c1d51d9e171546f526fed35769bcf4c55470ab",
+    "status": "PENDING_REVIEW"
+  },
+  "private_configuration_unchanged": true,
+  "model": {
+    "name": "qwen3:4b-instruct-2507-q4_K_M",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0"
+  },
+  "listeners": "State  Recv-Q Send-Q Local Address:Port  Peer Address:Port\nLISTEN 0      4096       127.0.0.1:11434      0.0.0.0:*   \nLISTEN 0      2048       127.0.0.1:8000       0.0.0.0:*   \n",
+  "decision_count": 0
+}

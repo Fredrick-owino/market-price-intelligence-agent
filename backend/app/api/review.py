@@ -246,7 +246,11 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
         )
         try:
             run = await asyncio.to_thread(
-                store.create_run, workflow_id, officer["id"], body.model_dump()
+                store.create_run,
+                workflow_id,
+                officer["id"],
+                body.model_dump(),
+                reject_if_running=True,
             )
         except StoreConflict as error:
             raise HTTPException(409, str(error)) from error
@@ -323,7 +327,6 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
             if current is None:
                 raise HTTPException(404, "Draft not found")
             snapshot = await workflow_snapshot(db_path, workflow_id)
-            await asyncio.to_thread(store.update_run, workflow_id, "COMPLETED")
             if (
                 not snapshot.values
                 or snapshot.values.get("draft", {}).get("draft_id") != current["draft_id"]
@@ -345,6 +348,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     authenticated=True,
                 )
                 await resume_stored_workflow(db_path, workflow_id)
+                await asyncio.to_thread(store.update_run, workflow_id, "COMPLETED")
             except StoreConflict as error:
                 raise HTTPException(409, str(error)) from error
             snapshot = await workflow_snapshot(db_path, workflow_id)

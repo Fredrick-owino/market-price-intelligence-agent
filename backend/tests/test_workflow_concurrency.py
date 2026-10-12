@@ -3,6 +3,7 @@
 import asyncio
 import hashlib
 import json
+from concurrent.futures import ThreadPoolExecutor
 from uuid import NAMESPACE_URL, uuid5
 
 import httpx
@@ -10,9 +11,34 @@ import pytest
 
 from backend.app.agent import draft_recovery
 from backend.app.api.review import create_app
-from backend.app.services.draft_store import DraftStore
+from backend.app.services.draft_store import DraftStore, StoreConflict
 from backend.tests.test_integrated_workflow import mocked_pipeline
 from backend.tests.test_review_api import auth, body, paused
+
+
+def test_concurrent_start_admission_is_atomic_and_retry_safe(tmp_path):
+    store = DraftStore(str(tmp_path / "admission.sqlite"))
+
+    def start(workflow):
+        try:
+            return store.create_run(
+                workflow, "test:officer", {"quantity": 500}, reject_if_running=True
+            )
+        except StoreConflict:
+            return None
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(pool.map(start, ["demo-first", "demo-second"]))
+    accepted = [r for r in results if r is not None]
+    assert len(accepted) == 1
+    workflow = accepted[0]["workflow_id"]
+    assert start(workflow) == accepted[0]
+    with pytest.raises(StoreConflict):
+        store.create_run(workflow, "test:officer", {"quantity": 600}, reject_if_running=True)
+    other = "demo-second" if workflow == "demo-first" else "demo-first"
+    assert store.run(other) is None
+    store.update_run(workflow, "FAILED", "synthetic_failure")
+    assert start(other)["status"] == "RUNNING"
 
 
 @pytest.mark.asyncio
@@ -89,10 +115,14 @@ async def test_model_queue_preserves_responsive_review_and_idempotent_retries(
             await asyncio.wait_for(entered.wait(), 15)
             second_request = {**request, "idempotency_key": "second"}
             second = await client.post("/api/v1/requests", json=second_request, headers=headers)
-            assert second.status_code == 202
-            if not recover_committed_starts:
-                ids.append(second.json()["workflow_id"])
-            assert second.json()["workflow_id"] == ids[1]
+            if recover_committed_starts:
+                assert second.status_code == 202
+                assert second.json()["workflow_id"] == ids[1]
+            else:
+                assert second.status_code == 409
+                assert "already running" in second.json()["detail"]
+                with store.connect() as connection:
+                    assert connection.execute("SELECT COUNT(*) FROM runs").fetchone()[0] == 1
 
             # An API backlog must not block polling, auth failures or real review.
             async with asyncio.timeout(3):
@@ -128,6 +158,13 @@ async def test_model_queue_preserves_responsive_review_and_idempotent_retries(
             # Drain both tasks so failure must release the slot for the second run.
             async with asyncio.timeout(20):
                 while any(store.run(workflow)["status"] == "RUNNING" for workflow in ids):
+                    await asyncio.sleep(0.05)
+        if not recover_committed_starts:
+            second = await client.post("/api/v1/requests", json=second_request, headers=headers)
+            assert second.status_code == 202
+            ids.append(second.json()["workflow_id"])
+            async with asyncio.timeout(20):
+                while store.run(ids[1])["status"] == "RUNNING":
                     await asyncio.sleep(0.05)
         assert calls == ids and peak == 1 and active == 0
         assert all(store.run(workflow)["status"] == "FAILED" for workflow in ids)

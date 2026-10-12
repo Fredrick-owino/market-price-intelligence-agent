@@ -17,7 +17,9 @@ regenerate credentials or reset state as part of restart.
 
 Use **one API process, one Uvicorn worker, one operator and one active workflow**.
 The launcher already sets `--workers 1`. The API now enforces one active retrieval/model workflow per API process with
-an async model slot. Additional RUNNING requests wait with API phase
+an async model slot. New distinct requests while any persisted run is RUNNING return 409 without
+creating state; identical retries remain idempotent. Previously accepted
+RUNNING requests recover with API phase
 `queued_for_model`; polling and unrelated draft review remain available. The
 slot is released on success, failure or cancellation. Blocking SQLite work
 in async routes is dispatched to threads so lock waits cannot stall the event
@@ -152,3 +154,22 @@ connector first, then drain local work and stop services. A new tunnel origin
 has different browser session storage; keep the interrupted workflow ID privately
 and recover it before starting another. Email access does not replace officer
 bearer authentication or establish practitioner authority.
+
+
+## Recovery after host power-off — verified 12 October 2026
+
+The host powered off at 19:19:27 EAT and booted at 21:07:23 EAT, after the
+authorized connector expired at 16:04:44. API shutdown logs align with power-off;
+no evidence attributes the service loss to the tunnel watchdog. The previous
+foreground/manual services have no configured boot autostart. Restore using
+the pinned Ollama directory `/home/fred/.local/share/sokosignal/models`,
+`OLLAMA_HOST=127.0.0.1:11434`, `OLLAMA_NUM_PARALLEL=1`, and existing binary.
+The pending owner-test draft lives in `.state/quick-demo.sqlite`; restore its
+API using `.env.officers.quick-demo.local` as documented in QUICK_TUNNEL's
+local startup section, without running any tunnel command. The ordinary
+launcher selects a different database/verifier and will not display this draft.
+
+A restricted SQLite backup was created before restoration. The dedicated
+verifier, token, checkpoint and exact pending version/hash were preserved,
+with zero decisions. These manually launched services still do not survive
+a host shutdown; no system service, global setting or model download was added.

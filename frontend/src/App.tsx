@@ -63,6 +63,7 @@ function formatError(status: number, value: unknown): string {
   const detail = value && typeof value === 'object' && 'detail' in value ? (value as { detail: unknown }).detail : value
   if (status === 401) return 'Credential missing or invalid. Enter the local officer token again.'
   if (status === 403) return 'This officer is not permitted to access this workflow.'
+  if (status === 409 && typeof detail === 'string' && detail.startsWith('A model workflow')) return detail
   if (status === 409) return 'The draft or request changed. Refresh its current status before retrying.'
   if (status === 422) return 'Check the supported input and try again.'
   return typeof detail === 'string' ? detail : `Request failed (${status}).`

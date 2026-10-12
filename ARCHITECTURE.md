@@ -19,7 +19,9 @@ The API serves `frontend/dist` on loopback when built. It derives officer
 identity and permitted workflow prefixes from a local token verifier; neither
 the model nor the frontend bundle contains credentials. A request is stored
 before the background integrated graph starts. Polling shows running, failed,
-pending-review and completed states. Waiting requests expose queued_for_model;
+pending-review and completed states. New overlapping starts return 409 before creating a run; identical retries
+return the existing run and changed-payload retries conflict. Previously
+accepted runs recovering after a restart expose queued_for_model;
 status and independent draft review remain responsive. Async API routes
 dispatch synchronous SQLite work to threads so database waits do not block
 checkpoint progress. A process restart can resume a stored
