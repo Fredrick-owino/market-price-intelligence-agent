@@ -1,0 +1,14 @@
+{
+  "label": "Failed actual local recording attempt; retained, not overwritten",
+  "workflow_id": "quick-demo-cc7d1856-0fd6-55b6-8a8f-d5a9862d45ea",
+  "status": "FAILED",
+  "failure_code": "model_unavailable",
+  "borrowed_public_retrieval_verified": true,
+  "own_tools_executed": 0,
+  "drafts_created": 0,
+  "decisions": 0,
+  "diagnosis": "System-path Ollama 0.40.2 lacked llama-server. Complete existing pinned user-local runtime found and selected; no runtime or model download. Metadata health was insufficient to prove inference.",
+  "captured_frames": 120,
+  "frames_private_path": ".state/video/I01.13-local-demo/frames",
+  "video_exported": false
+}

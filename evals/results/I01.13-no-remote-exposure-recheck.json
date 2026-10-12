@@ -1,0 +1,10 @@
+{
+  "checked_at_nairobi": "2026-10-12T23:09:21.434924+03:00",
+  "no_new_tunnel": true,
+  "connector_pids": [],
+  "expired_host": {
+    "error_type": "gaierror",
+    "reason": "[Errno -2] Name or service not known",
+    "http_result": "NOT_OBTAINED"
+  }
+}

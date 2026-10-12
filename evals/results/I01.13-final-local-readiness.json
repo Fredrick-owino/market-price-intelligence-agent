@@ -1,0 +1,43 @@
+{
+  "verified_at_nairobi": "2026-10-12T23:16:37.083462+03:00",
+  "health": [
+    200,
+    {
+      "status": "ready"
+    }
+  ],
+  "anonymous_draft": 401,
+  "invalid_draft": 401,
+  "authenticated_original_draft": 200,
+  "original_draft_unchanged": true,
+  "private_config_unchanged": true,
+  "run_statuses": [
+    [
+      "quick-demo-38b71e3f-a69f-5423-a348-f5e47d16b434",
+      "PENDING_REVIEW",
+      null
+    ],
+    [
+      "quick-demo-cc7d1856-0fd6-55b6-8a8f-d5a9862d45ea",
+      "FAILED",
+      "model_unavailable"
+    ],
+    [
+      "quick-demo-856a732f-f31f-5394-8bbb-3437be8253e1",
+      "PENDING_REVIEW",
+      null
+    ]
+  ],
+  "decision_count": 0,
+  "original_checkpoints_unchanged": {
+    "checkpoints": true,
+    "writes": true
+  },
+  "model_digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "runtime": "existing complete user-local Ollama 0.40.2 with runner; actual inference and recording workflow passed",
+  "service_pids_alive": {
+    "ollama": true,
+    "api": true
+  },
+  "listeners": "State  Recv-Q Send-Q Local Address:Port  Peer Address:Port\nLISTEN 0      4096       127.0.0.1:11434      0.0.0.0:*   \nLISTEN 0      2048       127.0.0.1:8000       0.0.0.0:*   \n"
+}

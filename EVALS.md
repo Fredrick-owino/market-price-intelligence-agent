@@ -181,3 +181,25 @@ Stale review errors preserve pending run state rather than prematurely completin
 it. [Recovery/integration handoff](docs/handoffs/I01.13-local-recovery-video-A-2026-10-12.md).
 Host journal establishes later power-off, not tunnel-induced service shutdown.
 Loopback API/model and exact pending draft restored with no decision.
+
+
+## Local video run and honest failure evidence
+
+Fresh capture attempt 01 failed `model_unavailable`: borrowed public retrieval
+succeeded, system-path Ollama served metadata but lacked llama-server and
+chat returned 500; no own call/draft/decision. Switched only the idle model
+process to the existing complete pinned user-local Ollama 0.40.2 runtime,
+with unchanged weights/digest; bounded actual inference then passed.
+[Failed attempt](evals/results/I01.13-local-video-attempt-01.json).
+
+Capture attempt 02: actual local Chrome 500 kg workflow, borrowed Fetch and
+all three own MCP tools, **220.794 s** request-to-observed-review; correct
+A/B net 18,000/14,500 KES. Identical retry 202/same run; distinct overlap 409.
+Pending draft; no decision. [Actual current trace](evals/results/I01.13-recorded-local-trace.jsonl).
+The final video is **110.0 s**, edited waiting with latency disclosed. Corrected
+comparison/hash/provenance scenes explicitly inspect the same persisted run
+after completion. [Video evidence](evals/results/I01.13-local-video.json).
+It is not an uninterrupted qualifying video, independent review, eight distinct
+live tasks or remote officer success. No upload or submission. Original
+draft/checkpoint rows and private verifier/token remain unchanged; local
+services ready at final check. [Readiness](evals/results/I01.13-final-local-readiness.json).

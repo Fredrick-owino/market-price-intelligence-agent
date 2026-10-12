@@ -324,3 +324,20 @@ Full backend 155 passed; frontend type/build and Ruff passed.
 [Current handoff](handoffs/I01.13-local-recovery-video-A-2026-10-12.md) records
 merge/video/checklist continuation. No tunnel, upload or submission authorized;
 all release gates remain open and solo review is not independent review.
+
+
+### I01.13 — integrated main and local edited video closeout
+
+Main fast-forward integration `7432273f274ff10d8344191c9bd2d2469685a2c3`
+was pushed/remote-verified. Local recording first failed because the system-path
+Ollama lacked its runner despite metadata health; existing complete pinned
+user-local runtime restored actual generation with no weight download.
+Second actual Chrome/Qwen/borrowed-and-own-MCP run reached pending review in
+220.794 s. Final local video is 110.0 s, with waiting shortened, measured
+latency visible and labelled post-run inspection of comparison/provenance.
+No approval, upload, submission or new tunnel. Original pending draft and
+checkpoint rows/configuration preserved; both local services loopback/ready.
+Checklist/field-answer/English-description drafts now list only outstanding
+practitioner, evaluation/independent-review, reproducibility/rights, official
+calendar/form/eligibility and qualifying durable-link requirements. The edited
+video is not the retained unedited competition artifact. No gate completed.

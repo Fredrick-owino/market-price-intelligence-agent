@@ -60,7 +60,8 @@ the path is not supplied by the repository. Do not download another model to
 mask a missing-directory error. Foreground model terminal:
 
 ```sh
-OLLAMA_HOST=127.0.0.1:11434 OLLAMA_NUM_PARALLEL=1 ollama serve
+OLLAMA_HOST=127.0.0.1:11434 OLLAMA_NUM_PARALLEL=1 \
+/home/fred/.local/share/sokosignal/ollama-0.40.2/bin/ollama serve
 ```
 
 `OLLAMA_NUM_PARALLEL=1` serializes model requests in this process; it does not
@@ -163,7 +164,11 @@ authorized connector expired at 16:04:44. API shutdown logs align with power-off
 no evidence attributes the service loss to the tunnel watchdog. The previous
 foreground/manual services have no configured boot autostart. Restore using
 the pinned Ollama directory `/home/fred/.local/share/sokosignal/models`,
-`OLLAMA_HOST=127.0.0.1:11434`, `OLLAMA_NUM_PARALLEL=1`, and existing binary.
+`OLLAMA_HOST=127.0.0.1:11434`, `OLLAMA_NUM_PARALLEL=1`, and existing complete runtime
+`/home/fred/.local/share/sokosignal/ollama-0.40.2/bin/ollama`.
+The system-path binary lacked its inference runner after boot; metadata alone
+was healthy but chat failed. Always select the existing complete pinned runtime,
+then verify an actual inference, not only tags.
 The pending owner-test draft lives in `.state/quick-demo.sqlite`; restore its
 API using `.env.officers.quick-demo.local` as documented in QUICK_TUNNEL's
 local startup section, without running any tunnel command. The ordinary

@@ -1,0 +1,117 @@
+{
+  "label": "Actual local browser/model/MCP; synthetic officer; edited waiting, no decisions",
+  "revision": "7432273f274ff10d8344191c9bd2d2469685a2c3",
+  "workflow_id": "quick-demo-856a732f-f31f-5394-8bbb-3437be8253e1",
+  "recorded_at": "2026-10-12T20:13:39.689Z",
+  "quantity_kg": 500,
+  "measured_request_to_review_seconds": 220.794,
+  "encoded_duration_seconds": 110,
+  "frames": 440,
+  "fps": 4,
+  "edited_waiting": true,
+  "uninterrupted_competition_video_requirement_met": false,
+  "video_local_path": ".state/video/I01.13-local-demo-2026-10-12T20-08-12-967Z/sokosignal-local-demo-edited-v2.webm",
+  "actual_tools": [
+    "borrowed-fetch",
+    "search_market_quotes",
+    "compare_market_options",
+    "save_advisory_draft"
+  ],
+  "identical_retry_status": 202,
+  "overlapping_start_status": 409,
+  "draft_id": "bb4e4f34-e488-5fae-b699-104f6d43d9ac",
+  "version": 1,
+  "content_hash": "2bf22c9691e49aabfe79c7c0f49c8c1e6be13d3ad4593228356b362007f5b43e",
+  "status": "PENDING_REVIEW",
+  "original_pending_draft_approved": false,
+  "decisions_performed": 0,
+  "scenes": [
+    {
+      "title": "SokoSignal \u2014 Agriculture market comparison",
+      "first_frame": 0,
+      "last_frame": 39
+    },
+    {
+      "title": "One bounded 500 kg request",
+      "first_frame": 40,
+      "last_frame": 71
+    },
+    {
+      "title": "Actual retrieval and model execution",
+      "first_frame": 72,
+      "last_frame": 103
+    },
+    {
+      "title": "Executed tool evidence from this run",
+      "first_frame": 104,
+      "last_frame": 119
+    },
+    {
+      "title": "Executed tool evidence from this run",
+      "first_frame": 120,
+      "last_frame": 135
+    },
+    {
+      "title": "Executed tool evidence from this run",
+      "first_frame": 136,
+      "last_frame": 151
+    },
+    {
+      "title": "Executed tool evidence from this run",
+      "first_frame": 152,
+      "last_frame": 167
+    },
+    {
+      "title": "Measured request-to-review: 220.794 seconds",
+      "first_frame": 168,
+      "last_frame": 207
+    },
+    {
+      "title": "Higher gross does not imply higher net",
+      "first_frame": 208,
+      "last_frame": 263
+    },
+    {
+      "title": "Private draft, immutable version and source provenance",
+      "first_frame": 264,
+      "last_frame": 311
+    },
+    {
+      "title": "Human review remains pending",
+      "first_frame": 312,
+      "last_frame": 359
+    },
+    {
+      "title": "Verified local success; remote completion remains unverified",
+      "first_frame": 360,
+      "last_frame": 399
+    },
+    {
+      "title": "Remaining submission requirements",
+      "first_frame": 400,
+      "last_frame": 439
+    }
+  ],
+  "uploaded": false,
+  "submitted": false,
+  "audio": "None; on-screen narration captions",
+  "decoded_container_duration_seconds": 110.0,
+  "video_sha256": "1610fc919ab390dd860797fef6435b6466c95593c4896f3bbc153cddb27fa55c",
+  "file_bytes": 2836838,
+  "format": "WebM VP9, 1440x1000, 4 fps, English on-screen captions; no audio",
+  "capture_starts_after_sign_in": true,
+  "initial_export_preserved": ".state/video/I01.13-local-demo-2026-10-12T20-08-12-967Z/sokosignal-local-demo-edited.webm",
+  "post_run_inspection_segments": [
+    {
+      "first_frame": 208,
+      "last_frame": 263,
+      "reason": "Market cards obscured by initial caption framing; replacement inspects same persisted workflow and is labelled post-run."
+    },
+    {
+      "first_frame": 264,
+      "last_frame": 311,
+      "reason": "Exact draft/hash and provenance framing; same pending workflow, no model replay or decision."
+    }
+  ],
+  "final_video_visual_qa": "Decoded sample frames inspected: intro, live tools, measured latency, comparison, exact draft/hash, pending review and limitations. Auth occurs before all capture; no credential/PIN screens."
+}

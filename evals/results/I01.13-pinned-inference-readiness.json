@@ -1,0 +1,9 @@
+{
+  "checked_at_nairobi": "2026-10-12T23:07:39.639177+03:00",
+  "actual_local_inference_http": 200,
+  "done": true,
+  "elapsed_seconds": 4.063,
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "model_downloaded": false,
+  "runtime": "existing user-local Ollama 0.40.2 including llama-server"
+}

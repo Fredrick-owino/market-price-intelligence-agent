@@ -1,6 +1,7 @@
 # Submission and review checklist
 
-Release checklist; evidence snapshot added 12 October 2026. Fredrick currently
+Release checklist; evidence snapshot updated 12 October 2026. Local integration and edited video
+preparation do not complete the broader release requirements. Fredrick currently
 owns both workstreams; his review is solo. A/B independence below remains a
 release requirement, not evidence of an available second reviewer. Rules verified
 by the team override proposals. Record exact evidence and reviewer initials
@@ -18,11 +19,11 @@ beside each completed item. No check is complete merely because a document exist
 
 - [ ] Full task runs on selected open-weights model; model digest/licence and settings recorded.
 - [ ] Open-source orchestration actually used; pinned libraries and upstream licences verified.
-- [ ] Own MCP server exposes at least three distinct tools including the documented action; actual inputs/outputs in traces.
-- [ ] Borrowed MCP server is genuinely called through MCP; version, attribution and meaningful reuse rationale recorded.
+- [x] Own MCP server exposes three distinct tools including private-draft action; actual synthetic inputs/outputs retained in [model/MCP evidence](../evals/results/I01.13-one-hour-local-trace.jsonl). Official action-rule interpretation remains to be confirmed.
+- [x] Borrowed Fetch MCP actually retrieves the permitted public synthetic fixture; [version/provenance/rationale](runs/I01.11-integrated-workflow.md) and actual traces retained.
 - [ ] Logs contain actual tool/action inputs, outputs and timestamps, with secrets/private records excluded from public artifacts.
 - [ ] Named officer approval enforced server-side; pending, reject, changes requested, revised version, unauthorized decision and restart checks pass.
-- [ ] Advice is a reviewed draft; no automatic household delivery, order or credit flag in scope.
+- [x] Advice remains a private review draft; no household delivery, order or credit flag exists. The preserved owner-test draft remains pending; no automatic approval.
 - [ ] Arithmetic, units, freshness, comparable grades/basis and absent-data behavior verified independently.
 - [ ] Eight or more actual-model tasks recorded honestly; critical gates pass; at least one observed unresolved failure and next step documented as required.
 
@@ -30,7 +31,7 @@ beside each completed item. No check is complete merely because a document exist
 
 - [ ] Public repo accessible while signed out; no leaked credentials, private identities, restricted datasets, weights or local state.
 - [ ] OSI-approved licence for original work; separate upstream/data/model licences and notices preserved.
-- [ ] Dependency lockfiles and tested supported runtimes committed.
+- [x] Root and isolated Fetch lockfiles and frontend package lock are committed; integrated backend/frontend checks passed. Fresh-clone verification remains separate and open.
 - [ ] README says prerequisites, hardware/RAM/VRAM, ports, env setup without secrets, initial model/network download requirements, exact one-command launch, example workflow, stop/reset behavior and troubleshooting.
 - [ ] B runs a fresh clone using that README without A silently repairing it; command/output and commit recorded.
 - [ ] Real-model run includes both MCP servers. Offline/replay limitations clearly labelled.
@@ -68,10 +69,10 @@ The full checklist above stays open where its broader acceptance is unfulfilled.
 | Public source repository | Fredrick's manual visibility change; anonymous API/raw README HTTP 200, [record](runs/I01.13-public-visibility.md). | Final SHA, final signed-out review, history/rights/licence review and release signoff. |
 | Actual model and MCP workflow | Two browser workflows with Qwen, borrowed Fetch and own tools; [report](runs/I01.13-browser-verification.md). | Diverse/repeated evaluations and independent technical review. |
 | Comparison and review UI | Synthetic 500 kg approval / 1,000 kg rejection; auth, provenance, refresh, retries and narrow layout verified. | Practitioner/named officer validation; changes-requested/revision UI and full gate evidence. |
-| Automated checks | Retained 147 backend passes and frontend typecheck/build; [summary](../EVALS.md). | Final reviewed SHA and reproducibility; these are not eight actual-model tasks. |
-| Video | [Script](demo-script.md) prepared with real browser latency. | New timed rehearsal, actual tool-event visibility, qualifying unedited recording, public URL/duration. Browser times 234.38/246.07 s already exceed 180 s before review. |
-| Local Ubuntu operation | [Restart, concurrency and shutdown instructions](../infra/LOCAL_OPERATIONS.md) prepared; completed-outcome HTTP restart evidence exists. | Operator rehearsal as needed; no inference-time shutdown or backup/restore trial claimed. |
-| Remote access/domain | Owner reports no domain; application remains loopback-only. | No remote setup is authorized in this task. Domain absence does not block local documents/video preparation. |
+| Automated checks | Integrated 155 backend passes (112.52 s), frontend typecheck/build and Ruff; [summary](../EVALS.md). | Final reviewed SHA and reproducibility; these are not eight actual-model tasks. |
+| Video | Local **110 s** edited captioned recording, actual new browser latency **220.794 s**, live MCP evidence and labelled post-run inspection; [record](../evals/results/I01.13-local-video.json). | Edited local capture with measured latency is authorized. Qualifying uninterrupted recording or official edited-format clarification, named human decision, public URL and playback verification remain open; browser latency exceeds 180 s before review. |
+| Local Ubuntu operation | [Restart, concurrency and shutdown instructions](../infra/LOCAL_OPERATIONS.md) verified after host power-off; original dedicated pending draft preserved, pinned actual inference passed. | Operator rehearsal as needed; no inference-time shutdown or backup/restore trial claimed. |
+| Remote access/domain | Owner reports no domain; application remains loopback-only. | No remote setup is authorized in this task. The prior restricted tunnel expired; no new tunnel is authorized. Domain absence does not block local recording. |
 
 ## Missing submission answers — owner and official form inputs
 
@@ -89,7 +90,7 @@ placeholders as confirmed facts.
 | Technology/reuse | Local pinned Qwen, LangGraph, three own MCP tools, isolated borrowed Fetch; [architecture](../ARCHITECTURE.md). | Final model/dataset hashes and upstream/data/model licence review; confirm private draft action meets official rule. |
 | Evaluation | Two browser variants, measured 234.38/246.07 s, retained HTTP timeout; [EVALS](../EVALS.md). | Eight-plus actual tasks, independently derived expectations, repeat denominators, manual baseline only if observed. |
 | Repository | `https://github.com/Fredrick-owino/market-price-intelligence-agent` is public. | Final exact commit/tag, source/history rights audit, independent fresh-clone result and one-command requirement (no `make demo` exists). |
-| Video | Local recording script ready; no remote hostname needed. | Qualifying public YouTube/Vimeo URL, actual duration, signed-out playback and secret review. |
+| Video | Local edited recording, shortened waiting explicitly disclosed, English captions; no remote hostname needed. | Qualifying public YouTube/Vimeo URL, actual duration, signed-out playback and secret review. |
 | Calendar/rules | Lead-reported build start 9 October; planning pack lists 15 October deadline. | Official exact cutoff time/timezone, eligibility/form requirements and post-deadline instructions with dated source. |
 | Submission/freeze | No submission performed. | Final signed-in form answers, link review, receipt, actual timestamp/timezone, frozen SHA and required signoff. |
 | Deployment URL, if asked | Local-only Ubuntu demonstration; no domain and no remote application URL. | Verify whether the actual form requires a hosted app; do not present loopback or GitHub as a remotely usable application. |
@@ -104,11 +105,11 @@ preparation alone.
 
 ## Temporary preview addendum — prepared, not public submission evidence
 
-- [ ] Owner authorizes the exact email-restricted, port-8000
+- [x] Owner authorized the exact email-restricted, port-8000
   [Quick Tunnel command](../infra/QUICK_TUNNEL.md) and bounded demo window.
 - [ ] After launch, protected-mode startup and allowed/denied email access are
   verified; officer authentication, one-workflow policy and recovery pass.
-- [ ] The actual temporary hostname, availability window and teardown outcome
+- [x] The actual temporary hostname, availability window and teardown outcome
   are retained privately. Do not put the allowlist, credentials or PINs in Git.
 - [ ] Any form requesting a deployment URL is inspected for public-access and
   durability requirements. The initial owner-only preview cannot demonstrate
@@ -134,3 +135,35 @@ evidence boundaries.
 Use the [practitioner feedback preparation](practitioner-feedback-preparation.md)
 to collect the missing institution, workflow, data, cost and latency answers.
 It contains questions only; no interview or endorsement has occurred.
+
+
+## Final preparation answers and remaining concrete requirements
+
+Prepared [field answers](submission-answers-draft.md) and
+[English description](submission-description-draft.md) use actual evidence,
+with unknown fields clearly marked. Inspect the real final form before mapping
+these answers; no receipt or submission exists.
+
+| Requirement | Concrete outstanding evidence |
+|---|---|
+| Practitioner/institution | Named consented extension office/cooperative and decision owner; selected crop/grade/origin/three markets; realistic prices, costs, capacity, freshness and units; usefulness/latency feedback. |
+| Evaluation/review | Eight diverse actual-model tasks with independently derived expected results and honest repeat counts; independent technical/officer review; revision UI/gate evidence. Two prior browser quantities and new recording attempts are not eight distinct tasks. |
+| Reproducibility/rights | Independent fresh-clone one-command trial; final upstream/model/data/history-rights review, including unresolved historical KAMIS redistribution. |
+| Deadline/eligibility/form | Dated official end-window and exact cutoff time/timezone, freeze instructions, permitted entrant/team eligibility, actual final form fields and required signoff. Planning-pack 15 October is not a confirmed cutoff. |
+| Qualifying video/link | Local edited video deliberately shortens waiting and performs no human approval. It needs official format acceptance or a new qualifying uninterrupted run with named review; then separately authorized public upload, processing and signed-out playback. |
+| Durable application link if required | Inspect form hosting requirement; no durable public app URL exists. Expired owner-only Quick Tunnel is not judge access or a submission link. No new exposure authorized. |
+| Submission/freeze | Final verified answers/links and authorized signed-in submission, retained receipt/timezone and frozen SHA. |
+
+Local browser/model/MCP success and synthetic approval/rejection are supported
+by actual local records. Phone email verification is owner-reported; remote
+officer completion remains unverified, with zero stored remote decisions.
+This checklist is complete as a preparation inventory; incomplete release
+requirements are intentionally left unchecked.
+
+
+Local recording acceptance for this authorized task: duration 110.0 s <180 s;
+actual request-to-review 220.794 s explicitly disclosed; credentials/PINs
+excluded; comparison and exact pending draft visible; no decision/upload.
+The final local readiness check confirms 200 health/authorized draft, 401
+unauthorized access, loopback-only app/model and unchanged original draft,
+checkpoint rows and private configuration. [Readiness](../evals/results/I01.13-final-local-readiness.json).

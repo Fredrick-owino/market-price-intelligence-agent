@@ -8,7 +8,8 @@ import { once } from 'node:events'
 import { chromium } from 'playwright-core'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
-const out = path.join(root, '.state/video/I01.13-local-demo')
+const attempt = new Date().toISOString().replaceAll(':', '-').replaceAll('.', '-')
+const out = path.join(root, `.state/video/I01.13-local-demo-${attempt}`)
 await mkdir(out, { recursive: true, mode: 0o700 })
 const frames = path.join(out, 'frames')
 await mkdir(frames, { mode: 0o700 })
@@ -17,7 +18,7 @@ const base = 'http://127.0.0.1:8000'
 const apiLog = path.join(root, '.state/api-restored.local.log')
 const ffmpeg = path.join(root, '.cache/playwright/ffmpeg-1013/ffmpeg-linux')
 const fps = 4
-let index = 0, liveStart = 0, workflow = '', requestBody = null
+let index = 0, liveStart = 0, workflow = '', requestBody = null, logOffset = 0
 const scenes = [], trace = [], pageErrors = []
 const revision = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim()
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true })
@@ -65,6 +66,7 @@ try {
   await page.getByRole('heading', { name: 'Comparison request' }).scrollIntoViewIfNeeded()
   await capture(8, 'One bounded 500 kg request', 'Software calculates comparable gross and net proceeds. A local synthetic test officer can review an exact draft; the model cannot approve it. Sign-in was completed before capture.')
   const responsePromise = page.waitForResponse(r => r.url() === `${base}/api/v1/requests` && r.request().method() === 'POST')
+  logOffset = (await readFile(apiLog, 'utf8')).length
   liveStart = Date.now()
   await page.getByRole('button', { name: 'Start comparison' }).click()
   const response = await responsePromise
@@ -82,7 +84,7 @@ try {
   const seen = new Set()
   let completedAt
   while (Date.now() - liveStart < 900000) {
-    const logEvents = events(await readFile(apiLog, 'utf8'))
+    const logEvents = events((await readFile(apiLog, 'utf8')).slice(logOffset))
     for (const row of logEvents) {
       const key = row.event === 'borrowed_retrieval_verified' ? 'borrowed-fetch' : row.event === 'mcp_call' && !row.is_error ? row.tool : null
       if (!key || seen.has(key)) continue
@@ -105,17 +107,17 @@ try {
   assert.equal(result.comparison.markets[0].estimated_net_proceeds, '18000.00')
   assert.equal(result.comparison.markets[1].estimated_net_proceeds, '14500.00')
   for (const tool of ['borrowed-fetch', 'search_market_quotes', 'compare_market_options', 'save_advisory_draft']) assert(seen.has(tool), `Missing actual tool ${tool}`)
-  await page.getByRole('heading', { name: 'Market options' }).scrollIntoViewIfNeeded()
+  await page.locator('.market-grid').evaluate(el => el.scrollIntoView({ block: 'start' }))
   await capture(10, `Measured request-to-review: ${measured.toFixed(3)} seconds`, 'Waiting was shortened. This is an edited local demonstration, not an uninterrupted sub-three-minute agent run. Previous browser measurements: 234.38 s and 246.07 s.')
   await capture(14, 'Higher gross does not imply higher net', '500 kg: A gross KES 20,000 − transport 2,000 = net 18,000. B gross 22,500 − transport 8,000 = net 14,500. Market A leads by KES 3,500; fees, handling and loss are explicit zero assumptions.')
-  await page.getByRole('heading', { name: 'Draft version 1' }).scrollIntoViewIfNeeded()
+  await page.getByRole('heading', { name: 'Draft version 1' }).evaluate(el => el.scrollIntoView({ block: 'start' }))
   await capture(12, 'Private draft, immutable version and source provenance', 'Version 1 is bound to the displayed SHA-256 and pinned fixture. Borrowed retrieval and own tools ran through actual MCP. Values are synthetic; no current-price or buyer-demand claim.')
   await page.getByRole('button', { name: 'Approve internal review' }).scrollIntoViewIfNeeded()
   await capture(12, 'Human review remains pending', 'Approval or rejection requires an authenticated decision on this exact version and hash. No approval is performed in this recording. The earlier owner-test draft also remains untouched. Nothing is delivered to farmers.')
   await capture(10, 'Verified local success; remote completion remains unverified', 'Earlier Chrome tests verified synthetic approval, rejection and refresh. Phone email login was owner-reported; remote officer completion was not verified. The one-hour connector expired and has not been relaunched.')
   await capture(10, 'Remaining submission requirements', 'Named institution and practitioner; eight diverse live evaluations and independent review; fresh-clone setup; exact official cutoff; qualifying video and durable public demonstration link. This file stays local, with no upload or submission.')
   assert.equal(pageErrors.length, 0)
-  trace.push(...events(await readFile(apiLog, 'utf8')))
+  trace.push(...events((await readFile(apiLog, 'utf8')).slice(logOffset)))
   const sanitized = JSON.stringify(trace)
   assert(!sanitized.includes(token))
   await writeFile(path.join(root, 'evals/results/I01.13-recorded-local-trace.jsonl'), trace.map(x => JSON.stringify(x)).join('\n') + '\n')
@@ -135,6 +137,10 @@ try {
   assert(evidence.encoded_duration_seconds < 180)
   await writeFile(path.join(root, 'evals/results/I01.13-local-video.json'), JSON.stringify(evidence, null, 2) + '\n')
   console.log(`Local edited video: ${videoPath}; ${evidence.encoded_duration_seconds}s; actual review latency ${measured}s`)
+} catch (error) {
+  const failure = { label: 'Failed actual local recording attempt; no success claimed', revision, workflow_id: workflow, recorded_at: new Date().toISOString(), captured_frames: index, error_type: error.name, decision_count: 0, local_frames: path.relative(root, frames), uploaded: false }
+  await writeFile(path.join(out, 'failure.local.json'), JSON.stringify(failure, null, 2) + '\n')
+  throw error
 } finally {
   await context.close()
   await browser.close()

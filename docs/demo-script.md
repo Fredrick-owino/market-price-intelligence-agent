@@ -1,7 +1,9 @@
 # Demonstration video script — local synthetic workflow
 
-Prepared 12 October 2026 for I01.13; Fredrick, solo review. This is a script,
-not a recorded rehearsal, qualifying video or submission. No domain is
+Prepared 12 October 2026 for I01.13; Fredrick, solo review. The original sections below are the planned unedited script. The owner later
+authorized a local edited recording with waiting shortened and measured
+latency disclosed; its actual evidence is recorded in the final addendum.
+That local file is not an accepted qualifying video or submission. No domain is
 available; recording the local Ubuntu browser requires no remote access.
 
 ## Evidence and timing constraint
@@ -93,3 +95,36 @@ new live execution. An initial phone “Bad request” was followed by owner-con
 verification and officer sign-in. No remote model run or stored officer
 decision was verified. The connector expired at 16:04:44 EAT; this URL
 is no longer a presentation option.
+
+
+## Owner-authorized edited local capture
+
+The continuation records a new real local 500 kg workflow using
+`frontend/scripts/record-local-demo.mjs`. Authentication finishes before any
+frame capture. English captions identify synthetic data and local execution;
+executed borrowed/own MCP tool names, timestamps and outputs appear from the
+current run's log. Waiting is explicitly omitted and measured request-to-review
+latency remains visible. The UI's exact draft/version/hash and review controls
+are shown without making any decision. Original pending draft is preserved.
+
+The output is captioned without audio and remains under 180 seconds. It is
+local edited preparation; it does not satisfy the retained uninterrupted-run
+and named-human-approval video requirement. No upload/submission occurs.
+The first new capture failed because the system-path Ollama lacked its runner;
+that failed attempt is retained, and the existing complete pinned user-local
+runtime passed actual inference before the separately identified retry.
+
+
+Final local recording: **110.0 seconds**, WebM VP9, 1440×1000, 4 fps,
+English on-screen captions and no audio. File stays in ignored private runtime
+state: `.state/video/I01.13-local-demo-2026-10-12T20-08-12-967Z/sokosignal-local-demo-edited-v2.webm`. Measured new browser request-to-review: **220.794 s**.
+Actual borrowed Fetch and three own tools completed; duplicate start returned
+202/same run and a distinct overlapping start returned 409. Both drafts
+remain pending, with zero decisions. [Video evidence](../evals/results/I01.13-local-video.json),
+[current actual trace](../evals/results/I01.13-recorded-local-trace.jsonl).
+
+Decoded duration and sample frames were checked. Initial export obscured market
+cards; corrected comparison/provenance shots inspect the same persisted run
+and are visibly labelled post-run inspection. Original export/frames remain
+private and preserved. No credentials or PIN screens appear in final capture.
+This edited walkthrough is local preparation, not a qualifying unedited video.
