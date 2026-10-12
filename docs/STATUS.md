@@ -1,7 +1,8 @@
 # Project status — update from execution evidence
 
-Last evidence update: 12 October 2026 (I01.13). Synthetic local demo
-implementation and HTTP evidence are recorded on main; release gates remain open.
+Last evidence update: 12 October 2026 (I01.13 visibility addendum). Synthetic
+local demo implementation and HTTP evidence are recorded on main; release gates
+remain open.
 
 - stage: LOCAL_SYNTHETIC_DEMO
 - implementation_start_confirmed: true
@@ -25,6 +26,7 @@ implementation and HTTP evidence are recorded on main; release gates remain open
 - overlap_time: UNKNOWN
 - repository_local: Dedicated project repository initialized on main at /home/fred/Projects/market-intelligence-challenge
 - repository_remote: https://github.com/Fredrick-owino/market-price-intelligence-agent.git (origin)
+- repository_visibility: PUBLIC — Fredrick changed it manually on 12 October 2026; unauthenticated GitHub API and raw README both returned HTTP 200. Historical KAMIS redistribution rights remain unresolved.
 - initial_preparation_commit: bce05d079ebb88d77d1e55d3a797a37de1487668 — pushed and remote main verified in P04.2; main tracks origin/main
 - P05.1_driver_review: REVIEWED — ignore/licence preparation, confirmed in P05.2 prompt
 - team_licence_review: PENDING — proposed MIT for original work only
@@ -58,6 +60,18 @@ attempt timed out and remains retained. Browser UI interaction could not be
 performed because the computer-use browser surface was unavailable. Independent
 officer/practitioner review, real data, public deployment and all G0–G6 gates
 remain outstanding.
+
+### Public repository visibility addendum — 12 October 2026
+
+Fredrick reported manually changing the original repository to public. An
+unauthenticated GitHub repository API response returned HTTP 200 with
+`private: false` and `visibility: public`; anonymous raw `main/README.md`
+also returned HTTP 200. See the [verification record](runs/I01.13-public-visibility.md).
+Earlier statements that this repository was private describe its state when
+written. No history was rewritten or visibility changed by Codex.
+The application still uses only the labelled project-authored synthetic
+fixture; historical KAMIS redistribution rights remain unresolved. The API
+remains bound to loopback, and no release gate is marked complete.
 
 ## I01.12 — local authenticated review evidence
 

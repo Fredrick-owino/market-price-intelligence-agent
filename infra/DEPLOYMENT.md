@@ -21,8 +21,10 @@ is incomplete.
 | Hosting/account | Approved provider or institution-owned host, account owner and administrator. |
 | Cost | Monthly spending ceiling for CPU/GPU, storage and traffic; no cost or speedup is inferred from this laptop run. |
 | Exposure | Whether the UI is private to named officers, behind an institutional VPN, or public; API should remain private until identity and network review. |
-| Rights | Confirmation that repository and source-data publication is allowed; the recorded repository-visibility blocker remains unresolved. |
+| Rights | Historical KAMIS redistribution rights remain unresolved despite the repository now being public. Confirm rights before any real-data ingestion or reuse. |
 | Identity/operations | Named officer roster, token/session lifecycle, TLS, backups and a shared durable resume lock or outbox for more than one worker. |
 
-No hosting account was created, no public port was opened, and repository
-visibility was not changed. These choices are outside the current local demo.
+Fredrick manually made the repository public on 12 October 2026; anonymous
+access was verified separately. No hosting account was created and no public
+application port was opened. Public source code does not make this loopback
+application a public service or resolve historical data rights.

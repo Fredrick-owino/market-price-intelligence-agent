@@ -60,6 +60,9 @@ npm run build --prefix frontend
 
 See [architecture](ARCHITECTURE.md), [evaluation and limits](EVALS.md),
 [demo script](docs/demo-script.md) and the detailed [I01.13 run report](docs/runs/I01.13-demo-integration.md).
-This local configuration is **not** a public deployment. Keep the repository
-private until the recorded publication blocker is resolved. No public API,
-frontend hosting or submission is performed by this setup.
+The repository is public following Fredrick's manual visibility change on
+12 October 2026. This local configuration is **not** a public deployment: no
+public API, frontend hosting or submission is performed by this setup.
+Historical KAMIS redistribution rights remain unresolved; repository visibility
+does not grant rights to ingest or redistribute those records. The running app
+uses only the labelled, project-authored synthetic fixture.
