@@ -38,7 +38,8 @@ in 147.214 seconds. That single run establishes feasibility on this machine,
 not uptime, concurrent capacity or a latency guarantee. The machine must stay
 powered, online and awake during a remote demonstration.
 
-**Preferred bounded remote presentation:** after owner approval, put a
+**Owner-selected bounded remote presentation (12 October 2026):** after the
+remaining domain, audience and exposure details are supplied, put a
 Cloudflare Tunnel from this machine to a dedicated hostname in an owner-controlled
 Cloudflare domain. Apply a Cloudflare Access self-hosted application policy to
 the *whole* hostname before enabling the route, allowing only named demo
@@ -57,6 +58,22 @@ Its [Zero Trust free plan](https://www.cloudflare.com/plans/zero-trust-services/
 currently lists $0 for up to 50 users, but a suitable domain and its renewal
 cost are separate. No Cloudflare account, domain, route or Access policy has
 been created or tested here.
+
+The harmless [tunnel config example](cloudflared.example.yml) routes only the
+chosen demo hostname to `127.0.0.1:8000` and returns 404 for every other
+hostname. Its UUID, credential path and hostname are placeholders. Keep the
+real config and tunnel credential outside Git. The order of work is: confirm
+the owner-controlled Cloudflare account/domain and named viewers; create a
+whole-hostname self-hosted Access application with an explicit named-email
+allow rule and short session; test its policy with allowed and denied identities;
+create the tunnel and validate its ingress; add the route only after Access is
+confirmed; then test signed-out denial, signed-in UI, API authorization,
+restart recovery and teardown. Do not use an unrestricted email-domain or
+one-time-PIN allow rule. Cloudflare's [policy guidance](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/common-policies/)
+warns that a one-time-PIN include rule without an email restriction can admit
+any email address. The [config format and ingress validation commands](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/configuration-file/)
+are documented by Cloudflare. No `cloudflared` binary is installed here yet;
+no tunnel configuration has been activated.
 
 **Hosted alternative:** one Runpod Secure Cloud GPU Pod with the unchanged
 4-bit Qwen model, both locked Python environments, built frontend, one Uvicorn

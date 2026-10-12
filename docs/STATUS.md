@@ -86,6 +86,15 @@ times were 234.38 s and 246.07 s. This supersedes the earlier statement that
 browser interaction was unavailable. Fredrick's review remains solo; G0–G6
 stay NOT_PASSED.
 
+### Controlled HTTPS preparation — 12 October 2026
+
+Fredrick selected the existing Ubuntu machine with Cloudflare Tunnel and Access
+for a future controlled HTTPS demonstration. The
+[prepared configuration and account requirements](../infra/DEPLOYMENT.md)
+do not enable a route or expose the API. Exact domain/account control, named
+viewer identities, demo window and spending limit remain owner inputs. No
+hosting or public-exposure gate is passed.
+
 ## I01.12 — local authenticated review evidence
 
 The [I01.12 report](runs/I01.12-review-api.md) and

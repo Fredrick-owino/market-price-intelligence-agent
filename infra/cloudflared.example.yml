@@ -1,0 +1,8 @@
+# Example only. Do not use until Access protection and the exact audience are approved.
+# Keep the real tunnel credential JSON outside this repository.
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: /private/path/REPLACE_WITH_TUNNEL_UUID.json
+ingress:
+  - hostname: demo.example.org
+    service: http://127.0.0.1:8000
+  - service: http_status:404
