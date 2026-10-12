@@ -237,8 +237,13 @@ class DraftStore:
         reviewer_id: str,
         idempotency_key: str,
         reason: str = "Synthetic recovery test",
+        *,
+        authenticated: bool = False,
     ) -> dict:
-        if reviewer_id != "simulated:officer-001":
+        if authenticated:
+            if not reviewer_id or reviewer_id.startswith("simulated:"):
+                raise StoreConflict("Authenticated officer identity is required.")
+        elif reviewer_id != "simulated:officer-001":
             raise StoreConflict("Reviewer identity must be simulated:officer-001.")
         if decision not in {"approve", "reject"}:
             raise StoreConflict("Decision must be approve or reject.")
@@ -301,19 +306,45 @@ class DraftStore:
                 "UPDATE drafts SET status=? WHERE workflow_id=? AND version=?",
                 ("APPROVED" if decision == "approve" else "REJECTED", workflow_id, version),
             )
-            self._audit(db, workflow_id, "simulated_review_decision", record)
+            self._audit(
+                db,
+                workflow_id,
+                "officer_review_decision" if authenticated else "simulated_review_decision",
+                record,
+            )
             db.execute("COMMIT")
         return record
 
     def decision(self, workflow_id: str) -> dict:
         with self.connect() as db:
             row = db.execute(
-                "SELECT * FROM decisions WHERE workflow_id=? ORDER BY decided_at DESC LIMIT 1",
-                (workflow_id,),
+                "SELECT d.* FROM decisions d JOIN drafts v "
+                "ON d.workflow_id=v.workflow_id AND d.draft_id=v.draft_id "
+                "WHERE d.workflow_id=? AND v.version=(SELECT MAX(version) FROM drafts "
+                "WHERE workflow_id=?)",
+                (workflow_id, workflow_id),
             ).fetchone()
             if not row:
-                raise StoreConflict("No recorded simulated review decision exists.")
+                raise StoreConflict("No recorded decision exists for the current draft.")
             return dict(row)
+
+    def current_draft(self, workflow_id: str) -> dict | None:
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT * FROM drafts WHERE workflow_id=? ORDER BY version DESC LIMIT 1",
+                (workflow_id,),
+            ).fetchone()
+            if row is None:
+                return None
+            return {**dict(row), "content": json.loads(row["content"])}
+
+    def pending_drafts(self, permitted_workflows: frozenset[str]) -> list[dict]:
+        return [
+            draft
+            for workflow_id in sorted(permitted_workflows)
+            if (draft := self.current_draft(workflow_id)) is not None
+            and draft["status"] == "PENDING_REVIEW"
+        ]
 
     def validate_review(self, workflow_id: str, draft: dict, review: dict) -> dict:
         """Resume authority comes only from the stored decision for the current version."""

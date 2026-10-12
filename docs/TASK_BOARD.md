@@ -238,6 +238,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Acceptance evidence: Unauthorized/stale/repeated/conflicting decision tests and transaction/audit results.
 - Actual report/commit/reviewer/date: **not recorded**.
 
+- Bounded I01.12 evidence (2026-10-12): [report](runs/I01.12-review-api.md), [handoff](handoffs/I01.12-A-2026-10-12.md). Local bearer officer API, exact draft decision, atomic audit and recoverable graph resume verified with 142 backend tests and actual loopback HTTP. Solo review; I11/gates remain incomplete.
+
 ## I12 — Human pause, rejection, revision and resume
 
 - [ ] Complete and peer-reviewed

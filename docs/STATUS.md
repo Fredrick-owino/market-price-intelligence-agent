@@ -1,6 +1,7 @@
 # Project status — update from execution evidence
 
-Last evidence update: 9 October 2026 (P11.1). No local implementation verified.
+Last evidence update: 12 October 2026 (I01.12). Synthetic local implementation
+evidence is recorded on task branches; preparation and release gates remain open.
 
 - stage: PREPARATION
 - implementation_start_confirmed: true
@@ -31,7 +32,7 @@ Last evidence update: 9 October 2026 (P11.1). No local implementation verified.
 - crop_origin_and_three_markets: NOT_CONFIRMED
 - data_access_and_redistribution_rights: NOT_VERIFIED
 - runtime_model_and_dependency_versions: NOT_BENCHMARKED
-- current_task: P11.1 phased implementation-readiness documentation
+- current_task: I01.12 authenticated officer review API, synthetic local demo
 - next_task_after_P00: P01 team capacity/roles
 
 | Gate | Status | Evidence needed |
@@ -45,6 +46,15 @@ Last evidence update: 9 October 2026 (P11.1). No local implementation verified.
 | G6 submission | NOT_PASSED | Public artifacts, verified form submission, receipt, commit freeze |
 
 Record task evidence under docs/handoffs/ and sanitized durable run evidence under evals/results/. No empty file or placeholder qualifies as a completed deliverable.
+
+## I01.12 — local authenticated review evidence
+
+The [I01.12 report](runs/I01.12-review-api.md) and
+[handoff](handoffs/I01.12-A-2026-10-12.md) record the bounded review API, 142
+passing backend tests and an actual loopback HTTP review/resume check against a
+pending synthetic workflow. Authentication uses ignored local configuration and
+is not production identity assurance. Fredrick performed solo review; no
+independent officer or peer validation is implied. G0–G6 stay NOT_PASSED.
 
 P05.2 evidence: [preparation handoff](handoffs/P05.2-A-2026-10-07.md).
 The driver supplied the P00 completion, ordinary-terminal Docker verification and

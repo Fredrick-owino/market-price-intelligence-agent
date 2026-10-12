@@ -416,23 +416,7 @@ def run_review(args) -> None:
         args.decision_key,
     )
     event("simulated_review_recorded", decision=record)
-    config = {"configurable": {"thread_id": args.workflow_id}}
-
-    async def invoke():
-        async with AsyncSqliteSaver.from_conn_string(str(args.db)) as saver:
-            app = build_graph(args.db).compile(checkpointer=saver)
-            snapshot = await app.aget_state(config)
-            if not snapshot.next:
-                return None
-            if snapshot.next == ("finalize",):
-                # A rejected untrusted resume may have consumed the interrupt.
-                # Recover only with the now-stored decision validated against this draft.
-                store.validate_review(args.workflow_id, snapshot.values["draft"], record)
-                await app.aupdate_state(config, {"review": record}, as_node="review_pause")
-                return await app.ainvoke(None, config)
-            return await app.ainvoke(Command(resume=record), config)
-
-    result = asyncio.run(invoke())
+    result = asyncio.run(resume_stored_workflow(args.db, args.workflow_id))
     if result is None:
         event(
             "workflow_replay_noop",
@@ -448,6 +432,36 @@ def run_review(args) -> None:
         draft=result.get("draft"),
         persistent_counts=store.counts(args.workflow_id),
     )
+
+
+async def workflow_snapshot(db_path: Path, workflow_id: str):
+    async with AsyncSqliteSaver.from_conn_string(str(db_path)) as saver:
+        app = build_graph(db_path).compile(checkpointer=saver)
+        return await app.aget_state({"configurable": {"thread_id": workflow_id}})
+
+
+async def resume_stored_workflow(db_path: Path, workflow_id: str) -> dict | None:
+    """Replay the committed decision; safe after a crash following the domain commit."""
+    store = DraftStore(str(db_path))
+    record = store.decision(workflow_id)
+    config = {"configurable": {"thread_id": workflow_id}}
+    async with AsyncSqliteSaver.from_conn_string(str(db_path)) as saver:
+        app = build_graph(db_path).compile(checkpointer=saver)
+        snapshot = await app.aget_state(config)
+        if not snapshot.values or "draft" not in snapshot.values:
+            raise StoreConflict("Review checkpoint is missing its draft.")
+        store.validate_review(workflow_id, snapshot.values["draft"], record)
+        if not snapshot.next:
+            expected = "approved_internal_review" if record["decision"] == "approve" else "rejected"
+            if snapshot.values.get("outcome") != expected:
+                raise StoreConflict("Completed checkpoint conflicts with stored decision.")
+            return None
+        if snapshot.next == ("finalize",):
+            await app.aupdate_state(config, {"review": record}, as_node="review_pause")
+            return await app.ainvoke(None, config)
+        if snapshot.next != ("review_pause",):
+            raise StoreConflict("Workflow is not paused at the review gate.")
+        return await app.ainvoke(Command(resume=record), config)
 
 
 def main() -> None:
