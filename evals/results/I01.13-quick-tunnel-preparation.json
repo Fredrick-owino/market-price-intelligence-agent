@@ -1,0 +1,38 @@
+{
+  "task": "I01.13 protected Quick Tunnel preparation",
+  "date": "2026-10-12",
+  "review": "Fredrick, solo",
+  "official_docs": "https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/",
+  "official_release": "https://github.com/cloudflare/cloudflared/releases/tag/2026.10.0",
+  "asset_url": "https://github.com/cloudflare/cloudflared/releases/download/2026.10.0/cloudflared-linux-amd64",
+  "asset_sha256": "d33ff2d14475178d2012c2c56beba87389ac5ded27649519f198a7d3134a99db",
+  "version_output": "cloudflared version 2026.10.0 (built 2026-10-05-17:37 UTC)",
+  "installed_path": ".cache/cloudflared/2026.10.0/cloudflared",
+  "version_exit_code": 0,
+  "tunnel_help_exit_code": 0,
+  "intended_flags_with_help_exit_code": 0,
+  "allowed_mail_in_help": true,
+  "allowed_exact_address_count": 1,
+  "wildcard_domain_rules": 0,
+  "origin": "http://127.0.0.1:8000",
+  "metrics_bind": "127.0.0.1:20241",
+  "loopback_listeners": [
+    "127.0.0.1:8000",
+    "127.0.0.1:11434"
+  ],
+  "current_api_health": {
+    "status": "ready"
+  },
+  "current_anonymous_pending_http": 401,
+  "installed_model_tag_and_digest_match": true,
+  "dedicated_test_verifier_schema_valid": true,
+  "private_preparation_file_modes": "0600",
+  "temporary_api_started": false,
+  "remote_tunnel_started": false,
+  "remote_url": null,
+  "remote_auth_tests": "NOT_EXECUTED",
+  "remote_recovery_tests": "NOT_EXECUTED",
+  "new_model_runs": 0,
+  "gate_changes": false,
+  "prepared_private_files_tracked": false
+}

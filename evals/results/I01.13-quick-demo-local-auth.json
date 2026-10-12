@@ -1,0 +1,13 @@
+{
+  "label": "Actual local temporary configuration checks; no remote login",
+  "api_health": "ready",
+  "authentication_statuses": {
+    "anonymous": 401,
+    "invalid": 401,
+    "original_officer": 401,
+    "temporary_officer": 200,
+    "outside_scope": 403
+  },
+  "pinned_model_match": true,
+  "synthetic_officer": true
+}

@@ -1,6 +1,6 @@
 # Project status — update from execution evidence
 
-Last evidence update: 12 October 2026 (I01.13 browser addendum). Synthetic
+Last evidence update: 12 October 2026 (I01.13 local preparation addendum). Synthetic
 local demo implementation and HTTP evidence are recorded on main; release gates
 remain open.
 
@@ -221,7 +221,6 @@ Fetch 2026.8.18 requires an isolated MCP-1.x environment; no application SDK
 change was made. Owner: Fredrick; solo review. Continue the same bounded task
 after the public-fixture prerequisite is resolved. All gates remain unchanged.
 
-
 ## I01.10 — synthetic public fixture and real borrowed retrieval (2026-10-11)
 
 The [resumed execution](runs/I01.10-borrowed-fetch-execution.md) resolves the
@@ -234,7 +233,6 @@ Review: Fredrick, solo. The original repository remains PRIVATE because its
 historical KAMIS rights blocker is unchanged. Model integration, independent
 review and all gate acceptance remain outstanding; no gate is marked complete.
 
-
 ## I01.11 — integrated synthetic workflow (2026-10-11)
 
 [Execution report](runs/I01.11-integrated-workflow.md) and
@@ -245,3 +243,51 @@ private draft, paused, and resumed after a stored exact-hash simulated decision.
 Pre-review time 282.448s exceeds the demo target; authentication, broader
 reliability and independent review remain open. Fredrick owns both workstreams;
 review is solo. No gate status, publication visibility or real-data rights changed.
+
+## I01.13 — local video/submission preparation, 12 October 2026
+
+Source: Fredrick's task conversation reports no domain and requests preparation
+without enabling remote access. Prepared [video script](demo-script.md),
+[submission checklist and missing answers](SUBMISSION_CHECKLIST.md),
+[browser evaluation summary](../EVALS.md) and
+[Ubuntu operations guide](../infra/LOCAL_OPERATIONS.md). The
+[preparation handoff](handoffs/I01.13-preparation-A-2026-10-12.md) records checks.
+These documents reuse verified Chrome results; no new model run, rehearsal,
+service restart, deployment or submission is implied. Measured browser times
+234.38/246.07 s exceed the planned short-video duration before human review.
+Practitioner/institution feedback and actual form answers remain missing.
+Remote access stays disabled, credentials stay private, and G0–G6 stay NOT_PASSED.
+
+
+## I01.13 — protected Quick Tunnel preparation, 12 October 2026
+
+The owner requests domain-free, email-restricted preparation and explicitly
+prohibits tunnel launch pending specific authorization. Current official
+[Quick Tunnel documentation](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/)
+and official binary help support `--allowed-mail`. Installed the checksum-verified
+2026.10.0 standalone binary in ignored project-local cache. Prepared one exact
+owner-email rule outside Git, a blank private tunnel config and dedicated
+synthetic demo officer credential files. Existing local configuration is intact.
+Current API/Ollama listeners were verified loopback-only; API health, pinned
+model metadata and anonymous-access rejection checked. No tunnel or new API
+configuration started. See [command/operations](../infra/QUICK_TUNNEL.md) and
+[handoff](handoffs/I01.13-quick-tunnel-A-2026-10-12.md).
+
+No domain is required for this temporary option. The generated URL will change
+on connector restart; remote authentication/availability/recovery remain
+unverified. Script, checklist and EVALS continue to label synthetic data and
+measured local latency, with practitioner/form answers missing. G0–G6 remain
+NOT_PASSED; readiness is prepared CLI/local prerequisites, not verified exposure.
+
+
+## I01.13 — owner-authorized one-hour test prerequisites
+
+Owner explicitly authorizes one exact-email restricted remote test for at most
+3,600 seconds, after software concurrency/local auth/tests/commit/push. Added
+one active model-workflow slot per single-worker API process and bounded
+connector watchdog (3,590 seconds with safety margin); no app/model shutdown
+on expiry. Temporary verifier/database activated and local unauthorized/scope
+checks passed, original state/config preserved. The
+[execution handoff](handoffs/I01.13-one-hour-demo-A-2026-10-12.md) distinguishes
+prelaunch checks from actual exposure/login/workflow/expiry evidence. All gates
+remain NOT_PASSED; the prior no-launch wording describes preparation history.

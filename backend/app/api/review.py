@@ -5,7 +5,6 @@ import hashlib
 import json
 import os
 import secrets
-import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Literal
@@ -102,17 +101,27 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     officers = load_officers(officers_path)
     store = DraftStore(str(db_path))
     app = FastAPI(title="SokoSignal local officer review", version="1")
-    locks: dict[str, threading.Lock] = {}
+    locks: dict[str, asyncio.Lock] = {}
     active_tasks: dict[str, asyncio.Task] = {}
+    model_slot = asyncio.Lock()
+    active_model_workflow: str | None = None
 
     @asynccontextmanager
     async def workflow_lock(workflow_id: str):
-        lock = locks.setdefault(workflow_id, threading.Lock())
-        await asyncio.to_thread(lock.acquire)
-        try:
+        lock = locks.setdefault(workflow_id, asyncio.Lock())
+        async with lock:
             yield
-        finally:
-            lock.release()
+
+    @asynccontextmanager
+    async def model_execution(workflow_id: str):
+        """One model workflow per API process; queued runs never hold review locks."""
+        nonlocal active_model_workflow
+        async with model_slot:
+            active_model_workflow = workflow_id
+            try:
+                yield
+            finally:
+                active_model_workflow = None
 
     def authenticate(authorization: str | None = Header(default=None)) -> dict:
         if not authorization or not authorization.startswith("Bearer "):
@@ -143,8 +152,8 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
 
     async def drive(workflow_id: str) -> None:
         """Resume checkpoints after a process restart; one local API worker only."""
-        async with workflow_lock(workflow_id):
-            run = store.run(workflow_id)
+        async with model_execution(workflow_id), workflow_lock(workflow_id):
+            run = await asyncio.to_thread(store.run, workflow_id)
             if run is None or run["status"] != "RUNNING":
                 return
             request = json.loads(run["request_json"])
@@ -156,10 +165,15 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     ).compile(checkpointer=saver)
                     snapshot = await app_graph.aget_state(config)
                     if snapshot.values.get("draft"):
-                        store.update_run(workflow_id, "PENDING_REVIEW")
+                        await asyncio.to_thread(store.update_run, workflow_id, "PENDING_REVIEW")
                         return
                     if snapshot.values.get("outcome") == "model_failed":
-                        store.update_run(workflow_id, "FAILED", snapshot.values.get("failure_code"))
+                        await asyncio.to_thread(
+                            store.update_run,
+                            workflow_id,
+                            "FAILED",
+                            snapshot.values.get("failure_code"),
+                        )
                         return
                     if snapshot.next:
                         result = await app_graph.ainvoke(None, config)
@@ -175,13 +189,19 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                             config,
                         )
                 if result.get("outcome") == "model_failed":
-                    store.update_run(workflow_id, "FAILED", result.get("failure_code"))
+                    await asyncio.to_thread(
+                        store.update_run, workflow_id, "FAILED", result.get("failure_code")
+                    )
                 elif result.get("draft"):
-                    store.update_run(workflow_id, "PENDING_REVIEW")
+                    await asyncio.to_thread(store.update_run, workflow_id, "PENDING_REVIEW")
                 else:
-                    store.update_run(workflow_id, "FAILED", "missing_review_pause")
+                    await asyncio.to_thread(
+                        store.update_run, workflow_id, "FAILED", "missing_review_pause"
+                    )
             except Exception as error:  # noqa: BLE001 — never expose provider/HTTP diagnostics
-                store.update_run(workflow_id, "FAILED", type(error).__name__)
+                await asyncio.to_thread(
+                    store.update_run, workflow_id, "FAILED", type(error).__name__
+                )
 
     def schedule(workflow_id: str) -> None:
         prior = active_tasks.get(workflow_id)
@@ -190,11 +210,11 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
             active_tasks[workflow_id] = task
 
     async def reconcile(workflow_id: str) -> None:
-        current = store.current_draft(workflow_id)
+        current = await asyncio.to_thread(store.current_draft, workflow_id)
         if current is None or current["status"] not in {"APPROVED", "REJECTED"}:
             return
         try:
-            store.decision(workflow_id)
+            await asyncio.to_thread(store.decision, workflow_id)
         except StoreConflict:
             return
         try:
@@ -225,7 +245,9 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
             uuid5(NAMESPACE_URL, f"sokosignal:{officer['id']}:{body.idempotency_key}")
         )
         try:
-            run = store.create_run(workflow_id, officer["id"], body.model_dump())
+            run = await asyncio.to_thread(
+                store.create_run, workflow_id, officer["id"], body.model_dump()
+            )
         except StoreConflict as error:
             raise HTTPException(409, str(error)) from error
         if run["status"] == "RUNNING":
@@ -243,27 +265,31 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     @app.get("/api/v1/runs/{workflow_id}")
     async def status(workflow_id: str, officer: Officer):
         allow(workflow_id, officer)
-        run = store.run(workflow_id)
+        run = await asyncio.to_thread(store.run, workflow_id)
         if run is not None and run["status"] == "RUNNING":
             schedule(workflow_id)
-            current = store.current_draft(workflow_id)
+            current = await asyncio.to_thread(store.current_draft, workflow_id)
             if current is None:
                 return {
                     "workflow_id": workflow_id,
                     "status": "RUNNING",
                     "error_code": None,
-                    "phase": ["retrieval_and_model"],
+                    "phase": [
+                        "retrieval_and_model"
+                        if active_model_workflow == workflow_id
+                        else "queued_for_model"
+                    ],
                     "outcome": None,
                 }
         async with workflow_lock(workflow_id):
-            result = store.current_draft(workflow_id)
+            result = await asyncio.to_thread(store.current_draft, workflow_id)
             if result is None and run is None:
                 raise HTTPException(404, "Workflow not found")
             if result is not None:
                 await reconcile(workflow_id)
             snapshot = await workflow_snapshot(db_path, workflow_id)
-            result = store.current_draft(workflow_id)
-            run = store.run(workflow_id)
+            result = await asyncio.to_thread(store.current_draft, workflow_id)
+            run = await asyncio.to_thread(store.run, workflow_id)
             if result is None:
                 return {
                     "workflow_id": workflow_id,
@@ -273,7 +299,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     "outcome": snapshot.values.get("outcome"),
                 }
             if run is not None and result["status"] in {"APPROVED", "REJECTED"}:
-                store.update_run(workflow_id, "COMPLETED")
+                await asyncio.to_thread(store.update_run, workflow_id, "COMPLETED")
             return {
                 "workflow_id": workflow_id,
                 "status": "COMPLETED"
@@ -293,11 +319,11 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     async def decide(workflow_id: str, body: DecisionInput, officer: Officer):
         allow(workflow_id, officer)
         async with workflow_lock(workflow_id):
-            current = store.current_draft(workflow_id)
+            current = await asyncio.to_thread(store.current_draft, workflow_id)
             if current is None:
                 raise HTTPException(404, "Draft not found")
             snapshot = await workflow_snapshot(db_path, workflow_id)
-            store.update_run(workflow_id, "COMPLETED")
+            await asyncio.to_thread(store.update_run, workflow_id, "COMPLETED")
             if (
                 not snapshot.values
                 or snapshot.values.get("draft", {}).get("draft_id") != current["draft_id"]
@@ -306,7 +332,8 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
             if snapshot.next not in {("review_pause",), ("finalize",), ()}:
                 raise HTTPException(409, "Workflow is not at its review gate")
             try:
-                record = store.decide(
+                record = await asyncio.to_thread(
+                    store.decide,
                     workflow_id,
                     body.draft_id,
                     body.version,

@@ -1,5 +1,15 @@
 # Deployment boundary and pending owner choices
 
+## Owner update — local-only preparation, 12 October 2026
+
+Fredrick reports that he has no domain and explicitly requests continued
+preparation without remote access. Ubuntu remains the selected local host.
+The domain-based Cloudflare Tunnel/Access design below is a future proposal only; no account, route,
+Access policy or hostname is activated by this task. Local video and submission
+preparation continue without a domain. Use the
+[local operations guide](LOCAL_OPERATIONS.md) for restart, one-workflow operator
+policy, recovery and shutdown with private credentials.
+
 ## Concrete local configuration
 
 `run-local-demo.sh` runs one Uvicorn worker on `127.0.0.1:8000` and serves the
@@ -72,8 +82,9 @@ restart recovery and teardown. Do not use an unrestricted email-domain or
 one-time-PIN allow rule. Cloudflare's [policy guidance](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/common-policies/)
 warns that a one-time-PIN include rule without an email restriction can admit
 any email address. The [config format and ingress validation commands](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/configuration-file/)
-are documented by Cloudflare. No `cloudflared` binary is installed here yet;
-no tunnel configuration has been activated.
+are documented by Cloudflare. At the time of that domain-based preparation, no `cloudflared` binary was installed;
+no tunnel configuration has been activated. That earlier binary prerequisite
+is superseded by the protected Quick Tunnel preparation below.
 
 **Hosted alternative:** one Runpod Secure Cloud GPU Pod with the unchanged
 4-bit Qwen model, both locked Python environments, built frontend, one Uvicorn
@@ -94,3 +105,20 @@ Access-protected hostname is authorized; time window; and a maximum spend
 (including domain/hosting). Before exposure, test Access denial while signed
 out, reviewer permission boundaries, service restart recovery, and the final
 HTTPS origin. A public repository alone authorizes none of these actions.
+
+
+## Domain-free protected Quick Tunnel preparation — 12 October 2026
+
+The owner now requests a temporary, email-restricted Quick Tunnel without a
+domain. [Prepared command and checks](QUICK_TUNNEL.md) use the checksum-verified
+official project-local cloudflared 2026.10.0, whose CLI supports `--allowed-mail`.
+Only the supplied exact owner email is prepared, stored outside Git. Origin is
+`http://127.0.0.1:8000`; Ollama remains loopback-only. Dedicated synthetic demo
+officer credentials are prepared in ignored mode-0600 files; original credentials
+remain unchanged. The temporary API configuration and tunnel have not started.
+
+This supersedes the domain/account prerequisite only for the temporary demo.
+Named-domain deployment remains an alternative. No unrestricted fallback,
+remote login result, uptime guarantee or public-access gate completion is implied.
+The URL changes after connector restart and is unsuitable as a permanent
+submission URL. Authorization to prepare is not authorization to launch.

@@ -164,7 +164,8 @@ def test_stale_and_concurrent_decisions(tmp_path):
         == 409
     )
     assert client.post(path, json=body(pending, version=2), headers=auth()).status_code == 409
-    with ThreadPoolExecutor(max_workers=2) as pool:
+    # A running single-worker ASGI service has one event loop for all requests.
+    with client, ThreadPoolExecutor(max_workers=2) as pool:
         results = list(
             pool.map(
                 lambda choice: (
