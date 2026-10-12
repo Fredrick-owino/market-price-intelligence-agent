@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from pydantic import BaseModel, ConfigDict, Field
 
+from backend.app.agent.demo_events import sink
 from backend.app.agent.draft_recovery import (
     build_graph,
     resume_stored_workflow,
@@ -103,6 +104,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     app = FastAPI(title="SokoSignal local officer review", version="1")
     locks: dict[str, asyncio.Lock] = {}
     active_tasks: dict[str, asyncio.Task] = {}
+    live_events: dict[str, list[dict]] = {}
     model_slot = asyncio.Lock()
     active_model_workflow: str | None = None
 
@@ -150,7 +152,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
         ):
             raise HTTPException(403, "Workflow access denied")
 
-    async def drive(workflow_id: str) -> None:
+    async def drive_graph(workflow_id: str) -> None:
         """Resume checkpoints after a process restart; one local API worker only."""
         async with model_execution(workflow_id), workflow_lock(workflow_id):
             run = await asyncio.to_thread(store.run, workflow_id)
@@ -203,6 +205,21 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     store.update_run, workflow_id, "FAILED", type(error).__name__
                 )
 
+    async def drive(workflow_id: str) -> None:
+        events = live_events.setdefault(workflow_id, [])
+
+        def receive(row):
+            if len(events) < 100:
+                events.append(row)
+
+        token = sink.set(receive)
+        try:
+            await drive_graph(workflow_id)
+        finally:
+            sink.reset(token)
+            if events:
+                await asyncio.to_thread(store.save_events, workflow_id, events)
+
     def schedule(workflow_id: str) -> None:
         prior = active_tasks.get(workflow_id)
         if prior is None or prior.done():
@@ -231,9 +248,10 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     @app.get("/api/v1/drafts/pending")
     def pending(officer: Officer):
         return {
+            "reviewer": {"id": officer["id"], "demo": officer["id"].startswith("test:")},
             "drafts": store.pending_drafts(
                 frozenset(officer["workflows"]), officer["workflow_prefix"]
-            )
+            ),
         }
 
     @app.post("/api/v1/requests", status_code=202)
@@ -265,6 +283,15 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
         if result is None:
             raise HTTPException(404, "Draft not found")
         return result
+
+    @app.get("/api/v1/runs/{workflow_id}/events")
+    def events(workflow_id: str, officer: Officer):
+        allow(workflow_id, officer)
+        return {
+            "events": list(live_events[workflow_id])
+            if workflow_id in live_events
+            else store.events(workflow_id)
+        }
 
     @app.get("/api/v1/runs/{workflow_id}")
     async def status(workflow_id: str, officer: Officer):

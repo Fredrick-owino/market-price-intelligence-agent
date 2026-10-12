@@ -99,3 +99,23 @@ One ranking compares the same commodity/variant, compatible grade, sale basis, c
 Use the plan’s Decimal formula and explicit round-at-output policy. Total transport cost is charged once per market scenario. Per-unit charges are converted once. Missing costs allow a gross comparison only. Ties within the stated rounding precision have no unique winner. If plausible supplied cost ranges change the winner, explain uncertainty. Do not extrapolate missing prices or claim sale capacity from a quote.
 
 Bound the agent’s tool calls, retrievals and retries; choose exact limits in I01 based on measured behavior. Timeout/validation errors become visible events. The model can clarify or save an insufficient-data draft; it must not label a failed run successful. Define a repeatable fallback when the model runtime is unavailable: clear failure state, preserved request, explicit retry, no fabricated result.
+
+
+## I01.13 bounded implementation contract addendum — qualifying demo
+
+The model adapter now projects quote/comparison outputs for latency: immutable
+assumptions and source references remain host-owned and are restored from the
+validated comparison before full advisory validation at both boundaries. Model
+core numeric/winner/quote-ID/synthetic/pending fields must match exactly.
+All three discovered own tools remain available each turn; no scripted
+substitution, broadened task or authority is introduced. Output caps fail
+closed on truncation. Actual borrowed retrieval still happens per new run.
+
+Authenticated `GET /api/v1/runs/{id}/events` returns whitelisted synthetic
+actual tool inputs/outputs/timestamps. Live events are process-local during
+execution and persisted on drive exit in a separate run_events table. Abrupt
+process death before flush can lose UI events; full local JSONL diagnostics
+remain separate evidence. No headers, cookies, credentials or free model prose
+are exposed. Existing HTTP request/draft/decision schemas remain compatible;
+pending list adds backend-derived reviewer ID and demo label. Full draft
+content, exact hashes, pending/review semantics and source provenance unchanged.

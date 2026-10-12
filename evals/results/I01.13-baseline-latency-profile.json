@@ -1,0 +1,66 @@
+{
+  "task": "I01.13 qualifying demo latency profile",
+  "source_run": "quick-demo-856a732f-f31f-5394-8bbb-3437be8253e1",
+  "observed_browser_seconds": 220.794,
+  "retrieval_seconds": 3.484699,
+  "model_requests": [
+    {
+      "step": 1,
+      "selected_tool": "search_market_quotes",
+      "wall_seconds": 29.925245999999998,
+      "prompt_tokens": 827,
+      "generated_tokens": 146,
+      "prompt_seconds": 11.075395,
+      "generation_seconds": 18.818178,
+      "load_seconds": 0.001493033,
+      "message_chars": 1274,
+      "tool_schema_chars": 2366
+    },
+    {
+      "step": 2,
+      "selected_tool": "compare_market_options",
+      "wall_seconds": 59.677347999999995,
+      "prompt_tokens": 1762,
+      "generated_tokens": 191,
+      "prompt_seconds": 29.153666,
+      "generation_seconds": 30.400618,
+      "load_seconds": 0.00177176,
+      "message_chars": 3982,
+      "tool_schema_chars": 2366
+    },
+    {
+      "step": 3,
+      "selected_tool": "save_advisory_draft",
+      "wall_seconds": 122.141161,
+      "prompt_tokens": 3199,
+      "generated_tokens": 282,
+      "prompt_seconds": 63.813354,
+      "generation_seconds": 58.134175,
+      "load_seconds": 0.002282969,
+      "message_chars": 7039,
+      "tool_schema_chars": 2366
+    }
+  ],
+  "tool_executions": [
+    {
+      "tool": "search_market_quotes",
+      "seconds": 0.003456
+    },
+    {
+      "tool": "compare_market_options",
+      "seconds": 0.002746
+    },
+    {
+      "tool": "save_advisory_draft",
+      "seconds": 0.01068
+    }
+  ],
+  "graph_pre_review_seconds": 215.77275,
+  "bottleneck": "Model prompt evaluation and generated save advisory; not MCP execution or database persistence.",
+  "model_seconds": 211.743755,
+  "tool_total_seconds": 0.016882,
+  "draft_persistence_in_save_seconds": 0.01068,
+  "other_graph_overhead_seconds": 0.5274140000000028,
+  "browser_observation_overhead_seconds": 5.021250000000009,
+  "note": "Save duration includes MCP dispatch, validation, persistence and response; no separate SQL-only timer was retained."
+}

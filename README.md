@@ -14,14 +14,33 @@ The borrowed Fetch server has its own lock and environment because its MCP SDK
 version differs from the application SDK. Do not mix them.
 
 ```sh
-uv sync --locked --all-groups --python /path/to/python3.12 --no-python-downloads
-uv sync --project infra/borrowed-fetch --locked --python /path/to/python3.12 --no-python-downloads
-npm ci --prefix frontend
-npm run build --prefix frontend
-.venv/bin/python infra/create_local_demo_config.py
+# First start an existing complete Ollama runtime on 127.0.0.1:11434.
+# Reuse its existing model directory; no weights are downloaded by this command.
+make demo
 ```
 
-The final command creates two ignored, mode-0600 local files and prints no token.
+`make demo` installs both locked project Python environments, runs `npm ci`,
+builds the UI, creates a fresh private demo credential pair if absent, checks
+model metadata and starts one loopback API worker. Existing credentials/state
+are preserved. Python 3.12 must be available (`SOKOSIGNAL_PYTHON` can select its
+path); no system packages or global settings are changed. Network access is
+needed for dependencies on a fresh machine and for actual public fixture Fetch.
+Use `SOKOSIGNAL_PORT=8020 make demo` for a separate checkout; its generated
+credentials and `.state/demo.sqlite` stay in that checkout. Never copy another
+checkout's private token/config. Sharing an existing model service is allowed,
+but run inference serially. Stop only this API via Ctrl-C, retaining its state.
+A host shutdown stops these manually started services; no autostart is installed.
+
+For this verified Ubuntu host, the complete existing runtime is
+`/home/fred/.local/share/sokosignal/ollama-0.40.2/bin/ollama` and existing weights
+are `/home/fred/.local/share/sokosignal/models`. Set `OLLAMA_MODELS` to the actual
+existing directory and `OLLAMA_HOST=127.0.0.1:11434` before `ollama serve`.
+Use a complete installation: metadata can succeed even when its runner is
+missing; actual workflow inference is a separate readiness check. CPU-only
+measurements use this approximately 15 GiB RAM host; no GPU/VRAM requirement
+or portable latency guarantee is claimed. Python/Node/uv/Ollama are prerequisites.
+
+The configuration step creates two ignored, mode-0600 local files and prints no token.
 `infra/officers.example.json` shows the shape only; its placeholder cannot
 authenticate and must never be used as a real verifier.
 It labels its generated officer `test:local-demo-officer`; this is an automated
@@ -44,7 +63,8 @@ The UI accepts whole quantities from 1 to 1,000 kg for the one approved
 synthetic fixture: demo maize, DEMO-1, synthetic region, wholesale, Market A and
 Market B, observed 10 October 2026. It displays gross proceeds, costs, net
 proceeds, source/provenance, limitations, pending draft version/hash and officer
-decision. Model work may take minutes. A failed run remains failed and visible;
+decision. Actual sanitized tool events appear live with inputs, outputs and timestamps.
+New overlapping starts reject; identical retries remain idempotent. Model work may take minutes. A failed run remains failed and visible;
 start a new attempt after resolving its cause. Refresh requires reentering the
 token; the workflow ID alone stays in session storage.
 

@@ -1,5 +1,5 @@
 # Python environments, caches, packaging and generated coverage
-.venv/
+.venv
 venv/
 env/
 .tox/
@@ -19,7 +19,7 @@ coverage/
 /dist/
 
 # Frontend dependencies and generated builds
-node_modules/
+node_modules
 /frontend/dist/
 /frontend/build/
 .next/

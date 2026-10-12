@@ -341,3 +341,20 @@ Checklist/field-answer/English-description drafts now list only outstanding
 practitioner, evaluation/independent-review, reproducibility/rights, official
 calendar/form/eligibility and qualifying durable-link requirements. The edited
 video is not the retained unedited competition artifact. No gate completed.
+
+
+### I01.13 qualifying-demo continuation — 12–13 October 2026
+
+Owner clarified Agriculture requires continuous unedited video under 180 s
+with actual tools visible; the 110 s edited file is supplementary only.
+Isolated branch/worktree protects the original running demo and two pending
+drafts. Baseline model bottleneck profiled; compact context/explicit schema
+retains exact validation, full stored evidence and real model-selected tools.
+Two final-schema actual rehearsals: 138.603/138.577 s, demo approval.
+A nested-summary failure remains in evidence. Live sanitized tool UI and
+backend-derived demo reviewer label added. Full regression 157 passed,
+frontend type/build and Ruff passed. EVALS now records 10 distinct tasks
+(9 pass/1 unresolved request-changes failure), distinguishing real model
+and deterministic/mocked cases. No gate, practitioner or independent review
+completion implied. Native recording and fresh setup results follow actual
+verification; no new exposure or upload.

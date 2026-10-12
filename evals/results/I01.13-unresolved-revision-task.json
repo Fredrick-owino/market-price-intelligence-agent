@@ -1,0 +1,17 @@
+{
+  "task_id": "T10",
+  "task": "Authenticated request-changes / revision flow",
+  "mode": "Actual local ASGI API and real model-free MCP checkpoint; no model or network mock",
+  "expected_full_contract": {
+    "http_status": 200,
+    "accepted": true
+  },
+  "actual": {
+    "http_status": 422,
+    "accepted": false
+  },
+  "passed": false,
+  "observed_unresolved_failure": "Decision API supports approve/reject only; request_changes receives 422 and cannot create a reviewable revised version through UI.",
+  "proposed_improvement": "Separate bounded task: exact-version request-changes endpoint and immutable revision UI with old-approval invalidation tests; keep current unsupported state explicit.",
+  "original_pending_drafts_touched": false
+}

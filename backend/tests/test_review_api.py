@@ -283,6 +283,22 @@ def test_http_start_to_review_uses_real_mcp_with_mocked_http_and_model(
         assert len(provider.requests) == 3
         assert result["comparison"]["markets"][0]["estimated_net_proceeds"] == "18000.00"
         assert result["retrieval_provenance"]["http"][0]["mocked_http"] is True
+        assert client.get(path + "/events").status_code == 401
+        assert client.get("/api/v1/runs/other/events", headers=headers).status_code == 403
+        activity = client.get(path + "/events", headers=headers).json()["events"]
+        completed = [
+            e["tool"] for e in activity if e["phase"] == "completed" and e["server"] == "own MCP"
+        ]
+        assert completed == [
+            "search_market_quotes",
+            "compare_market_options",
+            "save_advisory_draft",
+        ]
+        assert "test-token" not in json.dumps(activity)
+        assert client.get("/api/v1/drafts/pending", headers=headers).json()["reviewer"] == {
+            "id": "test:demo-officer",
+            "demo": True,
+        }
         draft = client.get(path + "/draft", headers=headers).json()
         payload = body(draft, choice)
         decided = client.post(path + "/decisions", json=payload, headers=headers)
@@ -290,6 +306,8 @@ def test_http_start_to_review_uses_real_mcp_with_mocked_http_and_model(
         assert decided.json()["outcome"] == outcome
         assert client.get(path, headers=headers).json()["status"] == "COMPLETED"
         assert DraftStore(str(db)).counts(workflow)["decisions"] == 1
+    with TestClient(create_app(db, config)) as restarted:
+        assert restarted.get(path + "/events", headers=headers).json()["events"] == activity
 
 
 def test_http_failed_retrieval_is_visible_without_draft(tmp_path, monkeypatch):

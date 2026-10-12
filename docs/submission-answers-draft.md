@@ -30,3 +30,16 @@ The [description draft](submission-description-draft.md), [checklist](SUBMISSION
 [practitioner questions](practitioner-feedback-preparation.md) are consistent
 preparation artifacts. Do not enter an unconfirmed institution, public video
 link, deadline or remote outcome as fact.
+
+
+## Official Agriculture video rule correction
+
+Source: owner's explicit rule clarification in this continuation. The
+110-second edited video is **supplementary only**. The required artifact is
+one continuous, unedited agent run **under three minutes**, with actual tool
+calls on screen, comparison/private draft and authenticated demo-identity
+internal approval. Cuts, accelerated waiting and substituted post-run footage
+do not qualify. No edited-format exception is claimed or sought here.
+Evaluation requires at least eight distinct tasks; they may combine actual
+model, deterministic and labelled mocked tests. Eight live model tasks are
+not an official requirement. Publication/submission remain unauthorized.

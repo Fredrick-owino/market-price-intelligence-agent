@@ -1,0 +1,270 @@
+{
+  "expectations_frozen_at": "2026-10-12T20:48:14.673965+00:00",
+  "expectation_basis": "Manual fixture arithmetic and explicit validation policies; solo, not independent peer review",
+  "performed_at": "2026-10-12T20:48:17.310519+00:00",
+  "distinct_tasks": 9,
+  "passed": 9,
+  "actual_model_tasks": 0,
+  "results": [
+    {
+      "task_id": "T01",
+      "case": "baseline",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "nets": [
+          "38000.00",
+          "37000.00"
+        ],
+        "winner": "Market A"
+      },
+      "actual": {
+        "nets": [
+          "38000.00",
+          "37000.00"
+        ],
+        "winner": "Market A"
+      },
+      "passed": true,
+      "trace_event_id": "d39051b2-e9aa-4c10-bc75-fb10b9da6cb6",
+      "latency_ms": 4.418
+    },
+    {
+      "task_id": "T02",
+      "case": "half_quantity",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "500",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "nets": [
+          "18000.00",
+          "14500.00"
+        ],
+        "winner": "Market A"
+      },
+      "actual": {
+        "nets": [
+          "18000.00",
+          "14500.00"
+        ],
+        "winner": "Market A"
+      },
+      "passed": true,
+      "trace_event_id": "20edf874-b2c7-48b5-be0f-b5cd6c232c25",
+      "latency_ms": 2.882
+    },
+    {
+      "task_id": "T03",
+      "case": "explicit_loss",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0.1",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "nets": [
+          "34000.00",
+          "32500.00"
+        ],
+        "winner": "Market A"
+      },
+      "actual": {
+        "nets": [
+          "34000.00",
+          "32500.00"
+        ],
+        "winner": "Market A"
+      },
+      "passed": true,
+      "trace_event_id": "719eaff1-9413-4247-8c76-2399155aa3b3",
+      "latency_ms": 2.956
+    },
+    {
+      "task_id": "T04",
+      "case": "missing_fee",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000007"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "ranking": "gross_only_no_net_ranking",
+        "winner": null
+      },
+      "actual": {
+        "ranking": "gross_only_no_net_ranking",
+        "winner": null
+      },
+      "passed": true,
+      "trace_event_id": "45cdbfe1-3b3c-46af-aa02-f4de72316931",
+      "latency_ms": 3.048
+    },
+    {
+      "task_id": "T05",
+      "case": "sack",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000003"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "error": "incompatible_unit"
+      },
+      "actual": {
+        "error": "incompatible_unit"
+      },
+      "passed": true,
+      "trace_event_id": "9010c5c4-f641-4a68-b435-3790aeb56e29",
+      "latency_ms": 2.48
+    },
+    {
+      "task_id": "T06",
+      "case": "unknown_grade",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000004"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "error": "unknown_grade"
+      },
+      "actual": {
+        "error": "unknown_grade"
+      },
+      "passed": true,
+      "trace_event_id": "be66432b-0712-43c6-a447-d6bafb15ecf0",
+      "latency_ms": 2.002
+    },
+    {
+      "task_id": "T07",
+      "case": "future_observation",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-09",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "error": "incomparable_date"
+      },
+      "actual": {
+        "error": "incomparable_date"
+      },
+      "passed": true,
+      "trace_event_id": "8b594d1f-855f-475c-b1be-36cb87ef3b03",
+      "latency_ms": 2.314
+    },
+    {
+      "task_id": "T08",
+      "case": "insufficient_capacity",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1001",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "error": "unconfirmed_capacity"
+      },
+      "actual": {
+        "error": "unconfirmed_capacity"
+      },
+      "passed": true,
+      "trace_event_id": "8e03abf5-809b-43f3-b19d-5a3021b21e83",
+      "latency_ms": 2.102
+    },
+    {
+      "task_id": "T09",
+      "case": "duplicate_quotes",
+      "mode": "actual deterministic software via real MCP; no model",
+      "input": {
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "policy_version": "I01.7-synthetic-v1",
+        "quantity": "1000",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000001"
+        ],
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "unit": "kg"
+      },
+      "expected": {
+        "error": "invalid_quote_selection"
+      },
+      "actual": {
+        "error": "invalid_quote_selection"
+      },
+      "passed": true,
+      "trace_event_id": "f28f225b-e75f-454f-a5a2-fff832c9e50a",
+      "latency_ms": 1.748
+    }
+  ]
+}

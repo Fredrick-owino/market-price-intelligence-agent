@@ -1,0 +1,1494 @@
+[
+  {
+    "evidence_mode": "actual_loopback_model_real_mcp",
+    "quantity_kg": 500,
+    "started_at": "2026-10-12T20:40:44.077231+00:00",
+    "model_warming": "Existing model service reused; no scripted substitute or fixture fallback",
+    "workflow_id": "demo-dc654594-4230-5590-bcb8-ad558256c545",
+    "measured_start_to_review_seconds": 121.509,
+    "result": {
+      "workflow_id": "demo-dc654594-4230-5590-bcb8-ad558256c545",
+      "status": "FAILED",
+      "error_code": "invalid_advisory",
+      "phase": [],
+      "outcome": "model_failed"
+    },
+    "actual_sanitized_events": [
+      {
+        "timestamp": "2026-10-12T20:40:44.095744+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "started",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:40:47.548825+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "completed",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        },
+        "output": {
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "bytes": 9196,
+          "evidence_mode": "actual_public_http_real_mcp"
+        },
+        "elapsed_ms": 3453.09
+      },
+      {
+        "timestamp": "2026-10-12T20:40:47.965618+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 1
+      },
+      {
+        "timestamp": "2026-10-12T20:41:19.168239+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:41:19.172018+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        },
+        "elapsed_ms": 3.736,
+        "output": {
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "markets": [
+            "Market A",
+            "Market B"
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:41:19.172221+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 2
+      },
+      {
+        "timestamp": "2026-10-12T20:42:02.585825+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "500",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:42:02.588566+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "500",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        },
+        "elapsed_ms": 2.7,
+        "output": {
+          "winner": "Market A",
+          "advantage_kes": "3500.00",
+          "net_proceeds": {
+            "Market A": "18000.00",
+            "Market B": "14500.00"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:42:02.588777+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 3
+      },
+      {
+        "timestamp": "2026-10-12T20:42:45.421736+00:00",
+        "synthetic": true,
+        "tool": "workflow",
+        "server": "local application",
+        "phase": "failed",
+        "output": {
+          "failure_code": "invalid_advisory"
+        }
+      }
+    ],
+    "model_adapter_revision": "compact-v1-generic-advisory"
+  },
+  {
+    "evidence_mode": "actual_loopback_model_real_mcp",
+    "quantity_kg": 750,
+    "started_at": "2026-10-12T20:42:45.587739+00:00",
+    "model_warming": "Existing model service reused; no scripted substitute or fixture fallback",
+    "workflow_id": "demo-e34afe65-993c-5aa0-ae77-bde7b29fd606",
+    "measured_start_to_review_seconds": 126.52,
+    "result": {
+      "workflow_id": "demo-e34afe65-993c-5aa0-ae77-bde7b29fd606",
+      "status": "PENDING_REVIEW",
+      "draft_id": "901eb92f-41ac-5c04-ac35-259934227087",
+      "version": 1,
+      "content_hash": "8632ec43b620440f599fa026c0df2583e8a4ead36155fda4073e7ab05e3ba8fb",
+      "draft_status": "PENDING_REVIEW",
+      "outcome": null,
+      "pending_nodes": [
+        "review_pause"
+      ],
+      "comparison": {
+        "synthetic": true,
+        "data_status": "synthetic",
+        "label": "SYNTHETIC ONLY \u2014 invented transport-test fixture, no live prices or capacity",
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "retrieval_provenance": {
+          "bytes": 9196,
+          "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+          "distribution": "mcp-server-fetch",
+          "distribution_version": "2026.8.18",
+          "evidence_mode": "actual_public_http_real_mcp",
+          "http": [
+            {
+              "bytes": 14,
+              "connected_ip": "185.199.108.133",
+              "elapsed_seconds": 1.393968,
+              "event": "outbound_http",
+              "http_status": 404,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.108.133",
+                "185.199.109.133",
+                "185.199.110.133",
+                "185.199.111.133",
+                "2606:50c0:8002::154",
+                "2606:50c0:8001::154",
+                "2606:50c0:8000::154",
+                "2606:50c0:8003::154"
+              ],
+              "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+              "timestamp": "2026-10-12T20:42:47.775777+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/robots.txt"
+            },
+            {
+              "bytes": 9196,
+              "connected_ip": "185.199.110.133",
+              "elapsed_seconds": 1.004143,
+              "event": "outbound_http",
+              "http_status": 200,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.110.133",
+                "185.199.111.133",
+                "185.199.109.133",
+                "185.199.108.133",
+                "2606:50c0:8000::154",
+                "2606:50c0:8003::154",
+                "2606:50c0:8001::154",
+                "2606:50c0:8002::154"
+              ],
+              "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+              "timestamp": "2026-10-12T20:42:48.781972+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+            }
+          ],
+          "retrieved_at": "2026-10-12T20:42:48.781972+00:00",
+          "run_id": "1fe03622-7d2a-4276-bdfb-78cae73f82e9",
+          "sdk_version": "1.30.0",
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "synthetic": true,
+          "transport": "stdio",
+          "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+          "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+        },
+        "policy_version": "I01.7-synthetic-v1",
+        "currency": "KES",
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "accepted_quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "excluded_quotes": [],
+        "markets": [
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000001",
+            "market_id": "00000000-0000-4000-8000-000000000101",
+            "market": "Market A",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "40",
+            "sellable_kg": "750",
+            "gross_proceeds": "30000.00",
+            "costs": {
+              "transport_total": "2000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "2000.00",
+            "estimated_net_proceeds": "28000.00"
+          },
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000002",
+            "market_id": "00000000-0000-4000-8000-000000000102",
+            "market": "Market B",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "45",
+            "sellable_kg": "750",
+            "gross_proceeds": "33750.00",
+            "costs": {
+              "transport_total": "8000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "8000.00",
+            "estimated_net_proceeds": "25750.00"
+          }
+        ],
+        "ranking_basis": "estimated_net_proceeds",
+        "winner": "Market A",
+        "advantage_kes": "2250.00",
+        "tie": false,
+        "assumptions": [
+          "Loss explicitly zero for baseline.",
+          "Handling and fees explicitly zero for baseline.",
+          "Capacity is confirmed only within this invented fixture; no real buyer commitment.",
+          "Exact as-of date required; no live freshness claim.",
+          "All costs are scenario totals; money rounded half-up to 0.01 KES only at output.",
+          "Only confirmed kg units supported by this spike."
+        ],
+        "limitations": [
+          "Synthetic fixture only; no real market prices, buyer commitment or advisory delivery."
+        ]
+      },
+      "retrieval_provenance": {
+        "bytes": 9196,
+        "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+        "distribution": "mcp-server-fetch",
+        "distribution_version": "2026.8.18",
+        "evidence_mode": "actual_public_http_real_mcp",
+        "http": [
+          {
+            "bytes": 14,
+            "connected_ip": "185.199.108.133",
+            "elapsed_seconds": 1.393968,
+            "event": "outbound_http",
+            "http_status": 404,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.108.133",
+              "185.199.109.133",
+              "185.199.110.133",
+              "185.199.111.133",
+              "2606:50c0:8002::154",
+              "2606:50c0:8001::154",
+              "2606:50c0:8000::154",
+              "2606:50c0:8003::154"
+            ],
+            "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+            "timestamp": "2026-10-12T20:42:47.775777+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/robots.txt"
+          },
+          {
+            "bytes": 9196,
+            "connected_ip": "185.199.110.133",
+            "elapsed_seconds": 1.004143,
+            "event": "outbound_http",
+            "http_status": 200,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.110.133",
+              "185.199.111.133",
+              "185.199.109.133",
+              "185.199.108.133",
+              "2606:50c0:8000::154",
+              "2606:50c0:8003::154",
+              "2606:50c0:8001::154",
+              "2606:50c0:8002::154"
+            ],
+            "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+            "timestamp": "2026-10-12T20:42:48.781972+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+          }
+        ],
+        "retrieved_at": "2026-10-12T20:42:48.781972+00:00",
+        "run_id": "1fe03622-7d2a-4276-bdfb-78cae73f82e9",
+        "sdk_version": "1.30.0",
+        "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "synthetic": true,
+        "transport": "stdio",
+        "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+        "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+      }
+    },
+    "actual_sanitized_events": [
+      {
+        "timestamp": "2026-10-12T20:42:45.595110+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "started",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:42:48.872611+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "completed",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        },
+        "output": {
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "bytes": 9196,
+          "evidence_mode": "actual_public_http_real_mcp"
+        },
+        "elapsed_ms": 3277.515
+      },
+      {
+        "timestamp": "2026-10-12T20:42:49.278180+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 1
+      },
+      {
+        "timestamp": "2026-10-12T20:43:19.138417+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:43:19.141918+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        },
+        "elapsed_ms": 3.452,
+        "output": {
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "markets": [
+            "Market A",
+            "Market B"
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:43:19.142114+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 2
+      },
+      {
+        "timestamp": "2026-10-12T20:44:02.907163+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "750",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:44:02.910251+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "750",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        },
+        "elapsed_ms": 3.043,
+        "output": {
+          "winner": "Market A",
+          "advantage_kes": "2250.00",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:44:02.910417+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 3
+      },
+      {
+        "timestamp": "2026-10-12T20:44:51.334323+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          },
+          "advantage_kes": "2250.00"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:44:51.339005+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          },
+          "advantage_kes": "2250.00"
+        },
+        "elapsed_ms": 4.584,
+        "output": {
+          "draft_id": "901eb92f-41ac-5c04-ac35-259934227087",
+          "version": 1,
+          "content_hash": "8632ec43b620440f599fa026c0df2583e8a4ead36155fda4073e7ab05e3ba8fb",
+          "review_status": "PENDING_REVIEW"
+        }
+      }
+    ],
+    "arithmetic_pass": true,
+    "authenticated_demo_decision": {
+      "decision": {
+        "draft_id": "901eb92f-41ac-5c04-ac35-259934227087",
+        "version": 1,
+        "content_hash": "8632ec43b620440f599fa026c0df2583e8a4ead36155fda4073e7ab05e3ba8fb",
+        "decision": "approve",
+        "reviewer_id": "test:local-demo-officer",
+        "workflow_id": "demo-e34afe65-993c-5aa0-ae77-bde7b29fd606",
+        "idempotency_key": "rehearsal-review-latency-27e0f35f-19c6-44a7-84ab-2cccd0888c16",
+        "decided_at": "2026-10-12T20:44:52.114395+00:00"
+      },
+      "outcome": "approved_internal_review"
+    },
+    "measured_start_to_approval_seconds": 126.536,
+    "model_adapter_revision": "compact-v1-generic-advisory"
+  },
+  {
+    "evidence_mode": "actual_loopback_model_real_mcp",
+    "quantity_kg": 500,
+    "started_at": "2026-10-12T20:46:57.156409+00:00",
+    "model_warming": "Existing model service reused; no scripted substitute or fixture fallback",
+    "workflow_id": "demo-435c1dde-4a03-5e65-b574-da25a3318a7e",
+    "measured_start_to_review_seconds": 138.603,
+    "result": {
+      "workflow_id": "demo-435c1dde-4a03-5e65-b574-da25a3318a7e",
+      "status": "PENDING_REVIEW",
+      "draft_id": "d9b7f9f1-671f-5f7c-842b-90de7b4d4f16",
+      "version": 1,
+      "content_hash": "92e96fb6433d280663505ec3430a6deba1adbf8cc9d85db41b9609b165337ec7",
+      "draft_status": "PENDING_REVIEW",
+      "outcome": null,
+      "pending_nodes": [
+        "review_pause"
+      ],
+      "comparison": {
+        "synthetic": true,
+        "data_status": "synthetic",
+        "label": "SYNTHETIC ONLY \u2014 invented transport-test fixture, no live prices or capacity",
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "retrieval_provenance": {
+          "bytes": 9196,
+          "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+          "distribution": "mcp-server-fetch",
+          "distribution_version": "2026.8.18",
+          "evidence_mode": "actual_public_http_real_mcp",
+          "http": [
+            {
+              "bytes": 14,
+              "connected_ip": "185.199.110.133",
+              "elapsed_seconds": 5.633475,
+              "event": "outbound_http",
+              "http_status": 404,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.110.133",
+                "185.199.108.133",
+                "185.199.111.133",
+                "185.199.109.133",
+                "2606:50c0:8000::154",
+                "2606:50c0:8002::154",
+                "2606:50c0:8001::154",
+                "2606:50c0:8003::154"
+              ],
+              "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+              "timestamp": "2026-10-12T20:47:03.570339+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/robots.txt"
+            },
+            {
+              "bytes": 9196,
+              "connected_ip": "185.199.109.133",
+              "elapsed_seconds": 0.817615,
+              "event": "outbound_http",
+              "http_status": 200,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.109.133",
+                "185.199.111.133",
+                "185.199.108.133",
+                "185.199.110.133",
+                "2606:50c0:8001::154",
+                "2606:50c0:8002::154",
+                "2606:50c0:8003::154",
+                "2606:50c0:8000::154"
+              ],
+              "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+              "timestamp": "2026-10-12T20:47:04.390210+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+            }
+          ],
+          "retrieved_at": "2026-10-12T20:47:04.390210+00:00",
+          "run_id": "5e182f0e-36ef-4ca9-9820-a0f9ebef5312",
+          "sdk_version": "1.30.0",
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "synthetic": true,
+          "transport": "stdio",
+          "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+          "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+        },
+        "policy_version": "I01.7-synthetic-v1",
+        "currency": "KES",
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "accepted_quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "excluded_quotes": [],
+        "markets": [
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000001",
+            "market_id": "00000000-0000-4000-8000-000000000101",
+            "market": "Market A",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "40",
+            "sellable_kg": "500",
+            "gross_proceeds": "20000.00",
+            "costs": {
+              "transport_total": "2000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "2000.00",
+            "estimated_net_proceeds": "18000.00"
+          },
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000002",
+            "market_id": "00000000-0000-4000-8000-000000000102",
+            "market": "Market B",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "45",
+            "sellable_kg": "500",
+            "gross_proceeds": "22500.00",
+            "costs": {
+              "transport_total": "8000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "8000.00",
+            "estimated_net_proceeds": "14500.00"
+          }
+        ],
+        "ranking_basis": "estimated_net_proceeds",
+        "winner": "Market A",
+        "advantage_kes": "3500.00",
+        "tie": false,
+        "assumptions": [
+          "Loss explicitly zero for baseline.",
+          "Handling and fees explicitly zero for baseline.",
+          "Capacity is confirmed only within this invented fixture; no real buyer commitment.",
+          "Exact as-of date required; no live freshness claim.",
+          "All costs are scenario totals; money rounded half-up to 0.01 KES only at output.",
+          "Only confirmed kg units supported by this spike."
+        ],
+        "limitations": [
+          "Synthetic fixture only; no real market prices, buyer commitment or advisory delivery."
+        ]
+      },
+      "retrieval_provenance": {
+        "bytes": 9196,
+        "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+        "distribution": "mcp-server-fetch",
+        "distribution_version": "2026.8.18",
+        "evidence_mode": "actual_public_http_real_mcp",
+        "http": [
+          {
+            "bytes": 14,
+            "connected_ip": "185.199.110.133",
+            "elapsed_seconds": 5.633475,
+            "event": "outbound_http",
+            "http_status": 404,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.110.133",
+              "185.199.108.133",
+              "185.199.111.133",
+              "185.199.109.133",
+              "2606:50c0:8000::154",
+              "2606:50c0:8002::154",
+              "2606:50c0:8001::154",
+              "2606:50c0:8003::154"
+            ],
+            "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+            "timestamp": "2026-10-12T20:47:03.570339+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/robots.txt"
+          },
+          {
+            "bytes": 9196,
+            "connected_ip": "185.199.109.133",
+            "elapsed_seconds": 0.817615,
+            "event": "outbound_http",
+            "http_status": 200,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.109.133",
+              "185.199.111.133",
+              "185.199.108.133",
+              "185.199.110.133",
+              "2606:50c0:8001::154",
+              "2606:50c0:8002::154",
+              "2606:50c0:8003::154",
+              "2606:50c0:8000::154"
+            ],
+            "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+            "timestamp": "2026-10-12T20:47:04.390210+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+          }
+        ],
+        "retrieved_at": "2026-10-12T20:47:04.390210+00:00",
+        "run_id": "5e182f0e-36ef-4ca9-9820-a0f9ebef5312",
+        "sdk_version": "1.30.0",
+        "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "synthetic": true,
+        "transport": "stdio",
+        "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+        "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+      }
+    },
+    "actual_sanitized_events": [
+      {
+        "timestamp": "2026-10-12T20:46:57.173417+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "started",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:47:04.490933+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "completed",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        },
+        "output": {
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "bytes": 9196,
+          "evidence_mode": "actual_public_http_real_mcp"
+        },
+        "elapsed_ms": 7317.525
+      },
+      {
+        "timestamp": "2026-10-12T20:47:04.908220+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 1
+      },
+      {
+        "timestamp": "2026-10-12T20:47:35.687070+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 30778.775,
+        "output": {
+          "selected_tool": "search_market_quotes",
+          "prompt_tokens": 914,
+          "generated_tokens": 146
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:47:35.687240+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:47:35.690782+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        },
+        "elapsed_ms": 3.496,
+        "output": {
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "markets": [
+            "Market A",
+            "Market B"
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:47:35.690980+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 2
+      },
+      {
+        "timestamp": "2026-10-12T20:48:25.923872+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 50232.774,
+        "output": {
+          "selected_tool": "compare_market_options",
+          "prompt_tokens": 1284,
+          "generated_tokens": 191
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:48:25.924045+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "500",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:48:25.926997+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "500",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        },
+        "elapsed_ms": 2.893,
+        "output": {
+          "winner": "Market A",
+          "advantage_kes": "3500.00",
+          "net_proceeds": {
+            "Market A": "18000.00",
+            "Market B": "14500.00"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:48:25.927226+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 3
+      },
+      {
+        "timestamp": "2026-10-12T20:49:15.225263+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 49297.925,
+        "output": {
+          "selected_tool": "save_advisory_draft",
+          "prompt_tokens": 1296,
+          "generated_tokens": 182
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:15.225449+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "18000.00",
+            "Market B": "14500.00"
+          },
+          "advantage_kes": "3500.00"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:15.229878+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "18000.00",
+            "Market B": "14500.00"
+          },
+          "advantage_kes": "3500.00"
+        },
+        "elapsed_ms": 4.321,
+        "output": {
+          "draft_id": "d9b7f9f1-671f-5f7c-842b-90de7b4d4f16",
+          "version": 1,
+          "content_hash": "92e96fb6433d280663505ec3430a6deba1adbf8cc9d85db41b9609b165337ec7",
+          "review_status": "PENDING_REVIEW"
+        }
+      }
+    ],
+    "arithmetic_pass": true,
+    "authenticated_demo_decision": {
+      "decision": {
+        "draft_id": "d9b7f9f1-671f-5f7c-842b-90de7b4d4f16",
+        "version": 1,
+        "content_hash": "92e96fb6433d280663505ec3430a6deba1adbf8cc9d85db41b9609b165337ec7",
+        "decision": "approve",
+        "reviewer_id": "test:local-demo-officer",
+        "workflow_id": "demo-435c1dde-4a03-5e65-b574-da25a3318a7e",
+        "idempotency_key": "rehearsal-review-latency-78ebb546-3d26-4d09-867d-aebd17c7143b",
+        "decided_at": "2026-10-12T20:49:15.773744+00:00"
+      },
+      "outcome": "approved_internal_review"
+    },
+    "measured_start_to_approval_seconds": 138.63,
+    "model_adapter_revision": "compact-v2-explicit-advisory-schema"
+  },
+  {
+    "evidence_mode": "actual_loopback_model_real_mcp",
+    "quantity_kg": 750,
+    "started_at": "2026-10-12T20:49:15.786872+00:00",
+    "model_warming": "Existing model service reused; no scripted substitute or fixture fallback",
+    "workflow_id": "demo-12f3fc64-8e91-5d7f-8f32-c14a2e8f37dc",
+    "measured_start_to_review_seconds": 138.577,
+    "result": {
+      "workflow_id": "demo-12f3fc64-8e91-5d7f-8f32-c14a2e8f37dc",
+      "status": "PENDING_REVIEW",
+      "draft_id": "80fb4af1-33e1-5752-be39-6ad2d457948b",
+      "version": 1,
+      "content_hash": "8b4d1d6b9580db9f2be9b6a0f59193a6c7d3b0852c0249e80b16bec5424d334e",
+      "draft_status": "PENDING_REVIEW",
+      "outcome": null,
+      "pending_nodes": [
+        "review_pause"
+      ],
+      "comparison": {
+        "synthetic": true,
+        "data_status": "synthetic",
+        "label": "SYNTHETIC ONLY \u2014 invented transport-test fixture, no live prices or capacity",
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "retrieval_provenance": {
+          "bytes": 9196,
+          "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+          "distribution": "mcp-server-fetch",
+          "distribution_version": "2026.8.18",
+          "evidence_mode": "actual_public_http_real_mcp",
+          "http": [
+            {
+              "bytes": 14,
+              "connected_ip": "185.199.109.133",
+              "elapsed_seconds": 0.632796,
+              "event": "outbound_http",
+              "http_status": 404,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.109.133",
+                "185.199.108.133",
+                "185.199.110.133",
+                "185.199.111.133",
+                "2606:50c0:8000::154",
+                "2606:50c0:8001::154",
+                "2606:50c0:8003::154",
+                "2606:50c0:8002::154"
+              ],
+              "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+              "timestamp": "2026-10-12T20:49:17.212464+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/robots.txt"
+            },
+            {
+              "bytes": 9196,
+              "connected_ip": "185.199.108.133",
+              "elapsed_seconds": 0.276201,
+              "event": "outbound_http",
+              "http_status": 200,
+              "proxy_used": false,
+              "redirects_followed": 0,
+              "resolved_ips": [
+                "185.199.108.133",
+                "185.199.111.133",
+                "185.199.110.133",
+                "185.199.109.133",
+                "2606:50c0:8002::154",
+                "2606:50c0:8003::154",
+                "2606:50c0:8001::154",
+                "2606:50c0:8000::154"
+              ],
+              "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+              "timestamp": "2026-10-12T20:49:17.490884+00:00",
+              "tls_hostname": "raw.githubusercontent.com",
+              "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+            }
+          ],
+          "retrieved_at": "2026-10-12T20:49:17.490884+00:00",
+          "run_id": "58df1e82-76a3-4605-95a5-de6fdb5cf008",
+          "sdk_version": "1.30.0",
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "synthetic": true,
+          "transport": "stdio",
+          "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+          "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+        },
+        "policy_version": "I01.7-synthetic-v1",
+        "currency": "KES",
+        "as_of_date": "2026-10-10",
+        "loss_fraction": "0",
+        "accepted_quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "excluded_quotes": [],
+        "markets": [
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000001",
+            "market_id": "00000000-0000-4000-8000-000000000101",
+            "market": "Market A",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "40",
+            "sellable_kg": "750",
+            "gross_proceeds": "30000.00",
+            "costs": {
+              "transport_total": "2000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "2000.00",
+            "estimated_net_proceeds": "28000.00"
+          },
+          {
+            "quote_id": "00000000-0000-4000-8000-000000000002",
+            "market_id": "00000000-0000-4000-8000-000000000102",
+            "market": "Market B",
+            "source_id": "00000000-0000-4000-8000-000000000200",
+            "source_reference": "synthetic://sokosignal/I01.7",
+            "normalized_price_per_kg": "45",
+            "sellable_kg": "750",
+            "gross_proceeds": "33750.00",
+            "costs": {
+              "transport_total": "8000",
+              "handling_total": "0",
+              "market_fees_total": "0"
+            },
+            "missing_costs": [],
+            "total_cost": "8000.00",
+            "estimated_net_proceeds": "25750.00"
+          }
+        ],
+        "ranking_basis": "estimated_net_proceeds",
+        "winner": "Market A",
+        "advantage_kes": "2250.00",
+        "tie": false,
+        "assumptions": [
+          "Loss explicitly zero for baseline.",
+          "Handling and fees explicitly zero for baseline.",
+          "Capacity is confirmed only within this invented fixture; no real buyer commitment.",
+          "Exact as-of date required; no live freshness claim.",
+          "All costs are scenario totals; money rounded half-up to 0.01 KES only at output.",
+          "Only confirmed kg units supported by this spike."
+        ],
+        "limitations": [
+          "Synthetic fixture only; no real market prices, buyer commitment or advisory delivery."
+        ]
+      },
+      "retrieval_provenance": {
+        "bytes": 9196,
+        "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+        "distribution": "mcp-server-fetch",
+        "distribution_version": "2026.8.18",
+        "evidence_mode": "actual_public_http_real_mcp",
+        "http": [
+          {
+            "bytes": 14,
+            "connected_ip": "185.199.109.133",
+            "elapsed_seconds": 0.632796,
+            "event": "outbound_http",
+            "http_status": 404,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.109.133",
+              "185.199.108.133",
+              "185.199.110.133",
+              "185.199.111.133",
+              "2606:50c0:8000::154",
+              "2606:50c0:8001::154",
+              "2606:50c0:8003::154",
+              "2606:50c0:8002::154"
+            ],
+            "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+            "timestamp": "2026-10-12T20:49:17.212464+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/robots.txt"
+          },
+          {
+            "bytes": 9196,
+            "connected_ip": "185.199.108.133",
+            "elapsed_seconds": 0.276201,
+            "event": "outbound_http",
+            "http_status": 200,
+            "proxy_used": false,
+            "redirects_followed": 0,
+            "resolved_ips": [
+              "185.199.108.133",
+              "185.199.111.133",
+              "185.199.110.133",
+              "185.199.109.133",
+              "2606:50c0:8002::154",
+              "2606:50c0:8003::154",
+              "2606:50c0:8001::154",
+              "2606:50c0:8000::154"
+            ],
+            "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+            "timestamp": "2026-10-12T20:49:17.490884+00:00",
+            "tls_hostname": "raw.githubusercontent.com",
+            "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+          }
+        ],
+        "retrieved_at": "2026-10-12T20:49:17.490884+00:00",
+        "run_id": "58df1e82-76a3-4605-95a5-de6fdb5cf008",
+        "sdk_version": "1.30.0",
+        "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "synthetic": true,
+        "transport": "stdio",
+        "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+        "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+      }
+    },
+    "actual_sanitized_events": [
+      {
+        "timestamp": "2026-10-12T20:49:15.792538+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "started",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:17.590871+00:00",
+        "synthetic": true,
+        "tool": "fetch",
+        "server": "borrowed Fetch MCP",
+        "phase": "completed",
+        "input": {
+          "source": "fixed commit-pinned public synthetic fixture"
+        },
+        "output": {
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "bytes": 9196,
+          "evidence_mode": "actual_public_http_real_mcp"
+        },
+        "elapsed_ms": 1798.342
+      },
+      {
+        "timestamp": "2026-10-12T20:49:18.008415+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 1
+      },
+      {
+        "timestamp": "2026-10-12T20:49:54.001605+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 35993.132,
+        "output": {
+          "selected_tool": "search_market_quotes",
+          "prompt_tokens": 914,
+          "generated_tokens": 146
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:54.001757+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:54.005873+00:00",
+        "synthetic": true,
+        "tool": "search_market_quotes",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "commodity": "demo-maize",
+          "market_ids": [
+            "00000000-0000-4000-8000-000000000101",
+            "00000000-0000-4000-8000-000000000102"
+          ],
+          "variant": "dry-demo",
+          "sale_basis": "wholesale",
+          "grade": "DEMO-1",
+          "as_of_date": "2026-10-10"
+        },
+        "elapsed_ms": 4.076,
+        "output": {
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "markets": [
+            "Market A",
+            "Market B"
+          ]
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:49:54.006048+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 2
+      },
+      {
+        "timestamp": "2026-10-12T20:50:44.288954+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 50282.785,
+        "output": {
+          "selected_tool": "compare_market_options",
+          "prompt_tokens": 1284,
+          "generated_tokens": 191
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:50:44.289132+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "750",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:50:44.292357+00:00",
+        "synthetic": true,
+        "tool": "compare_market_options",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "snapshot_id": "00000000-0000-4000-8000-000000000300",
+          "quote_ids": [
+            "00000000-0000-4000-8000-000000000001",
+            "00000000-0000-4000-8000-000000000002"
+          ],
+          "quantity": "750",
+          "unit": "kg",
+          "loss_fraction": "0",
+          "as_of_date": "2026-10-10",
+          "policy_version": "I01.7-synthetic-v1"
+        },
+        "elapsed_ms": 3.177,
+        "output": {
+          "winner": "Market A",
+          "advantage_kes": "2250.00",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          }
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:50:44.292557+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "started",
+        "step": 3
+      },
+      {
+        "timestamp": "2026-10-12T20:51:34.140611+00:00",
+        "synthetic": true,
+        "tool": "model selection",
+        "server": "local pinned Qwen",
+        "phase": "completed",
+        "elapsed_ms": 49847.948,
+        "output": {
+          "selected_tool": "save_advisory_draft",
+          "prompt_tokens": 1296,
+          "generated_tokens": 182
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:51:34.140798+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "started",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          },
+          "advantage_kes": "2250.00"
+        }
+      },
+      {
+        "timestamp": "2026-10-12T20:51:34.145179+00:00",
+        "synthetic": true,
+        "tool": "save_advisory_draft",
+        "server": "own MCP",
+        "phase": "completed",
+        "input": {
+          "winner": "Market A",
+          "net_proceeds": {
+            "Market A": "28000.00",
+            "Market B": "25750.00"
+          },
+          "advantage_kes": "2250.00"
+        },
+        "elapsed_ms": 4.265,
+        "output": {
+          "draft_id": "80fb4af1-33e1-5752-be39-6ad2d457948b",
+          "version": 1,
+          "content_hash": "8b4d1d6b9580db9f2be9b6a0f59193a6c7d3b0852c0249e80b16bec5424d334e",
+          "review_status": "PENDING_REVIEW"
+        }
+      }
+    ],
+    "arithmetic_pass": true,
+    "authenticated_demo_decision": {
+      "decision": {
+        "draft_id": "80fb4af1-33e1-5752-be39-6ad2d457948b",
+        "version": 1,
+        "content_hash": "8b4d1d6b9580db9f2be9b6a0f59193a6c7d3b0852c0249e80b16bec5424d334e",
+        "decision": "approve",
+        "reviewer_id": "test:local-demo-officer",
+        "workflow_id": "demo-12f3fc64-8e91-5d7f-8f32-c14a2e8f37dc",
+        "idempotency_key": "rehearsal-review-latency-004dd058-d4d3-4318-b79e-aadbaeb579c8",
+        "decided_at": "2026-10-12T20:51:34.369526+00:00"
+      },
+      "outcome": "approved_internal_review"
+    },
+    "measured_start_to_approval_seconds": 138.596,
+    "model_adapter_revision": "compact-v2-explicit-advisory-schema"
+  }
+]

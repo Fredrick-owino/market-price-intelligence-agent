@@ -1,0 +1,263 @@
+{
+  "label": "Actual continuous local synthetic model/MCP and authenticated demo approval; no independent practitioner",
+  "started_at": "2026-10-12T20:54:35.714Z",
+  "quantity_kg": 625,
+  "edited": false,
+  "model_warming": "Existing pinned model reused after measured rehearsal; no tool results cached or replayed",
+  "cuts": 0,
+  "time_compression": false,
+  "substituted_footage": false,
+  "uploaded": false,
+  "submitted": false,
+  "workflow_id": "demo-7b9f1ee5-dc37-50ee-9156-3d02cafabf1a",
+  "request_to_review_seconds": 141.145,
+  "authenticated_decision": {
+    "decision": {
+      "draft_id": "b9682289-442b-5fcc-bee5-05111577ba14",
+      "version": 1,
+      "content_hash": "57d582c7c78b99a9518094958c7cca53d565ceb49d99f3103bece03494f93913",
+      "decision": "approve",
+      "reviewer_id": "test:local-demo-officer",
+      "workflow_id": "demo-7b9f1ee5-dc37-50ee-9156-3d02cafabf1a",
+      "idempotency_key": "49ffffe4-477b-400e-afd8-7c387505c5cc",
+      "decided_at": "2026-10-12T20:57:10.369071+00:00"
+    },
+    "outcome": "approved_internal_review"
+  },
+  "request_to_approval_seconds": 151.281,
+  "sanitized_tool_events": [
+    {
+      "timestamp": "2026-10-12T20:54:39.143010+00:00",
+      "synthetic": true,
+      "tool": "fetch",
+      "server": "borrowed Fetch MCP",
+      "phase": "started",
+      "input": {
+        "source": "fixed commit-pinned public synthetic fixture"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:54:41.397549+00:00",
+      "synthetic": true,
+      "tool": "fetch",
+      "server": "borrowed Fetch MCP",
+      "phase": "completed",
+      "input": {
+        "source": "fixed commit-pinned public synthetic fixture"
+      },
+      "output": {
+        "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "bytes": 9196,
+        "evidence_mode": "actual_public_http_real_mcp"
+      },
+      "elapsed_ms": 2254.549
+    },
+    {
+      "timestamp": "2026-10-12T20:54:41.814672+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 1
+    },
+    {
+      "timestamp": "2026-10-12T20:55:12.959497+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 31144.766,
+      "output": {
+        "selected_tool": "search_market_quotes",
+        "prompt_tokens": 914,
+        "generated_tokens": 146
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:55:12.959607+00:00",
+      "synthetic": true,
+      "tool": "search_market_quotes",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "commodity": "demo-maize",
+        "market_ids": [
+          "00000000-0000-4000-8000-000000000101",
+          "00000000-0000-4000-8000-000000000102"
+        ],
+        "variant": "dry-demo",
+        "sale_basis": "wholesale",
+        "grade": "DEMO-1",
+        "as_of_date": "2026-10-10"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:55:12.963025+00:00",
+      "synthetic": true,
+      "tool": "search_market_quotes",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "commodity": "demo-maize",
+        "market_ids": [
+          "00000000-0000-4000-8000-000000000101",
+          "00000000-0000-4000-8000-000000000102"
+        ],
+        "variant": "dry-demo",
+        "sale_basis": "wholesale",
+        "grade": "DEMO-1",
+        "as_of_date": "2026-10-10"
+      },
+      "elapsed_ms": 3.383,
+      "output": {
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "markets": [
+          "Market A",
+          "Market B"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:55:12.963187+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 2
+    },
+    {
+      "timestamp": "2026-10-12T20:56:04.898334+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 51935.063,
+      "output": {
+        "selected_tool": "compare_market_options",
+        "prompt_tokens": 1284,
+        "generated_tokens": 191
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:56:04.898476+00:00",
+      "synthetic": true,
+      "tool": "compare_market_options",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "quantity": "625",
+        "unit": "kg",
+        "loss_fraction": "0",
+        "as_of_date": "2026-10-10",
+        "policy_version": "I01.7-synthetic-v1"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:56:04.901626+00:00",
+      "synthetic": true,
+      "tool": "compare_market_options",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "quantity": "625",
+        "unit": "kg",
+        "loss_fraction": "0",
+        "as_of_date": "2026-10-10",
+        "policy_version": "I01.7-synthetic-v1"
+      },
+      "elapsed_ms": 3.109,
+      "output": {
+        "winner": "Market A",
+        "advantage_kes": "2875.00",
+        "net_proceeds": {
+          "Market A": "23000.00",
+          "Market B": "20125.00"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:56:04.901794+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 3
+    },
+    {
+      "timestamp": "2026-10-12T20:56:57.238345+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 52336.46,
+      "output": {
+        "selected_tool": "save_advisory_draft",
+        "prompt_tokens": 1296,
+        "generated_tokens": 182
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:56:57.238534+00:00",
+      "synthetic": true,
+      "tool": "save_advisory_draft",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "winner": "Market A",
+        "net_proceeds": {
+          "Market A": "23000.00",
+          "Market B": "20125.00"
+        },
+        "advantage_kes": "2875.00"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T20:56:57.242639+00:00",
+      "synthetic": true,
+      "tool": "save_advisory_draft",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "winner": "Market A",
+        "net_proceeds": {
+          "Market A": "23000.00",
+          "Market B": "20125.00"
+        },
+        "advantage_kes": "2875.00"
+      },
+      "elapsed_ms": 3.992,
+      "output": {
+        "draft_id": "b9682289-442b-5fcc-bee5-05111577ba14",
+        "version": 1,
+        "content_hash": "57d582c7c78b99a9518094958c7cca53d565ceb49d99f3103bece03494f93913",
+        "review_status": "PENDING_REVIEW"
+      }
+    }
+  ],
+  "status": "completed",
+  "recording_wall_seconds": 159.743,
+  "video_local_path": ".state/continuous-video/2026-10-12T20-54-35-552Z/page@c6efaff14b56b668a466cbf4c048a5f9.webm",
+  "credential_content_visible": false,
+  "completed_at": "2026-10-12T20:57:15.990Z",
+  "decoded_duration_seconds": 159.68,
+  "video_sha256": "09aaba40ffb6e14cc156dfce7f0add6905c496872af151722165d7ceac2012c2",
+  "file_bytes": 31244943,
+  "under_180_seconds": true,
+  "continuous_capture": "Native Playwright video bytes retained unchanged; no post-processing",
+  "visual_qa": "Request, fetch/search/compare, comparison, draft/hash, demo identity and approval visible; final save event was too brief before comparison scroll. Retained attempt; new continuous attempt holds real event 4 s.",
+  "qualifying_recording_accepted_by_local_review": false,
+  "retained_as_attempt": true
+}

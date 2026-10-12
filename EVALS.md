@@ -1,205 +1,105 @@
-# Evaluation evidence and current limits
+# SokoSignal evaluations — actual evidence and limitations
 
-All market records below are synthetic. The actual local HTTP/model attempt on
-12 October 2026 used 500 kg. Deterministic expected results are Market A gross
-KES 20,000, costs KES 2,000, net KES 18,000; Market B gross KES 22,500, costs
-KES 8,000, net KES 14,500. Market A leads by KES 3,500. These are scenario
-calculations, not observed market opportunities or an income claim.
+I01.13 qualifying-demo continuation; Fredrick, solo review. Official Agriculture
+rules require at least eight distinct tasks; they need not all use a live model.
+The 110-second edited video is supplementary only, not a qualifying artifact.
+All cases below use labelled synthetic fixtures. Expected arithmetic/policies
+were recorded before the deterministic run; no independent peer review is implied.
 
-| Check | Actual result |
-|---|---|
-| Backend regression after final request/frontend integration | 147 passed in 147.84s using freshly synced locked application and borrowed-server environments; includes real local MCP transport with mocked network/model cases. |
-| Frontend TypeScript and Vite production build | Both passed; build produced static assets. |
-| Live HTTP attempt 01 | Failed closed after 222.297s with `request_timeout`; no review outcome. Retained in [attempt 01](evals/results/I01.13-actual-http-attempt-01.json). |
-| Live HTTP attempt 02 | Actual public synthetic Fetch over borrowed MCP, actual pinned local Qwen, three own tools, persisted draft in 147.214s; test officer HTTP approval → `approved_internal_review`, retry 200, anonymous 401. [Attempt 02](evals/results/I01.13-actual-http-attempt-02.json). |
-| Rejection path | Separate pending synthetic own-MCP workflow rejected through actual HTTP; status `REJECTED`, retry 200. No model/borrowed fetch in that specific check. [Rejection](evals/results/I01.13-rejection-http.json). |
-| API restart | Approved and rejected outcomes persisted; draft/action/decision/audit counts unchanged. [Restart](evals/results/I01.13-restart-http.json). |
-| Local deployment | `infra/run-local-demo.sh` served built UI, health and authenticated pending route on loopback; all returned HTTP 200. |
-| Actual Chrome UI | Two real local Qwen/borrowed-Fetch workflows: 500 kg approved in 234.38 s to review, 1,000 kg rejected in 246.07 s to review. Auth, progress, arithmetic, provenance, refresh, duplicate retries, failed request and narrow layout passed. [Browser report](docs/runs/I01.13-browser-verification.md). |
+## Distinct task matrix
 
-The I01.13 evidence includes two successful browser model workflows and a
-separate successful HTTP model attempt after a timeout. These are different
-checks and timing boundaries, not a reliability rate or independent scenarios.
-Eight diverse model tasks, repeated runs, independently
-prepared expected answers, practitioner review and fresh-clone reproduction
-are still outstanding. The earlier browser-surface blocker was resolved with
-local Playwright/Chrome; no independent UI reviewer is claimed. G0–G6 remain open.
+| Task | Mode / input | Expected | Actual | Result |
+|---|---|---|---|---|
+| T01 baseline | Deterministic software through actual MCP | `{"nets": ["38000.00", "37000.00"], "winner": "Market A"}` | `{"nets": ["38000.00", "37000.00"], "winner": "Market A"}` | PASS |
+| T02 half_quantity | Deterministic software through actual MCP | `{"nets": ["18000.00", "14500.00"], "winner": "Market A"}` | `{"nets": ["18000.00", "14500.00"], "winner": "Market A"}` | PASS |
+| T03 explicit_loss | Deterministic software through actual MCP | `{"nets": ["34000.00", "32500.00"], "winner": "Market A"}` | `{"nets": ["34000.00", "32500.00"], "winner": "Market A"}` | PASS |
+| T04 missing_fee | Deterministic software through actual MCP | `{"ranking": "gross_only_no_net_ranking", "winner": null}` | `{"ranking": "gross_only_no_net_ranking", "winner": null}` | PASS |
+| T05 sack | Deterministic software through actual MCP | `{"error": "incompatible_unit"}` | `{"error": "incompatible_unit"}` | PASS |
+| T06 unknown_grade | Deterministic software through actual MCP | `{"error": "unknown_grade"}` | `{"error": "unknown_grade"}` | PASS |
+| T07 future_observation | Deterministic software through actual MCP | `{"error": "incomparable_date"}` | `{"error": "incomparable_date"}` | PASS |
+| T08 insufficient_capacity | Deterministic software through actual MCP | `{"error": "unconfirmed_capacity"}` | `{"error": "unconfirmed_capacity"}` | PASS |
+| T09 duplicate_quotes | Deterministic software through actual MCP | `{"error": "invalid_quote_selection"}` | `{"error": "invalid_quote_selection"}` | PASS |
+| T10 request-changes/revision | Actual ASGI API + real model-free MCP pending checkpoint | Authenticated request-changes accepted (HTTP 200), followed by immutable revision | HTTP 422; API only supports approve/reject | **FAIL — unresolved** |
 
-The local API has no public TLS, rate limiting, production identity or
-multi-worker recovery lock. Synthetic prices/capacity do not establish real
-data rights, market freshness, buyer capacity or farmer benefit. The exact
-organizer cutoff, final video publication and release decision remain unresolved.
-The source repository is already public; the application is loopback-only.
+Denominator: **10 distinct tasks, 9 pass / 1 fail**. Nine deterministic cases
+executed through a real separate own MCP server; no model mocked into those
+results. T10 uses actual local API and real model-free MCP checkpoint, not a
+practitioner decision. [Matrix](evals/results/I01.13-distinct-task-matrix.json),
+[actual MCP trace](evals/results/I01.13-distinct-task-mcp-trace.jsonl),
+[observed revision failure](evals/results/I01.13-unresolved-revision-task.json).
 
-## Browser evaluation summary — verified evidence, not the final suite
+**Unresolved failure and improvement:** request-changes/revision cannot be
+performed through the decision UI/API. A separate bounded task should implement
+exact-version request-changes, an immutable revised draft and fresh named review,
+with old-approval invalidation/recovery tests. Current unsupported state remains
+visible; no feature is silently invented for this evaluation.
 
-Source: [sanitized Chrome result](evals/results/I01.13-browser/result.json),
-[inspection report](docs/runs/I01.13-browser-verification.md) and its six
-screenshots, 12 October 2026. Test officer: `test:local-demo-officer`;
-operator/reviewer: Fredrick, solo. This preparation reuses those results and
-executes no new inference. Chrome 151.0.7922.137 / Playwright Core 1.64.0 used
-actual loopback API, Qwen and borrowed public synthetic Fetch plus own MCP.
+## Actual model measurements and preserved variation
 
-Model: `qwen3:4b-instruct-2507-q4_K_M`, digest
-`0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0`.
-The implementation requests temperature 0 and context 4,096; see the
-[workflow source](backend/app/agent/model_workflow.py). Hardware recorded in
-[deployment evidence](infra/DEPLOYMENT.md): Ubuntu, i7-1165G7, 14 GiB RAM,
-no NVIDIA GPU. Synthetic fixture snapshot SHA-256:
-`01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef`.
-All prices, costs, market names and capacity are invented; fixture as-of date
-10 October 2026 is not a current market observation.
+All runs below use actual pinned Qwen and real borrowed/own MCP. These are
+separate from deterministic tasks and labelled regression mocks.
 
-| Browser task / run ID | Expected synthetic result (KES) | Verified outcome | Measured time to review |
-|---|---|---|---:|
-| 500 kg / `demo-3f0883f4-bcaf-5fa0-9788-060942e08a91` | A: gross 20,000 − transport 2,000 = net 18,000; B: gross 22,500 − transport 8,000 = net 14,500. A leads by 3,500. | Rendered totals/provenance matched; exact-draft test-officer approval and duplicate decision yielded `approved_internal_review`. | 234.38 s |
-| 1,000 kg / `demo-39400d45-480d-5876-843b-56680bac3be5` | A: gross 40,000 − transport 2,000 = net 38,000; B: gross 45,000 − transport 8,000 = net 37,000. A leads by 1,000. | Rendered totals/provenance matched; test-officer rejection and duplicate decision yielded `rejected`. | 246.07 s |
+| Adapter / quantity | Actual review state | Request to observed review | Authenticated demo approval |
+|---|---|---|---|
+| compact-v1-generic-advisory / 500 kg | FAILED: invalid_advisory | 121.509 s | No draft/decision |
+| compact-v1-generic-advisory / 750 kg | PENDING_REVIEW | 126.520 s | Yes, isolated synthetic demo identity |
+| compact-v2-explicit-advisory-schema / 500 kg | PENDING_REVIEW | 138.603 s | Yes, isolated synthetic demo identity |
+| compact-v2-explicit-advisory-schema / 750 kg | PENDING_REVIEW | 138.577 s | Yes, isolated synthetic demo identity |
 
-Both use zero loss, handling and fees as explicit assumptions and transport as
-fixed scenario totals. Market B wins on gross, Market A on estimated net.
-Expected values were derived from fixture arithmetic in the browser harness;
-they were not independently prepared by a practitioner or second reviewer.
-These are two quantity/decision variants of one fixture, not two diverse
-field-validity tasks and not eight evaluated scenarios. Each variant has one
-retained successful browser run; no three-repeat series was performed.
+Initial compact-schema failure is retained: the model nested the advisory under
+an unexpected wrapper; validation rejected it before any draft write. The later
+explicit model-visible schema returned valid summaries in two measured runs.
+[All attempts](evals/results/I01.13-compact-live-measurements.json),
+[actual request/response/tool trace](evals/results/I01.13-compact-rehearsal-trace.jsonl).
 
-Invalid token produced expected 401; valid sign-in, RUNNING progress, refresh,
-duplicate start (202), duplicate decisions, failed pending-fetch recovery and
-390 px layout checks passed. The failed fetch was intentionally induced,
-not a measured production outage. There were no browser page errors or
-unexpected API failures. Three initial console errors were retained: intentional
-401, intentionally aborted fetch and missing favicon; a separate post-fix page
-load had zero console errors. Two earlier harness locator failures occurred
-before model start; their short outputs were overwritten as disclosed in the
-report. Do not count them as model failures or claim all harness attempts passed.
+The two final-schema runs took **138.603 / 138.577 s**. Their observed range
+is 0.026 s across only two attempts; this small sample is not a reliability or
+hardware-independent guarantee. Recorded UI/browser runtime overhead must still
+fit the 180-second limit. New continuous recording results are recorded separately.
 
-### Observed failure and next improvement
+## Baseline profile and bounded improvements
 
-The HTTP attempt retained a `request_timeout` at 222.297 s; a later attempt
-succeeded. Timeout reliability remains uncharacterized. More directly, both
-measured browser times exceed 180 s **before human review**, so the current
-workflow cannot support the planned unedited under-three-minute video based on
-this evidence. Next: profile the measured phases and rehearse an authorized
-improvement with actual wall time and tool visibility, or obtain official
-format clarification. Do not substitute the faster 147.214 s HTTP result for
-browser latency. No cold/warm split, throughput, resource peak, token usage,
-manual baseline or income benefit was measured in these browser results.
+The retained 220.794-second browser run used 3.485 s retrieval and 211.744 s
+in model HTTP requests. Requests: search 29.925 s, compare 59.677 s, save
+122.141 s. Own tools together: 0.016882 s; save (including validation, SQL
+persistence and MCP response) 0.010680 s. SQL-only duration was not retained.
+Final model prompt: 3,199 tokens, with 63.813 s prompt evaluation and 58.134 s
+generation. Full comparison/provenance and long assumptions were repeated.
+[Profile](evals/results/I01.13-baseline-latency-profile.json).
 
-### Missing evaluation and practitioner feedback
+Removed duplicate comparison/provenance and source manifests from model context,
+shortened instructions and redundant schema titles, and projected only required
+quote fields. Model still chooses among all three tools on every turn. Its save
+summary must exactly match validated core fields; the host restores immutable
+assumptions/sources, then full validation is repeated at the real MCP server.
+All numbers, references, ordering, provenance, pending state and exact-hash
+review controls remain enforced. Search/compare output caps are 256 tokens,
+save 384; truncated output fails closed. No model response or tool result is
+replaced, hardcoded or replayed. Actual prior evidence and original pending
+drafts remain intact. Live UI events expose only whitelisted synthetic
+inputs/outputs/timestamps, not headers, free model text or credentials.
 
-Eight-plus diverse actual-model tasks with frozen inputs/independent expected
-answers, repeated runs, critical failure coverage, revision through the UI,
-independent review and fresh-clone reproduction are outstanding. Completed-run
-restart persistence is HTTP evidence, not browser crash-during-inference evidence.
+## Regression and reproducibility
 
-No practitioner interview, consented feedback, named institution or independent
-officer assessment is recorded. Obtain the office/cooperative and decision
-owner; chosen crop, origin and three real candidate markets; grade/unit/basis
-and freshness policy; realistic transport/handling/fees and sale capacity;
-usefulness of comparison/provenance; approval/rejection/revision procedure;
-acceptable latency; and a measured manual baseline if comparison is desired.
-Confirm data permissions separately. Record consented notes with dates and
-limitations, avoiding private farmer records. Test-officer approval is not
-practitioner endorsement. All G0–G6 remain NOT_PASSED.
+Final affected/full regression: **157 passed in 113.64 s**; Ruff check and
+format passed; frontend typecheck/build passed. Earlier affected suite: 45
+passed in 61.03 s. A prior full suite: 157 passed in 144.44 s before explicit
+schema tightening; final checks above cover the tightened schema. Regression
+model/network responses are labelled mocked where used, with actual MCP/state
+for relevant invariants. They are not 157 live-model tasks.
 
+Fresh-checkout one-command verification is a separate milestone using new
+private credentials/state and the existing shared model service. Results are
+added only after actual execution; this operator is still a solo reviewer.
 
-## Protected preview preparation — no new evaluation run
+## Evidence boundaries and remaining limitations
 
-[Domain-free Quick Tunnel preparation](infra/QUICK_TUNNEL.md) verified official
-cloudflared 2026.10.0 checksum/version/help and `--allowed-mail` support. Existing
-API/model listeners were loopback-only, API health responded and anonymous
-pending access returned 401. A separate synthetic test-officer verifier passed
-schema validation; it is not practitioner authority. No tunnel or temporary
-API configuration has started. Remote email login/denial, browser bearer
-forwarding, latency, restart and shutdown are untested. These setup checks do
-not add actual-model scenarios or change the retained browser timing results.
+No practitioner or named partner validation, real price integration, independent
+review, submitted form or public qualifying-video link. Remote email verification
+was owner-reported; remote officer completion is unverified. No new tunnel/upload.
+API is single worker with one model workflow slot; multiple workers/independent
+inference clients are unsupported. Historical source/data-rights review, exact
+official cutoff/eligibility/form and release signoff remain outstanding.
 
-
-## One-hour test prerequisites — bounded software changes
-
-Two new tests verify one active model workflow while polling and a real paused
-draft review remain responsive, covering new and recovered starts, duplicate
-retries/conflicts and release after failure. Five watchdog checks prove bounded
-process termination while an unrelated process remains alive. These are
-synthetic model/network checks, not new live-model evaluation scenarios.
-Temporary loopback officer configuration has been activated: anonymous,
-invalid and original credentials return 401, dedicated credentials 200 and
-wrong scope 403; [actual local record](evals/results/I01.13-quick-demo-local-auth.json).
-The authorized remote test's results will be recorded separately from these
-local prerequisites. No phone login or remote workflow success is implied.
-
-
-Final prelaunch regression after concurrency/SQLite changes: **154 passed in
-171.73 s**; Ruff lint/format and frontend typecheck/build passed. An intermediate
-full run had 153 passes and one second-start concurrency failure; fixed blocking
-SQLite dispatch and reran. An earlier concurrent-review harness stall was fixed
-by using one TestClient context/event loop, matching single-worker deployment.
-These records do not erase the earlier failed/blocked checks. See the
-[authorized test handoff](docs/handoffs/I01.13-one-hour-demo-A-2026-10-12.md).
-
-
-## Authorized preview observations — evidence boundaries
-
-Protected connector startup: 12 October 2026 15:04:54 EAT; planned hard expiry
-16:04:44 EAT (3,590 seconds). Anonymous page/health/pending routes redirected
-to login.trycloudflare.com without app content. A signed-out HTTP redirect
-chain reached Cloudflare Access HTML with an email field. Mobile-user-agent
-HTTP probes also redirected and set state cookies; they are not actual phone
-browser tests. The owner reported “Bad request” on the tunnel hostname.
-Later the owner confirmed email verification and reaching officer sign-in.
-Officer access is owner-reported but remains uncorroborated by a stored decision.
-
-One actual **loopback** 500 kg API/Qwen/borrowed-and-own-MCP check reached
-PENDING_REVIEW in **249.488 s**; same fixture net results A 18,000 / B 14,500 KES.
-Duplicate start returned the same workflow; one draft/action was stored and
-no decision was made. This is neither remote phone success nor independent
-practitioner review. [Run](evals/results/I01.13-one-hour-local-workflow.json),
-[executed tool trace](evals/results/I01.13-one-hour-local-trace.jsonl),
-[gate evidence](evals/results/I01.13-quick-demo-remote-gate.json).
-The [expiry check](evals/results/I01.13-one-hour-expiry.json) recorded
-connector exit at **16:04:44.232186 EAT**, absent PID/metrics, remote HTTP
-**502** without app content, and local API/model readiness at 16:04:46 EAT.
-A [later recheck](evals/results/I01.13-one-hour-post-expiry-recheck.json)
-at 22:40 EAT found no connector, an unresolved expired hostname and closed
-local API/model ports. Continued local service uptime is not established.
-
-
-Phone follow-up: the owner confirmed successful email verification using the
-fresh root-query entry and then saw officer sign-in. This is owner-reported
-phone evidence; no agent screenshot/login interception. Invalid/valid officer
-and exact-draft decision results remain pending until actually observed.
-
-
-## Integrated recovery review — 12 October 2026
-
-Full backend regression: **155 passed in 112.52 s**; frontend typecheck/build
-and Ruff check/format passed. New atomic admission rejects distinct overlapping
-starts (409, no row); identical retries reuse the stored run. Failed runs release
-admission; older accepted RUNNING rows recover through one model slot.
-Responsive polling/review, idempotency and connector-only expiry remain tested.
-Stale review errors preserve pending run state rather than prematurely completing
-it. [Recovery/integration handoff](docs/handoffs/I01.13-local-recovery-video-A-2026-10-12.md).
-Host journal establishes later power-off, not tunnel-induced service shutdown.
-Loopback API/model and exact pending draft restored with no decision.
-
-
-## Local video run and honest failure evidence
-
-Fresh capture attempt 01 failed `model_unavailable`: borrowed public retrieval
-succeeded, system-path Ollama served metadata but lacked llama-server and
-chat returned 500; no own call/draft/decision. Switched only the idle model
-process to the existing complete pinned user-local Ollama 0.40.2 runtime,
-with unchanged weights/digest; bounded actual inference then passed.
-[Failed attempt](evals/results/I01.13-local-video-attempt-01.json).
-
-Capture attempt 02: actual local Chrome 500 kg workflow, borrowed Fetch and
-all three own MCP tools, **220.794 s** request-to-observed-review; correct
-A/B net 18,000/14,500 KES. Identical retry 202/same run; distinct overlap 409.
-Pending draft; no decision. [Actual current trace](evals/results/I01.13-recorded-local-trace.jsonl).
-The final video is **110.0 s**, edited waiting with latency disclosed. Corrected
-comparison/hash/provenance scenes explicitly inspect the same persisted run
-after completion. [Video evidence](evals/results/I01.13-local-video.json).
-It is not an uninterrupted qualifying video, independent review, eight distinct
-live tasks or remote officer success. No upload or submission. Original
-draft/checkpoint rows and private verifier/token remain unchanged; local
-services ready at final check. [Readiness](evals/results/I01.13-final-local-readiness.json).
+Earlier real Chrome approval/rejection, failures, service recovery and edited
+supplementary recording are retained in [historical evaluations](docs/runs/I01.13-evaluation-history.md) and their original linked evidence. No gate is completed by this solo report.

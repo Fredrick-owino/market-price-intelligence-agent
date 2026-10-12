@@ -46,3 +46,13 @@ still needs shared recovery coordination, production identity, rate limits,
 rights review and separate authorization. The source repository is public
 following the owner's manual visibility change; historical data rights remain
 unresolved. This app uses only project-authored synthetic records.
+
+
+Qualifying-demo addendum: model context projects required quote/numeric fields
+for latency; full immutable assumptions/source references are restored by the
+host and validated again at the MCP server. All three tools remain available
+for actual model selection. Authenticated, scoped tool-event endpoint feeds
+live sanitized UI inputs/outputs/timestamps; events persist at drive exit,
+with possible partial UI-event loss on abrupt crash before flush. Original
+checkpoint/action/approval invariants remain unchanged. Demo reviewer label
+is backend-derived; source/public access is not officer authority.

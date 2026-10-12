@@ -16,6 +16,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 from mcp import Client, StdioServerParameters, stdio_client
 
+from backend.app.agent.demo_events import publish
 from backend.app.agent.model_workflow import ModelWorkflowFailure, model_exchange, task_for
 from backend.app.domain.retrieved_snapshot import validate_snapshot
 from backend.app.mcp.borrowed_client import exchange as borrowed_exchange
@@ -28,11 +29,10 @@ RESOURCE_URI = "synthetic://sokosignal/I01.7"
 
 
 def event(kind: str, **data) -> None:
+    row = {"timestamp": datetime.now(UTC).isoformat(), "event": kind, "synthetic": True, **data}
+    publish(row)
     print(
-        json.dumps(
-            {"timestamp": datetime.now(UTC).isoformat(), "event": kind, "synthetic": True, **data},
-            sort_keys=True,
-        ),
+        json.dumps(row, sort_keys=True),
         flush=True,
     )
 

@@ -285,6 +285,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 
 - I01.13 local recovery/integration continuation (2026-10-12): [handoff](handoffs/I01.13-local-recovery-video-A-2026-10-12.md). Power-off diagnosis; pinned loopback restoration preserves pending draft; atomic overlapping-start rejection with retry/recovery checks; 155 backend passes and frontend type/build. Local edited video recorded (110 s; actual latency 220.794 s), checklist/answers prepared; original pending checkpoint preserved. These remain preparation, not gate completion. Fredrick is sole editor/reviewer.
 
+- I01.13 qualifying-demo continuation (12–13 October): [handoff](handoffs/I01.13-qualifying-demo-A-2026-10-12.md). Measured compact model context, sanitized actual UI events, 157 checks, 10 distinct evaluation tasks (9 pass/1 unresolved revision flow). Continuous recording/fresh-checkout evidence tracked separately; solo review, no gate checkbox passed.
+
 ## I17 — Freeze independent evaluation suite
 
 - [ ] Complete and peer-reviewed

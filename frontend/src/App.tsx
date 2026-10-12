@@ -52,6 +52,8 @@ type Run = {
   retrieval_provenance?: Record<string, unknown> | null
 }
 
+type ToolEvent = { timestamp: string; tool: string; server: string; phase: string; input?: unknown; output?: unknown; elapsed_ms?: number }
+
 const STORAGE_KEY = 'sokosignal-demo-workflow-id'
 const fixed = {
   commodity: 'demo-maize', variant: 'dry-demo', grade: 'DEMO-1',
@@ -77,6 +79,8 @@ export default function App() {
   const [run, setRun] = useState<Run | null>(null)
   const [draft, setDraft] = useState<Draft | null>(null)
   const [pending, setPending] = useState<Draft[]>([])
+  const [events, setEvents] = useState<ToolEvent[]>([])
+  const [reviewer, setReviewer] = useState<{ id: string; demo: boolean } | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [note, setNote] = useState('')
@@ -95,13 +99,16 @@ export default function App() {
   }, [token])
 
   const refreshPending = useCallback(async () => {
-    const result = await api<{ drafts: Draft[] }>('/api/v1/drafts/pending')
+    const result = await api<{ drafts: Draft[]; reviewer: { id: string; demo: boolean } }>('/api/v1/drafts/pending')
     setPending(result.drafts)
+    setReviewer(result.reviewer)
   }, [api])
 
   const refresh = useCallback(async (id: string) => {
     const result = await api<Run>(`/api/v1/runs/${encodeURIComponent(id)}`)
     setRun(result)
+    const activity = await api<{ events: ToolEvent[] }>(`/api/v1/runs/${encodeURIComponent(id)}/events`)
+    setEvents(activity.events)
     if (result.draft_id) {
       const current = await api<Draft>(`/api/v1/runs/${encodeURIComponent(id)}/draft`)
       setDraft(current)
@@ -181,7 +188,7 @@ export default function App() {
 
   function newAttempt() {
     startKey.current = crypto.randomUUID()
-    setWorkflowId(''); setRun(null); setDraft(null); setError('')
+    setWorkflowId(''); setRun(null); setDraft(null); setEvents([]); setError('')
     sessionStorage.removeItem(STORAGE_KEY)
   }
 
@@ -190,10 +197,12 @@ export default function App() {
     <section className="hero"><p className="eyebrow">MARKET ACCESS / REVIEW DESK</p><h1>A clearer view of the market.<br /><em>A human decision at the end.</em></h1><p>Compare a bounded synthetic maize case, inspect its evidence, and record a named officer’s review.</p><div className="banner">SYNTHETIC DEMO <span>Invented prices and costs · historical fixture date 10 Oct 2026 · no advisory delivery</span></div></section>
     {error && <div className="alert" role="alert">{error}</div>}
     {!authenticated ? <section className="panel signin"><div><p className="eyebrow">01 / ACCESS</p><h2>Officer sign in</h2><p>Enter your local bearer token. It stays in this page’s memory and is cleared on refresh.</p></div><form onSubmit={signIn}><label>Officer token<input type="password" autoComplete="off" value={token} onChange={event => setToken(event.target.value)} required /></label><button>Open review desk</button></form></section> : <>
+      <p className="demo-reviewer">{reviewer?.demo ? 'Demo reviewer identity' : 'Reviewer'}: {reviewer?.id} · internal review only</p>
       <div className="grid"><section className="panel"><p className="eyebrow">02 / REQUEST</p><h2>Comparison request</h2><p className="muted">The current demo supports one crop, grade, date and two invented markets. Quantity is the only variable.</p><form onSubmit={start} className="request-form"><label>Farmer quantity <span>whole kilograms, max 1,000</span><input type="number" min="1" max="1000" step="1" value={quantity} onChange={event => { setQuantity(event.target.value); startKey.current = crypto.randomUUID() }} /></label><div className="facts"><div><small>CROP / GRADE</small><strong>Demo maize · DEMO-1</strong></div><div><small>ORIGIN</small><strong>Synthetic region</strong></div><div><small>MARKETS</small><strong>Market A + Market B</strong></div><div><small>PRICE DATE</small><strong>10 Oct 2026</strong></div></div><button disabled={busy || run?.status === 'RUNNING'}>Start comparison</button>{run && <button type="button" className="quiet" onClick={newAttempt}>New attempt</button>}</form></section>
       <section className="panel"><p className="eyebrow">03 / WORKFLOW</p><h2>Run status</h2>{run ? <><p className={`status ${run.status.toLowerCase()}`}>{run.status.replace('_', ' ')}</p><p className="mono">{run.workflow_id}</p>{run.status === 'RUNNING' && <p>Retrieval, model tool calls and draft creation can take several minutes. This page checks the persisted run every 3 seconds. The workflow is still running.</p>}{run.status === 'FAILED' && <p>The run stopped: <strong>{run.error_code || 'unknown failure'}</strong>. No reviewable draft was created. Check the local services and start a new attempt.</p>}{run.outcome && <p><strong>Outcome:</strong> {run.outcome === 'approved_internal_review' ? 'Approved for internal review only; nothing was delivered.' : run.outcome === 'rejected' ? 'Rejected; nothing was delivered.' : run.outcome}</p>}</> : <p className="muted">No run selected. Start a comparison or open a pending draft below.</p>}</section></div>
+      {workflowId && <section className="panel full tool-activity"><p className="eyebrow">ACTUAL EXECUTION / SANITIZED</p><h2>Live tool activity</h2><p>Actual borrowed retrieval and model-selected own MCP calls. No replay or credential headers.</p>{events.length ? <div className="tool-events">{events.map((event, index) => <article className="tool-event" key={index}><strong>{event.tool} · {event.phase}</strong><small>{event.server} · {event.timestamp}{event.elapsed_ms !== undefined ? ` · ${(event.elapsed_ms / 1000).toFixed(3)} s` : ''}</small>{event.input !== undefined && <pre>Input: {JSON.stringify(event.input)}</pre>}{event.output !== undefined && <pre>Output: {JSON.stringify(event.output)}</pre>}</article>)}</div> : <p>Waiting for actual execution events.</p>}</section>}
       {run?.comparison && <section className="panel full"><p className="eyebrow">04 / COMPARISON</p><h2>Market options</h2><p>As of {run.comparison.as_of_date} · {run.comparison.currency} · {draft?.content.calculation.quantity || quantity} kg · {run.comparison.winner ? `${run.comparison.winner} leads by ${run.comparison.advantage_kes} KES` : 'No defensible net winner'}</p><div className="market-grid">{run.comparison.markets.map(market => <article className="market" key={market.quote_id}><h3>{market.market}</h3><div className="market-price">{market.estimated_net_proceeds ?? 'Unknown'} <small>KES net</small></div><dl><div><dt>Price / kg</dt><dd>{market.normalized_price_per_kg}</dd></div><div><dt>Gross proceeds</dt><dd>{market.gross_proceeds}</dd></div><div><dt>Transport</dt><dd>{market.costs.transport_total ?? 'Unknown'}</dd></div><div><dt>Handling</dt><dd>{market.costs.handling_total ?? 'Unknown'}</dd></div><div><dt>Market fees</dt><dd>{market.costs.market_fees_total ?? 'Unknown'}</dd></div><div><dt>Total costs</dt><dd>{market.total_cost ?? 'Unknown'}</dd></div></dl><small>Quote {market.quote_id}<br />{market.source_reference}</small></article>)}</div></section>}
-      {draft && <section className="panel full"><p className="eyebrow">05 / EVIDENCE & DECISION</p><h2>Draft version {draft.version}</h2><p className="mono">ID {draft.draft_id}<br />SHA-256 {draft.content_hash}</p><p><strong>Status:</strong> {draft.status}</p><div className="evidence"><div><h3>Source & provenance</h3><p>Synthetic fixture snapshot: {run?.comparison?.snapshot_sha256 || 'See stored draft'}</p><pre>{JSON.stringify(draft.content.retrieval_provenance || run?.retrieval_provenance || {}, null, 2)}</pre></div><div><h3>Assumptions & limits</h3><ul>{[...draft.content.assumptions, ...draft.content.limitations].map((item, index) => <li key={index}>{item}</li>)}</ul></div></div>{draft.status === 'PENDING_REVIEW' && <div className="decision"><label>Decision note <span>optional · max 500 characters</span><textarea maxLength={500} value={note} onChange={event => setNote(event.target.value)} /></label><div><button disabled={busy} onClick={() => void decide('approve')}>Approve internal review</button><button disabled={busy} className="danger" onClick={() => void decide('reject')}>Reject draft</button></div></div>}</section>}
+      {draft && <section className="panel full"><p className="eyebrow">05 / EVIDENCE & DECISION</p><h2>Draft version {draft.version}</h2><p className="mono">ID {draft.draft_id}<br />SHA-256 {draft.content_hash}</p><p><strong>Status:</strong> {draft.status}</p><div className="evidence"><div><h3>Source & provenance</h3><p>Synthetic fixture snapshot: {run?.comparison?.snapshot_sha256 || 'See stored draft'}</p><pre>{JSON.stringify(draft.content.retrieval_provenance || run?.retrieval_provenance || {}, null, 2)}</pre></div><div><h3>Assumptions & limits</h3><ul>{[...draft.content.assumptions, ...draft.content.limitations].map((item, index) => <li key={index}>{item}</li>)}</ul></div></div>{draft.status === 'PENDING_REVIEW' && <div className="decision"><p><strong>{reviewer?.demo ? 'Demo reviewer identity' : 'Reviewer'}:</strong> {reviewer?.id} · internal review only</p><label>Decision note <span>optional · max 500 characters</span><textarea maxLength={500} value={note} onChange={event => setNote(event.target.value)} /></label><div><button disabled={busy} onClick={() => void decide('approve')}>Approve internal review</button><button disabled={busy} className="danger" onClick={() => void decide('reject')}>Reject draft</button></div></div>}</section>}
       <section className="panel full"><p className="eyebrow">INBOX</p><h2>Pending drafts you can review</h2>{pending.length ? <div className="inbox">{pending.map(item => <button className="inbox-item" key={item.draft_id} onClick={() => selectDraft(item)}><strong>{item.workflow_id}</strong><span>Version {item.version} · {item.status}</span></button>)}</div> : <p className="muted">No pending drafts in your permitted workflows.</p>}</section>
     </>}
     <footer>SokoSignal · local synthetic demonstration · no live market evidence or farmer delivery</footer>

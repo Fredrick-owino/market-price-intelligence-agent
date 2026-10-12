@@ -46,6 +46,8 @@ class DraftStore:
                     workflow_id TEXT PRIMARY KEY, owner_id TEXT NOT NULL,
                     request_json TEXT NOT NULL, request_hash TEXT NOT NULL,
                     status TEXT NOT NULL, error_code TEXT, updated_at TEXT NOT NULL);
+                CREATE TABLE IF NOT EXISTS run_events(
+                    workflow_id TEXT PRIMARY KEY, events_json TEXT NOT NULL);
                 """
             )
 
@@ -393,6 +395,19 @@ class DraftStore:
         with self.connect() as db:
             row = db.execute("SELECT * FROM runs WHERE workflow_id=?", (workflow_id,)).fetchone()
             return dict(row) if row else None
+
+    def save_events(self, workflow_id: str, events: list[dict]) -> None:
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR REPLACE INTO run_events VALUES(?,?)", (workflow_id, canonical(events))
+            )
+
+    def events(self, workflow_id: str) -> list[dict]:
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT events_json FROM run_events WHERE workflow_id=?", (workflow_id,)
+            ).fetchone()
+            return json.loads(row[0]) if row else []
 
     def update_run(self, workflow_id: str, status: str, error_code: str | None = None) -> None:
         if status not in {"RUNNING", "PENDING_REVIEW", "COMPLETED", "FAILED"}:
