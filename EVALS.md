@@ -15,13 +15,13 @@ calculations, not observed market opportunities or an income claim.
 | Rejection path | Separate pending synthetic own-MCP workflow rejected through actual HTTP; status `REJECTED`, retry 200. No model/borrowed fetch in that specific check. [Rejection](evals/results/I01.13-rejection-http.json). |
 | API restart | Approved and rejected outcomes persisted; draft/action/decision/audit counts unchanged. [Restart](evals/results/I01.13-restart-http.json). |
 | Local deployment | `infra/run-local-demo.sh` served built UI, health and authenticated pending route on loopback; all returned HTTP 200. |
+| Actual Chrome UI | Two real local Qwen/borrowed-Fetch workflows: 500 kg approved in 234.38 s to review, 1,000 kg rejected in 246.07 s to review. Auth, progress, arithmetic, provenance, refresh, duplicate retries, failed request and narrow layout passed. [Browser report](docs/runs/I01.13-browser-verification.md). |
 
 The live model evidence is one successful 500 kg attempt after one timeout, not
 a reliability rate. Eight diverse model tasks, repeated runs, independently
-prepared expected answers, practitioner review, UI browser exercise and
-fresh-clone reproduction are still outstanding. The computer-use browser
-surface was unavailable in this session; the frontend was compiled and served
-over HTTP but visual interaction was not verified. G0–G6 remain open.
+prepared expected answers, practitioner review and fresh-clone reproduction
+are still outstanding. The earlier browser-surface blocker was resolved with
+local Playwright/Chrome; no independent UI reviewer is claimed. G0–G6 remain open.
 
 The local API has no public TLS, rate limiting, production identity or
 multi-worker recovery lock. Synthetic prices/capacity do not establish real

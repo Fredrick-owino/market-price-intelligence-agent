@@ -1,0 +1,90 @@
+{
+  "label": "Actual local Chrome UI, backend and model; synthetic test officer",
+  "chrome": "/usr/bin/google-chrome",
+  "base": "http://127.0.0.1:8000",
+  "started_at": "2026-10-12T10:47:01.270Z",
+  "scenarios": [
+    {
+      "quantity_kg": 500,
+      "pre_review_seconds": 234.38,
+      "expected": {
+        "markets": [
+          {
+            "market": "Market A",
+            "gross": 20000,
+            "cost": 2000,
+            "net": 18000
+          },
+          {
+            "market": "Market B",
+            "gross": 22500,
+            "cost": 8000,
+            "net": 14500
+          }
+        ],
+        "winner": "Market A"
+      },
+      "workflow_id": "demo-3f0883f4-bcaf-5fa0-9788-060942e08a91",
+      "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+      "duplicate_start_status": 202,
+      "refresh_restored": true,
+      "decision": "approve",
+      "duplicate_decision_outcome": "approved_internal_review"
+    },
+    {
+      "quantity_kg": 1000,
+      "pre_review_seconds": 246.07,
+      "expected": {
+        "markets": [
+          {
+            "market": "Market A",
+            "gross": 40000,
+            "cost": 2000,
+            "net": 38000
+          },
+          {
+            "market": "Market B",
+            "gross": 45000,
+            "cost": 8000,
+            "net": 37000
+          }
+        ],
+        "winner": "Market A"
+      },
+      "workflow_id": "demo-39400d45-480d-5876-843b-56680bac3be5",
+      "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+      "duplicate_start_status": 202,
+      "refresh_restored": true,
+      "decision": "reject",
+      "duplicate_decision_outcome": "rejected"
+    }
+  ],
+  "expected_http_failures": [
+    {
+      "path": "/api/v1/drafts/pending",
+      "status": 401
+    }
+  ],
+  "unexpected_http_failures": [],
+  "browser_page_errors": [],
+  "browser_console_errors": [
+    "console_error",
+    "console_error",
+    "console_error"
+  ],
+  "screenshots": [
+    "01-desktop-authenticated.png",
+    "2-500kg-draft-desktop.png",
+    "4-500kg-approve-desktop.png",
+    "3-1000kg-draft-desktop.png",
+    "5-1000kg-reject-desktop.png",
+    "06-narrow-final.png"
+  ],
+  "narrow_viewport": {
+    "scrollWidth": 390,
+    "innerWidth": 390
+  },
+  "failed_request_recovered": true,
+  "completed_at": "2026-10-12T10:55:03.825Z",
+  "status": "passed"
+}

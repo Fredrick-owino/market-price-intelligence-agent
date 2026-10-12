@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "browser:check": "node scripts/browser-check.mjs",
     "dev": "vite",
     "typecheck": "tsc --noEmit"
   },
@@ -20,6 +21,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": ">=5 <6",
+    "playwright-core": "1.64.0",
     "typescript": ">=5.7 <6",
     "vite": ">=7 <8"
   }

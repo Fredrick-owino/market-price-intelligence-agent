@@ -1,6 +1,6 @@
 # Project status — update from execution evidence
 
-Last evidence update: 12 October 2026 (I01.13 visibility addendum). Synthetic
+Last evidence update: 12 October 2026 (I01.13 browser addendum). Synthetic
 local demo implementation and HTTP evidence are recorded on main; release gates
 remain open.
 
@@ -72,6 +72,19 @@ written. No history was rewritten or visibility changed by Codex.
 The application still uses only the labelled project-authored synthetic
 fixture; historical KAMIS redistribution rights remain unresolved. The API
 remains bound to loopback, and no release gate is marked complete.
+
+### Chrome browser verification addendum — 12 October 2026
+
+The [actual Chrome report](runs/I01.13-browser-verification.md) records two
+browser-driven local Qwen/borrowed-Fetch synthetic workflows (500 kg approved,
+1,000 kg rejected), invalid/valid authentication, progress, comparison and
+provenance, refresh, duplicate retries, a failed request, and desktop/narrow
+screenshots. Playwright used an isolated profile and ignored test credential.
+The visible comparison matched fixture-derived arithmetic; higher gross at
+Market B became lower net after transport in both cases. Measured pre-review
+times were 234.38 s and 246.07 s. This supersedes the earlier statement that
+browser interaction was unavailable. Fredrick's review remains solo; G0–G6
+stay NOT_PASSED.
 
 ## I01.12 — local authenticated review evidence
 

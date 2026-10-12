@@ -58,6 +58,14 @@ npm run typecheck --prefix frontend
 npm run build --prefix frontend
 ```
 
+For an optional local Chrome walkthrough after the backend and Ollama are
+running, use `npm run browser:check --prefix frontend`. This uses the pinned
+`playwright-core` package with installed Google Chrome, a disposable browser
+profile and the ignored `.env.token.local` credential. It writes synthetic-only
+screenshots and a sanitized JSON result under `evals/results/I01.13-browser/`;
+it performs two real model workflows and can take several minutes. No browser
+trace or credential is retained.
+
 See [architecture](ARCHITECTURE.md), [evaluation and limits](EVALS.md),
 [demo script](docs/demo-script.md) and the detailed [I01.13 run report](docs/runs/I01.13-demo-integration.md).
 The repository is public following Fredrick's manual visibility change on
