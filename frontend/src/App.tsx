@@ -1,0 +1,200 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+
+type Market = {
+  market: string
+  quote_id: string
+  normalized_price_per_kg: string
+  sellable_kg: string
+  gross_proceeds: string
+  costs: Record<string, string | null>
+  total_cost: string | null
+  estimated_net_proceeds: string | null
+  source_reference: string
+}
+type Comparison = {
+  synthetic: boolean
+  as_of_date: string
+  currency: string
+  winner: string | null
+  advantage_kes: string | null
+  markets: Market[]
+  assumptions: string[]
+  limitations: string[]
+  snapshot_sha256: string
+  retrieval_provenance?: Record<string, unknown>
+}
+type Draft = {
+  workflow_id: string
+  draft_id: string
+  version: number
+  content_hash: string
+  status: string
+  content: {
+    calculation: { quantity: string; unit: string }
+    quote_references: { quote_id: string; source_reference: string }[]
+    assumptions: string[]
+    limitations: string[]
+    retrieval_provenance?: Record<string, unknown>
+  }
+}
+type Run = {
+  workflow_id: string
+  status: 'RUNNING' | 'PENDING_REVIEW' | 'COMPLETED' | 'FAILED'
+  error_code?: string | null
+  phase?: string[]
+  outcome?: string | null
+  draft_id?: string
+  version?: number
+  content_hash?: string
+  draft_status?: string
+  pending_nodes?: string[]
+  comparison?: Comparison | null
+  retrieval_provenance?: Record<string, unknown> | null
+}
+
+const STORAGE_KEY = 'sokosignal-demo-workflow-id'
+const fixed = {
+  commodity: 'demo-maize', variant: 'dry-demo', grade: 'DEMO-1',
+  origin: 'synthetic-region', sale_basis: 'wholesale',
+  as_of_date: '2026-10-10', markets: 'Market A and Market B',
+} as const
+
+function formatError(status: number, value: unknown): string {
+  const detail = value && typeof value === 'object' && 'detail' in value ? (value as { detail: unknown }).detail : value
+  if (status === 401) return 'Credential missing or invalid. Enter the local officer token again.'
+  if (status === 403) return 'This officer is not permitted to access this workflow.'
+  if (status === 409) return 'The draft or request changed. Refresh its current status before retrying.'
+  if (status === 422) return 'Check the supported input and try again.'
+  return typeof detail === 'string' ? detail : `Request failed (${status}).`
+}
+
+export default function App() {
+  const [token, setToken] = useState('')
+  const [authenticated, setAuthenticated] = useState(false)
+  const [quantity, setQuantity] = useState('1000')
+  const [workflowId, setWorkflowId] = useState(() => sessionStorage.getItem(STORAGE_KEY) || '')
+  const [run, setRun] = useState<Run | null>(null)
+  const [draft, setDraft] = useState<Draft | null>(null)
+  const [pending, setPending] = useState<Draft[]>([])
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const [note, setNote] = useState('')
+  const startKey = useRef(crypto.randomUUID())
+  const decisionKeys = useRef<Record<string, string>>({})
+
+  const api = useCallback(async <T,>(path: string, init?: RequestInit): Promise<T> => {
+    const response = await fetch(path, {
+      ...init,
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', ...init?.headers },
+      cache: 'no-store',
+    })
+    const value: unknown = await response.json().catch(() => null)
+    if (!response.ok) throw new Error(formatError(response.status, value))
+    return value as T
+  }, [token])
+
+  const refreshPending = useCallback(async () => {
+    const result = await api<{ drafts: Draft[] }>('/api/v1/drafts/pending')
+    setPending(result.drafts)
+  }, [api])
+
+  const refresh = useCallback(async (id: string) => {
+    const result = await api<Run>(`/api/v1/runs/${encodeURIComponent(id)}`)
+    setRun(result)
+    if (result.draft_id) {
+      const current = await api<Draft>(`/api/v1/runs/${encodeURIComponent(id)}/draft`)
+      setDraft(current)
+    } else {
+      setDraft(null)
+    }
+    return result
+  }, [api])
+
+  useEffect(() => {
+    if (!authenticated || !workflowId) return
+    let cancelled = false
+    const poll = async () => {
+      try {
+        const next = await refresh(workflowId)
+        if (!cancelled && next.status !== 'RUNNING') await refreshPending()
+      } catch (caught) {
+        if (!cancelled) setError((caught as Error).message)
+      }
+    }
+    void poll()
+    const timer = window.setInterval(() => { void poll() }, 3000)
+    return () => { cancelled = true; window.clearInterval(timer) }
+  }, [authenticated, workflowId, refresh, refreshPending])
+
+  async function signIn(event: React.FormEvent) {
+    event.preventDefault()
+    setError('')
+    try {
+      await refreshPending()
+      setAuthenticated(true)
+    } catch (caught) { setError((caught as Error).message) }
+  }
+
+  async function start(event: React.FormEvent) {
+    event.preventDefault()
+    const amount = Number(quantity)
+    if (!Number.isInteger(amount) || amount < 1 || amount > 1000) {
+      setError('Enter a whole kilogram quantity from 1 to 1000.')
+      return
+    }
+    setBusy(true); setError('')
+    try {
+      const result = await api<{ workflow_id: string }>('/api/v1/requests', {
+        method: 'POST', body: JSON.stringify({ ...fixed, quantity_kg: amount, idempotency_key: startKey.current }),
+      })
+      setWorkflowId(result.workflow_id)
+      sessionStorage.setItem(STORAGE_KEY, result.workflow_id)
+      await refresh(result.workflow_id)
+    } catch (caught) { setError((caught as Error).message) }
+    finally { setBusy(false) }
+  }
+
+  async function decide(choice: 'approve' | 'reject') {
+    if (!draft) return
+    const identity = `${draft.workflow_id}:${draft.version}:${choice}`
+    const key = decisionKeys.current[identity] ||= crypto.randomUUID()
+    setBusy(true); setError('')
+    try {
+      await api(`/api/v1/runs/${encodeURIComponent(draft.workflow_id)}/decisions`, {
+        method: 'POST', body: JSON.stringify({
+          draft_id: draft.draft_id, version: draft.version, content_hash: draft.content_hash,
+          decision: choice, idempotency_key: key, note,
+        }),
+      })
+      await refresh(draft.workflow_id)
+      await refreshPending()
+    } catch (caught) { setError((caught as Error).message); await refresh(draft.workflow_id).catch(() => {}) }
+    finally { setBusy(false) }
+  }
+
+  function selectDraft(item: Draft) {
+    setWorkflowId(item.workflow_id)
+    sessionStorage.setItem(STORAGE_KEY, item.workflow_id)
+    setError('')
+  }
+
+  function newAttempt() {
+    startKey.current = crypto.randomUUID()
+    setWorkflowId(''); setRun(null); setDraft(null); setError('')
+    sessionStorage.removeItem(STORAGE_KEY)
+  }
+
+  return <main className="shell">
+    <header className="topbar"><div className="mark">S<span>·</span></div><div><strong>SokoSignal</strong><small>OFFICER WORKSPACE</small></div><div className="topright">Local demonstration <i /></div></header>
+    <section className="hero"><p className="eyebrow">MARKET ACCESS / REVIEW DESK</p><h1>A clearer view of the market.<br /><em>A human decision at the end.</em></h1><p>Compare a bounded synthetic maize case, inspect its evidence, and record a named officer’s review.</p><div className="banner">SYNTHETIC DEMO <span>Invented prices and costs · historical fixture date 10 Oct 2026 · no advisory delivery</span></div></section>
+    {error && <div className="alert" role="alert">{error}</div>}
+    {!authenticated ? <section className="panel signin"><div><p className="eyebrow">01 / ACCESS</p><h2>Officer sign in</h2><p>Enter your local bearer token. It stays in this page’s memory and is cleared on refresh.</p></div><form onSubmit={signIn}><label>Officer token<input type="password" autoComplete="off" value={token} onChange={event => setToken(event.target.value)} required /></label><button>Open review desk</button></form></section> : <>
+      <div className="grid"><section className="panel"><p className="eyebrow">02 / REQUEST</p><h2>Comparison request</h2><p className="muted">The current demo supports one crop, grade, date and two invented markets. Quantity is the only variable.</p><form onSubmit={start} className="request-form"><label>Farmer quantity <span>whole kilograms, max 1,000</span><input type="number" min="1" max="1000" step="1" value={quantity} onChange={event => { setQuantity(event.target.value); startKey.current = crypto.randomUUID() }} /></label><div className="facts"><div><small>CROP / GRADE</small><strong>Demo maize · DEMO-1</strong></div><div><small>ORIGIN</small><strong>Synthetic region</strong></div><div><small>MARKETS</small><strong>Market A + Market B</strong></div><div><small>PRICE DATE</small><strong>10 Oct 2026</strong></div></div><button disabled={busy || run?.status === 'RUNNING'}>Start comparison</button>{run && <button type="button" className="quiet" onClick={newAttempt}>New attempt</button>}</form></section>
+      <section className="panel"><p className="eyebrow">03 / WORKFLOW</p><h2>Run status</h2>{run ? <><p className={`status ${run.status.toLowerCase()}`}>{run.status.replace('_', ' ')}</p><p className="mono">{run.workflow_id}</p>{run.status === 'RUNNING' && <p>Retrieval, model tool calls and draft creation can take several minutes. This page checks the persisted run every 3 seconds. The workflow is still running.</p>}{run.status === 'FAILED' && <p>The run stopped: <strong>{run.error_code || 'unknown failure'}</strong>. No reviewable draft was created. Check the local services and start a new attempt.</p>}{run.outcome && <p><strong>Outcome:</strong> {run.outcome === 'approved_internal_review' ? 'Approved for internal review only; nothing was delivered.' : run.outcome === 'rejected' ? 'Rejected; nothing was delivered.' : run.outcome}</p>}</> : <p className="muted">No run selected. Start a comparison or open a pending draft below.</p>}</section></div>
+      {run?.comparison && <section className="panel full"><p className="eyebrow">04 / COMPARISON</p><h2>Market options</h2><p>As of {run.comparison.as_of_date} · {run.comparison.currency} · {draft?.content.calculation.quantity || quantity} kg · {run.comparison.winner ? `${run.comparison.winner} leads by ${run.comparison.advantage_kes} KES` : 'No defensible net winner'}</p><div className="market-grid">{run.comparison.markets.map(market => <article className="market" key={market.quote_id}><h3>{market.market}</h3><div className="market-price">{market.estimated_net_proceeds ?? 'Unknown'} <small>KES net</small></div><dl><div><dt>Price / kg</dt><dd>{market.normalized_price_per_kg}</dd></div><div><dt>Gross proceeds</dt><dd>{market.gross_proceeds}</dd></div><div><dt>Transport</dt><dd>{market.costs.transport_total ?? 'Unknown'}</dd></div><div><dt>Handling</dt><dd>{market.costs.handling_total ?? 'Unknown'}</dd></div><div><dt>Market fees</dt><dd>{market.costs.market_fees_total ?? 'Unknown'}</dd></div><div><dt>Total costs</dt><dd>{market.total_cost ?? 'Unknown'}</dd></div></dl><small>Quote {market.quote_id}<br />{market.source_reference}</small></article>)}</div></section>}
+      {draft && <section className="panel full"><p className="eyebrow">05 / EVIDENCE & DECISION</p><h2>Draft version {draft.version}</h2><p className="mono">ID {draft.draft_id}<br />SHA-256 {draft.content_hash}</p><p><strong>Status:</strong> {draft.status}</p><div className="evidence"><div><h3>Source & provenance</h3><p>Synthetic fixture snapshot: {run?.comparison?.snapshot_sha256 || 'See stored draft'}</p><pre>{JSON.stringify(draft.content.retrieval_provenance || run?.retrieval_provenance || {}, null, 2)}</pre></div><div><h3>Assumptions & limits</h3><ul>{[...draft.content.assumptions, ...draft.content.limitations].map((item, index) => <li key={index}>{item}</li>)}</ul></div></div>{draft.status === 'PENDING_REVIEW' && <div className="decision"><label>Decision note <span>optional · max 500 characters</span><textarea maxLength={500} value={note} onChange={event => setNote(event.target.value)} /></label><div><button disabled={busy} onClick={() => void decide('approve')}>Approve internal review</button><button disabled={busy} className="danger" onClick={() => void decide('reject')}>Reject draft</button></div></div>}</section>}
+      <section className="panel full"><p className="eyebrow">INBOX</p><h2>Pending drafts you can review</h2>{pending.length ? <div className="inbox">{pending.map(item => <button className="inbox-item" key={item.draft_id} onClick={() => selectDraft(item)}><strong>{item.workflow_id}</strong><span>Version {item.version} · {item.status}</span></button>)}</div> : <p className="muted">No pending drafts in your permitted workflows.</p>}</section>
+    </>}
+    <footer>SokoSignal · local synthetic demonstration · no live market evidence or farmer delivery</footer>
+  </main>
+}

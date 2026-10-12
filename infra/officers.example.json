@@ -1,0 +1,10 @@
+{
+  "officers": [
+    {
+      "id": "test:replace-with-local-demo-id",
+      "token_sha256": "<lowercase-sha256-of-a-new-random-local-token>",
+      "workflows": [],
+      "workflow_prefix": "demo-"
+    }
+  ]
+}

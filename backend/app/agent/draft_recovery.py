@@ -16,7 +16,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 from mcp import Client, StdioServerParameters, stdio_client
 
-from backend.app.agent.model_workflow import DEFAULT_TASK, ModelWorkflowFailure, model_exchange
+from backend.app.agent.model_workflow import ModelWorkflowFailure, model_exchange, task_for
 from backend.app.domain.retrieved_snapshot import validate_snapshot
 from backend.app.mcp.borrowed_client import exchange as borrowed_exchange
 from backend.app.mcp.transport_client import Trace
@@ -46,6 +46,7 @@ class State(TypedDict, total=False):
     outcome: str
     mode: str
     user_task: str
+    quantity: str
     failure_code: str
     failure_message: str
     verified_snapshot: dict
@@ -214,6 +215,7 @@ def build_graph(
                         state["idempotency_key"],
                         db_path,
                         user_task=state["user_task"],
+                        quantity=state.get("quantity", "1000"),
                         request_timeout_seconds=request_timeout_seconds,
                         max_tool_steps=max_tool_steps,
                         **options,
@@ -348,6 +350,9 @@ def run_start(args) -> None:
     args.db.parent.mkdir(parents=True, exist_ok=True)
     config = {"configurable": {"thread_id": args.workflow_id}}
     mode = "integrated" if args.integrated else ("model" if args.model_driven else None)
+    if mode is None and args.quantity != "1000":
+        raise StoreConflict("The model-free fixture command supports only 1000 kg.")
+    user_task = args.user_task or task_for(args.quantity)
 
     async def invoke():
         async with AsyncSqliteSaver.from_conn_string(str(args.db)) as saver:
@@ -364,16 +369,18 @@ def run_start(args) -> None:
                 raise StoreConflict("Workflow start conflicts with its original execution mode.")
             if (
                 snapshot.values.get("mode") in {"model", "integrated"}
-                and snapshot.values.get("user_task") != args.user_task
+                and snapshot.values.get("user_task") != user_task
             ):
                 raise StoreConflict("Workflow start conflicts with its original user task.")
+            if snapshot.values and snapshot.values.get("quantity", "1000") != args.quantity:
+                raise StoreConflict("Workflow start conflicts with its original quantity.")
             if snapshot.values.get("outcome") or snapshot.values.get("draft"):
                 return {"replay": True, "snapshot": snapshot}
             if snapshot.next:
                 return await app.ainvoke(None, config)
             state = {"workflow_id": args.workflow_id, "idempotency_key": args.idempotency_key}
             if mode:
-                state.update({"mode": mode, "user_task": args.user_task})
+                state.update({"mode": mode, "user_task": user_task, "quantity": args.quantity})
             return await app.ainvoke(state, config)
 
     result = asyncio.run(invoke())
@@ -477,7 +484,8 @@ def main() -> None:
         action="store_true",
         help="Require verified borrowed MCP retrieval before local-model preparation",
     )
-    start.add_argument("--user-task", default=DEFAULT_TASK)
+    start.add_argument("--user-task")
+    start.add_argument("--quantity", default="1000")
     start.add_argument("--request-timeout-seconds", type=float, default=120)
     start.add_argument("--total-run-timeout-seconds", type=float, default=900)
     start.add_argument("--max-tool-steps", type=int, default=3)

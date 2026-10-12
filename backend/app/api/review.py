@@ -9,11 +9,19 @@ import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Literal
+from uuid import NAMESPACE_URL, uuid5
 
 from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi.staticfiles import StaticFiles
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from pydantic import BaseModel, ConfigDict, Field
 
-from backend.app.agent.draft_recovery import resume_stored_workflow, workflow_snapshot
+from backend.app.agent.draft_recovery import (
+    build_graph,
+    resume_stored_workflow,
+    workflow_snapshot,
+)
+from backend.app.agent.model_workflow import task_for
 from backend.app.services.draft_store import DraftStore, StoreConflict
 
 
@@ -28,6 +36,22 @@ class DecisionInput(BaseModel):
     note: str = Field(default="", max_length=500)
 
 
+class StartInput(BaseModel):
+    """Only the supported synthetic comparison; whole kg vary within capacity."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    idempotency_key: str = Field(min_length=1, max_length=100, pattern=r"^[A-Za-z0-9._:-]+$")
+    quantity_kg: int = Field(ge=1, le=1000)
+    commodity: Literal["demo-maize"]
+    variant: Literal["dry-demo"]
+    grade: Literal["DEMO-1"]
+    origin: Literal["synthetic-region"]
+    sale_basis: Literal["wholesale"]
+    as_of_date: Literal["2026-10-10"]
+    markets: Literal["Market A and Market B"]
+
+
 def load_officers(path: Path) -> list[dict]:
     data = json.loads(path.read_text(encoding="utf-8"))
     officers = data["officers"]
@@ -35,24 +59,42 @@ def load_officers(path: Path) -> list[dict]:
         raise ValueError("At least one local officer is required.")
     seen = set()
     for officer in officers:
-        if set(officer) != {"id", "token_sha256", "workflows"}:
+        if not {"id", "token_sha256", "workflows"} <= set(officer) or set(officer) - {
+            "id",
+            "token_sha256",
+            "workflows",
+            "workflow_prefix",
+        }:
             raise ValueError("Officer config has invalid fields.")
         if (
             not isinstance(officer["id"], str)
             or not officer["id"]
             or officer["id"].startswith("simulated:")
             or not isinstance(officer["workflows"], list)
-            or not officer["workflows"]
+            or (not officer["workflows"] and not officer.get("workflow_prefix"))
             or not all(isinstance(value, str) and value for value in officer["workflows"])
             or not isinstance(officer["token_sha256"], str)
             or len(officer["token_sha256"]) != 64
             or any(c not in "0123456789abcdef" for c in officer["token_sha256"])
             or officer["id"] in seen
+            or not isinstance(officer.get("workflow_prefix", ""), str)
+            or len(officer.get("workflow_prefix", "")) > 20
+            or any(
+                c not in "abcdefghijklmnopqrstuvwxyz0123456789-"
+                for c in officer.get("workflow_prefix", "")
+            )
         ):
             raise ValueError("Officer config is invalid.")
         seen.add(officer["id"])
     if len({officer["token_sha256"] for officer in officers}) != len(officers):
         raise ValueError("Officer token verifiers must be unique.")
+    prefixes = [
+        officer["workflow_prefix"] for officer in officers if officer.get("workflow_prefix")
+    ]
+    if any(a.startswith(b) for a in prefixes for b in prefixes if a != b) or len(
+        set(prefixes)
+    ) != len(prefixes):
+        raise ValueError("Officer workflow prefixes must not overlap.")
     return officers
 
 
@@ -61,6 +103,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     store = DraftStore(str(db_path))
     app = FastAPI(title="SokoSignal local officer review", version="1")
     locks: dict[str, threading.Lock] = {}
+    active_tasks: dict[str, asyncio.Task] = {}
 
     @asynccontextmanager
     async def workflow_lock(workflow_id: str):
@@ -86,11 +129,65 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                 match = officer
         if match is None:
             raise HTTPException(401, "Invalid credential", headers={"WWW-Authenticate": "Bearer"})
-        return {"id": match["id"], "workflows": tuple(match["workflows"])}
+        return {
+            "id": match["id"],
+            "workflows": tuple(match["workflows"]),
+            "workflow_prefix": match.get("workflow_prefix", ""),
+        }
 
     def allow(workflow_id: str, officer: dict) -> None:
-        if workflow_id not in officer["workflows"]:
+        if workflow_id not in officer["workflows"] and not (
+            officer["workflow_prefix"] and workflow_id.startswith(officer["workflow_prefix"])
+        ):
             raise HTTPException(403, "Workflow access denied")
+
+    async def drive(workflow_id: str) -> None:
+        """Resume checkpoints after a process restart; one local API worker only."""
+        async with workflow_lock(workflow_id):
+            run = store.run(workflow_id)
+            if run is None or run["status"] != "RUNNING":
+                return
+            request = json.loads(run["request_json"])
+            config = {"configurable": {"thread_id": workflow_id}}
+            try:
+                async with AsyncSqliteSaver.from_conn_string(str(db_path)) as saver:
+                    app_graph = build_graph(
+                        db_path, request_timeout_seconds=300, total_run_timeout_seconds=900
+                    ).compile(checkpointer=saver)
+                    snapshot = await app_graph.aget_state(config)
+                    if snapshot.values.get("draft"):
+                        store.update_run(workflow_id, "PENDING_REVIEW")
+                        return
+                    if snapshot.values.get("outcome") == "model_failed":
+                        store.update_run(workflow_id, "FAILED", snapshot.values.get("failure_code"))
+                        return
+                    if snapshot.next:
+                        result = await app_graph.ainvoke(None, config)
+                    else:
+                        result = await app_graph.ainvoke(
+                            {
+                                "workflow_id": workflow_id,
+                                "idempotency_key": request["idempotency_key"],
+                                "mode": "integrated",
+                                "user_task": task_for(str(request["quantity_kg"])),
+                                "quantity": str(request["quantity_kg"]),
+                            },
+                            config,
+                        )
+                if result.get("outcome") == "model_failed":
+                    store.update_run(workflow_id, "FAILED", result.get("failure_code"))
+                elif result.get("draft"):
+                    store.update_run(workflow_id, "PENDING_REVIEW")
+                else:
+                    store.update_run(workflow_id, "FAILED", "missing_review_pause")
+            except Exception as error:  # noqa: BLE001 — never expose provider/HTTP diagnostics
+                store.update_run(workflow_id, "FAILED", type(error).__name__)
+
+    def schedule(workflow_id: str) -> None:
+        prior = active_tasks.get(workflow_id)
+        if prior is None or prior.done():
+            task = asyncio.create_task(drive(workflow_id))
+            active_tasks[workflow_id] = task
 
     async def reconcile(workflow_id: str) -> None:
         current = store.current_draft(workflow_id)
@@ -113,7 +210,27 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
 
     @app.get("/api/v1/drafts/pending")
     def pending(officer: Officer):
-        return {"drafts": store.pending_drafts(frozenset(officer["workflows"]))}
+        return {
+            "drafts": store.pending_drafts(
+                frozenset(officer["workflows"]), officer["workflow_prefix"]
+            )
+        }
+
+    @app.post("/api/v1/requests", status_code=202)
+    async def start(body: StartInput, officer: Officer):
+        prefix = officer["workflow_prefix"]
+        if not prefix:
+            raise HTTPException(403, "Officer cannot start workflows")
+        workflow_id = prefix + str(
+            uuid5(NAMESPACE_URL, f"sokosignal:{officer['id']}:{body.idempotency_key}")
+        )
+        try:
+            run = store.create_run(workflow_id, officer["id"], body.model_dump())
+        except StoreConflict as error:
+            raise HTTPException(409, str(error)) from error
+        if run["status"] == "RUNNING":
+            schedule(workflow_id)
+        return {"workflow_id": workflow_id, "status": run["status"]}
 
     @app.get("/api/v1/runs/{workflow_id}/draft")
     def draft(workflow_id: str, officer: Officer):
@@ -126,21 +243,50 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
     @app.get("/api/v1/runs/{workflow_id}")
     async def status(workflow_id: str, officer: Officer):
         allow(workflow_id, officer)
+        run = store.run(workflow_id)
+        if run is not None and run["status"] == "RUNNING":
+            schedule(workflow_id)
+            current = store.current_draft(workflow_id)
+            if current is None:
+                return {
+                    "workflow_id": workflow_id,
+                    "status": "RUNNING",
+                    "error_code": None,
+                    "phase": ["retrieval_and_model"],
+                    "outcome": None,
+                }
         async with workflow_lock(workflow_id):
             result = store.current_draft(workflow_id)
-            if result is None:
+            if result is None and run is None:
                 raise HTTPException(404, "Workflow not found")
-            await reconcile(workflow_id)
+            if result is not None:
+                await reconcile(workflow_id)
             snapshot = await workflow_snapshot(db_path, workflow_id)
             result = store.current_draft(workflow_id)
+            run = store.run(workflow_id)
+            if result is None:
+                return {
+                    "workflow_id": workflow_id,
+                    "status": run["status"],
+                    "error_code": run["error_code"],
+                    "phase": list(snapshot.next),
+                    "outcome": snapshot.values.get("outcome"),
+                }
+            if run is not None and result["status"] in {"APPROVED", "REJECTED"}:
+                store.update_run(workflow_id, "COMPLETED")
             return {
                 "workflow_id": workflow_id,
+                "status": "COMPLETED"
+                if result["status"] in {"APPROVED", "REJECTED"}
+                else "PENDING_REVIEW",
                 "draft_id": result["draft_id"],
                 "version": result["version"],
                 "content_hash": result["content_hash"],
                 "draft_status": result["status"],
                 "outcome": snapshot.values.get("outcome"),
                 "pending_nodes": list(snapshot.next),
+                "comparison": snapshot.values.get("comparison", {}).get("result"),
+                "retrieval_provenance": result["content"].get("retrieval_provenance"),
             }
 
     @app.post("/api/v1/runs/{workflow_id}/decisions")
@@ -151,6 +297,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
             if current is None:
                 raise HTTPException(404, "Draft not found")
             snapshot = await workflow_snapshot(db_path, workflow_id)
+            store.update_run(workflow_id, "COMPLETED")
             if (
                 not snapshot.values
                 or snapshot.values.get("draft", {}).get("draft_id") != current["draft_id"]
@@ -179,6 +326,9 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                 "outcome": snapshot.values.get("outcome"),
             }
 
+    frontend_dist = Path(__file__).resolve().parents[3] / "frontend/dist"
+    if frontend_dist.is_dir():
+        app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="demo-frontend")
     return app
 
 

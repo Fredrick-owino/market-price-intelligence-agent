@@ -1,0 +1,20 @@
+{
+  "label": "actual loopback API, actual borrowed public synthetic fetch, actual local Qwen model, synthetic test officer",
+  "review_identity": "test:local-demo-officer",
+  "request": {
+    "quantity_kg": 500,
+    "commodity": "demo-maize",
+    "variant": "dry-demo",
+    "grade": "DEMO-1",
+    "origin": "synthetic-region",
+    "sale_basis": "wholesale",
+    "as_of_date": "2026-10-10",
+    "markets": "Market A and Market B"
+  },
+  "started_at": "2026-10-12T10:04:04.277044+00:00",
+  "workflow_id": "demo-b8b05401-caec-5c44-b9ec-99b0e9d35c86",
+  "status": "FAILED",
+  "pre_review_seconds": 222.297,
+  "error_code": "request_timeout",
+  "finished_at": "2026-10-12T10:07:46.610625+00:00"
+}

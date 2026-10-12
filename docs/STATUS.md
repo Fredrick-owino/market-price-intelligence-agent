@@ -1,9 +1,9 @@
 # Project status — update from execution evidence
 
-Last evidence update: 12 October 2026 (I01.12). Synthetic local implementation
-evidence is recorded on task branches; preparation and release gates remain open.
+Last evidence update: 12 October 2026 (I01.13). Synthetic local demo
+implementation and HTTP evidence are recorded on main; release gates remain open.
 
-- stage: PREPARATION
+- stage: LOCAL_SYNTHETIC_DEMO
 - implementation_start_confirmed: true
 - official_window_start: 2026-10-09
 - official_window_start_time_and_timezone: UNCONFIRMED
@@ -31,8 +31,8 @@ evidence is recorded on task branches; preparation and release gates remain open
 - target_institution_and_reviewer: NOT_CONFIRMED
 - crop_origin_and_three_markets: NOT_CONFIRMED
 - data_access_and_redistribution_rights: NOT_VERIFIED
-- runtime_model_and_dependency_versions: NOT_BENCHMARKED
-- current_task: I01.12 authenticated officer review API, synthetic local demo
+- runtime_model_and_dependency_versions: PINNED_LOCAL_DEMO — see I01.11 and I01.13 reports; broader reliability not benchmarked
+- current_task: I01.13 integrated request/frontend/local demo verification
 - next_task_after_P00: P01 team capacity/roles
 
 | Gate | Status | Evidence needed |
@@ -46,6 +46,18 @@ evidence is recorded on task branches; preparation and release gates remain open
 | G6 submission | NOT_PASSED | Public artifacts, verified form submission, receipt, commit freeze |
 
 Record task evidence under docs/handoffs/ and sanitized durable run evidence under evals/results/. No empty file or placeholder qualifies as a completed deliverable.
+
+## I01.13 — integrated local synthetic demo
+
+The [I01.13 report](runs/I01.13-demo-integration.md) and
+[handoff](handoffs/I01.13-A-2026-10-12.md) record a running API, built frontend,
+actual public synthetic borrowed fetch, actual local Qwen workflow, HTTP test
+officer approval, separate HTTP rejection, and restart persistence. Backend
+regression: 147 passed; frontend typecheck/build passed. The first live HTTP
+attempt timed out and remains retained. Browser UI interaction could not be
+performed because the computer-use browser surface was unavailable. Independent
+officer/practitioner review, real data, public deployment and all G0–G6 gates
+remain outstanding.
 
 ## I01.12 — local authenticated review evidence
 

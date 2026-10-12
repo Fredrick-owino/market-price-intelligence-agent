@@ -280,6 +280,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Acceptance evidence: Real pending→decision flows including rejection/revision; no UI-only gate. G3 evidence.
 - Actual report/commit/reviewer/date: **not recorded**.
 
+- Bounded I01.13 evidence (2026-10-12): [report](runs/I01.13-demo-integration.md), [handoff](handoffs/I01.13-A-2026-10-12.md). Request/status API, React views and local deployment built; 147 backend tests, frontend type/build, actual model/borrowed-fetch HTTP approval, separate rejection and restart persistence recorded. Browser UI interaction and independent review are unverified; I12–I16 and G3 remain open.
+
 ## I17 — Freeze independent evaluation suite
 
 - [ ] Complete and peer-reviewed

@@ -1,0 +1,15 @@
+{
+  "label": "actual loopback HTTP rejection, real own MCP synthetic CLI preparation, no model or borrowed fetch in this run",
+  "test_identity": "test:local-demo-officer",
+  "timestamp": "2026-10-12T10:12:01.300048+00:00",
+  "workflow_id": "demo-http-reject-81580e0fb4e9478f965b60f376670b96",
+  "before_status": "PENDING_REVIEW",
+  "draft_id": "572f13c1-e6f5-5574-b327-e29f73ae9587",
+  "version": 1,
+  "content_hash": "238bc2c87a8f48f672bc74a2bff0bc5ae6baedc7dab210ccc7aef7876390e72d",
+  "decision_http_status": 200,
+  "decision_outcome": "rejected",
+  "after_status": "COMPLETED",
+  "draft_status": "REJECTED",
+  "retry_http_status": 200
+}

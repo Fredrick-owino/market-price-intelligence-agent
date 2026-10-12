@@ -42,6 +42,10 @@ class DraftStore:
                 CREATE TABLE IF NOT EXISTS audit(
                     event_id INTEGER PRIMARY KEY AUTOINCREMENT, workflow_id TEXT NOT NULL,
                     event_type TEXT NOT NULL, event_json TEXT NOT NULL, timestamp TEXT NOT NULL);
+                CREATE TABLE IF NOT EXISTS runs(
+                    workflow_id TEXT PRIMARY KEY, owner_id TEXT NOT NULL,
+                    request_json TEXT NOT NULL, request_hash TEXT NOT NULL,
+                    status TEXT NOT NULL, error_code TEXT, updated_at TEXT NOT NULL);
                 """
             )
 
@@ -82,7 +86,9 @@ class DraftStore:
             },
             "assumptions": comparison["assumptions"],
             "limitations": comparison["limitations"]
-            + ["No delivery, order, live-data retrieval, or production approval is implemented."],
+            + [
+                "No real-market data integration, advisory delivery, order or production approval is implemented."
+            ],
             "review_status": "PENDING_REVIEW",
             "revision_note": None
             if version == 1
@@ -338,13 +344,53 @@ class DraftStore:
                 return None
             return {**dict(row), "content": json.loads(row["content"])}
 
-    def pending_drafts(self, permitted_workflows: frozenset[str]) -> list[dict]:
+    def pending_drafts(self, permitted_workflows: frozenset[str], prefix: str = "") -> list[dict]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT d.* FROM drafts d WHERE d.status='PENDING_REVIEW' "
+                "AND d.version=(SELECT MAX(version) FROM drafts WHERE workflow_id=d.workflow_id) "
+                "ORDER BY d.created_at DESC"
+            ).fetchall()
         return [
-            draft
-            for workflow_id in sorted(permitted_workflows)
-            if (draft := self.current_draft(workflow_id)) is not None
-            and draft["status"] == "PENDING_REVIEW"
+            {**dict(row), "content": json.loads(row["content"])}
+            for row in rows
+            if row["workflow_id"] in permitted_workflows
+            or (prefix and row["workflow_id"].startswith(prefix))
         ]
+
+    def create_run(self, workflow_id: str, officer_id: str, request: dict) -> dict:
+        body = canonical(request)
+        digest = hashlib.sha256(body.encode()).hexdigest()
+        prior = self.run(workflow_id)
+        if prior:
+            if prior["owner_id"] != officer_id or prior["request_hash"] != digest:
+                raise StoreConflict("Run idempotency key conflicts with another request.")
+            return prior
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            db.execute(
+                "INSERT OR IGNORE INTO runs VALUES(?,?,?,?,?,?,?)",
+                (workflow_id, officer_id, body, digest, "RUNNING", None, now()),
+            )
+            prior = db.execute("SELECT * FROM runs WHERE workflow_id=?", (workflow_id,)).fetchone()
+            db.execute("COMMIT")
+        if prior["owner_id"] != officer_id or prior["request_hash"] != digest:
+            raise StoreConflict("Run idempotency key conflicts with another request.")
+        return dict(prior)
+
+    def run(self, workflow_id: str) -> dict | None:
+        with self.connect() as db:
+            row = db.execute("SELECT * FROM runs WHERE workflow_id=?", (workflow_id,)).fetchone()
+            return dict(row) if row else None
+
+    def update_run(self, workflow_id: str, status: str, error_code: str | None = None) -> None:
+        if status not in {"RUNNING", "PENDING_REVIEW", "COMPLETED", "FAILED"}:
+            raise ValueError("Invalid run status.")
+        with self.connect() as db:
+            db.execute(
+                "UPDATE runs SET status=?, error_code=?, updated_at=? WHERE workflow_id=?",
+                (status, error_code, now(), workflow_id),
+            )
 
     def validate_review(self, workflow_id: str, draft: dict, review: dict) -> dict:
         """Resume authority comes only from the stored decision for the current version."""

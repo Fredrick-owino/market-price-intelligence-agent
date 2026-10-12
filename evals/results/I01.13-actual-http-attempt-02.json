@@ -1,0 +1,113 @@
+{
+  "label": "actual loopback API, actual borrowed public synthetic fetch, actual local Qwen model, synthetic test officer",
+  "review_identity": "test:local-demo-officer",
+  "request": {
+    "quantity_kg": 500,
+    "commodity": "demo-maize",
+    "variant": "dry-demo",
+    "grade": "DEMO-1",
+    "origin": "synthetic-region",
+    "sale_basis": "wholesale",
+    "as_of_date": "2026-10-10",
+    "markets": "Market A and Market B"
+  },
+  "started_at": "2026-10-12T10:08:41.954348+00:00",
+  "workflow_id": "demo-f34ca8d7-6067-56dd-8a4e-1c4cf23d26d3",
+  "status": "PENDING_REVIEW",
+  "pre_review_seconds": 147.214,
+  "error_code": null,
+  "draft": {
+    "draft_id": "300455be-e02d-538c-886d-273cb3e3f8cb",
+    "version": 1,
+    "content_hash": "485f8940be211e8df5dd4ae0f8186836625f1f72519223808c5b6b15537b8c08",
+    "status": "PENDING_REVIEW"
+  },
+  "comparison": {
+    "winner": "Market A",
+    "advantage_kes": "3500.00",
+    "markets": [
+      {
+        "market": "Market A",
+        "gross_proceeds": "20000.00",
+        "total_cost": "2000.00",
+        "estimated_net_proceeds": "18000.00"
+      },
+      {
+        "market": "Market B",
+        "gross_proceeds": "22500.00",
+        "total_cost": "8000.00",
+        "estimated_net_proceeds": "14500.00"
+      }
+    ],
+    "snapshot_sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+    "retrieval_provenance": {
+      "bytes": 9196,
+      "commit": "4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc",
+      "distribution": "mcp-server-fetch",
+      "distribution_version": "2026.8.18",
+      "evidence_mode": "actual_public_http_real_mcp",
+      "http": [
+        {
+          "bytes": 14,
+          "connected_ip": "185.199.108.133",
+          "elapsed_seconds": 0.71068,
+          "event": "outbound_http",
+          "http_status": 404,
+          "proxy_used": false,
+          "redirects_followed": 0,
+          "resolved_ips": [
+            "185.199.108.133",
+            "185.199.110.133",
+            "185.199.109.133",
+            "185.199.111.133",
+            "2606:50c0:8001::154",
+            "2606:50c0:8002::154",
+            "2606:50c0:8000::154",
+            "2606:50c0:8003::154"
+          ],
+          "sha256": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+          "timestamp": "2026-10-12T10:08:43.482039+00:00",
+          "tls_hostname": "raw.githubusercontent.com",
+          "url": "https://raw.githubusercontent.com/robots.txt"
+        },
+        {
+          "bytes": 9196,
+          "connected_ip": "185.199.110.133",
+          "elapsed_seconds": 0.625724,
+          "event": "outbound_http",
+          "http_status": 200,
+          "proxy_used": false,
+          "redirects_followed": 0,
+          "resolved_ips": [
+            "185.199.110.133",
+            "185.199.109.133",
+            "185.199.108.133",
+            "185.199.111.133",
+            "2606:50c0:8001::154",
+            "2606:50c0:8000::154",
+            "2606:50c0:8002::154",
+            "2606:50c0:8003::154"
+          ],
+          "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+          "timestamp": "2026-10-12T10:08:44.109902+00:00",
+          "tls_hostname": "raw.githubusercontent.com",
+          "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+        }
+      ],
+      "retrieved_at": "2026-10-12T10:08:44.109902+00:00",
+      "run_id": "d6efc5f6-9281-4601-8b91-116c0869f4f6",
+      "sdk_version": "1.30.0",
+      "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+      "synthetic": true,
+      "transport": "stdio",
+      "upstream_source_sha256": "f66dc973126c9251934fdb5355fa960529546660cad74147a6b31f725a79b358",
+      "url": "https://raw.githubusercontent.com/Fredrick-owino/sokosignal-demo-fixtures/4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc/data/synthetic/I01.7-market-comparison.json"
+    }
+  },
+  "decision_outcome": "approved_internal_review",
+  "reviewer_id": "test:local-demo-officer",
+  "retry_status": 200,
+  "final_status": "COMPLETED",
+  "anonymous_status": 401,
+  "finished_at": "2026-10-12T10:11:09.263575+00:00"
+}

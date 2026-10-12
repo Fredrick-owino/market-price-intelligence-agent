@@ -252,6 +252,6 @@ def compare(request: dict) -> dict:
         "tie": tie,
         "assumptions": fixture["assumptions"],
         "limitations": [
-            "Synthetic transport spike only; no model, delivery or officer approval implemented."
+            "Synthetic fixture only; no real market prices, buyer commitment or advisory delivery."
         ],
     }

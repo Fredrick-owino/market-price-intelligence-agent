@@ -23,6 +23,7 @@ from backend.app.agent.model_workflow import (
     adapt_tools,
     model_exchange,
     parse_response,
+    task_for,
 )
 from backend.app.domain.synthetic_comparison import advisory_for, compare, load_fixture
 from backend.app.services.draft_store import DraftStore, StoreConflict
@@ -45,9 +46,10 @@ def response(name, arguments):
 class ScriptedProvider:
     evidence_mode = "mocked_provider_real_mcp"
 
-    def __init__(self, mutate=None):
+    def __init__(self, mutate=None, quantity="1000"):
         self.requests = []
         self.mutate = mutate
+        self.quantity = quantity
 
     async def metadata(self):
         return {"ollama_version": "mock-only", "installed_model": {"name": "mock-only"}}
@@ -66,7 +68,7 @@ class ScriptedProvider:
                     {
                         "snapshot_id": search["snapshot_id"],
                         "quote_ids": [q["quote_id"] for q in search["quotes"]],
-                        "quantity": "1000",
+                        "quantity": self.quantity,
                         "unit": "kg",
                         "loss_fraction": "0",
                         "as_of_date": FILTERS["as_of_date"],
@@ -78,6 +80,28 @@ class ScriptedProvider:
                     "save_advisory_draft", {"advisory": data["verified_advisory_fields"]}
                 )
         return self.mutate(step, answer) if self.mutate else answer
+
+
+@pytest.mark.asyncio
+async def test_supported_farmer_quantity_uses_verified_market_arithmetic(tmp_path):
+    provider = ScriptedProvider(quantity="500")
+    comparison, draft = await model_exchange(
+        "quantity-500",
+        "create-v1",
+        tmp_path / "quantity.sqlite",
+        user_task=task_for("500"),
+        quantity="500",
+        provider=provider,
+    )
+    rows = {row["market"]: row for row in comparison["result"]["markets"]}
+    assert rows["Market A"]["gross_proceeds"] == "20000.00"
+    assert rows["Market A"]["total_cost"] == "2000.00"
+    assert rows["Market A"]["estimated_net_proceeds"] == "18000.00"
+    assert rows["Market B"]["gross_proceeds"] == "22500.00"
+    assert rows["Market B"]["total_cost"] == "8000.00"
+    assert rows["Market B"]["estimated_net_proceeds"] == "14500.00"
+    assert comparison["result"]["advantage_kes"] == "3500.00"
+    assert draft["content"]["calculation"]["quantity"] == "500"
 
 
 @pytest.mark.parametrize(

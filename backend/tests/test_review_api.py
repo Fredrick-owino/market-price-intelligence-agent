@@ -5,6 +5,7 @@ import json
 import sqlite3
 import subprocess
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -13,6 +14,8 @@ from fastapi.testclient import TestClient
 
 from backend.app.api.review import create_app
 from backend.app.services.draft_store import DraftStore
+from backend.tests.test_integrated_workflow import mocked_pipeline
+from backend.tests.test_model_workflow import ScriptedProvider
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -208,3 +211,164 @@ def test_superseded_draft_rejected(tmp_path):
         == 409
     )
     assert DraftStore(str(db)).counts("allowed")["decisions"] == 0
+
+
+@pytest.mark.parametrize(
+    "choice,outcome",
+    [
+        ("approve", "approved_internal_review"),
+        ("reject", "rejected"),
+    ],
+)
+def test_http_start_to_review_uses_real_mcp_with_mocked_http_and_model(
+    tmp_path, monkeypatch, choice, outcome
+):
+    provider = mocked_pipeline(monkeypatch, provider=ScriptedProvider(quantity="500"))
+    db = tmp_path / "end-to-end.sqlite"
+    config = tmp_path / ".env.officers.local"
+    config.write_text(
+        json.dumps(
+            {
+                "officers": [
+                    {
+                        "id": "test:demo-officer",
+                        "token_sha256": hashlib.sha256(b"test-token").hexdigest(),
+                        "workflows": [],
+                        "workflow_prefix": "demo-",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    request = {
+        "idempotency_key": "request-v1",
+        "quantity_kg": 500,
+        "commodity": "demo-maize",
+        "variant": "dry-demo",
+        "grade": "DEMO-1",
+        "origin": "synthetic-region",
+        "sale_basis": "wholesale",
+        "as_of_date": "2026-10-10",
+        "markets": "Market A and Market B",
+    }
+    app = create_app(db, config)
+    with TestClient(app) as client:
+        headers = auth("test-token")
+        started = client.post("/api/v1/requests", json=request, headers=headers)
+        assert started.status_code == 202, started.text
+        workflow = started.json()["workflow_id"]
+        assert (
+            client.post("/api/v1/requests", json=request, headers=headers).json() == started.json()
+        )
+        assert (
+            client.post(
+                "/api/v1/requests", json={**request, "quantity_kg": 600}, headers=headers
+            ).status_code
+            == 409
+        )
+        path = f"/api/v1/runs/{workflow}"
+        for _ in range(100):
+            result = client.get(path, headers=headers).json()
+            if result["status"] != "RUNNING":
+                break
+            time.sleep(0.1)
+        assert result["status"] == "PENDING_REVIEW", result
+        assert len(provider.requests) == 3
+        assert result["comparison"]["markets"][0]["estimated_net_proceeds"] == "18000.00"
+        assert result["retrieval_provenance"]["http"][0]["mocked_http"] is True
+        draft = client.get(path + "/draft", headers=headers).json()
+        payload = body(draft, choice)
+        decided = client.post(path + "/decisions", json=payload, headers=headers)
+        assert decided.status_code == 200, decided.text
+        assert decided.json()["outcome"] == outcome
+        assert client.get(path, headers=headers).json()["status"] == "COMPLETED"
+        assert DraftStore(str(db)).counts(workflow)["decisions"] == 1
+
+
+def test_http_failed_retrieval_is_visible_without_draft(tmp_path, monkeypatch):
+    provider = mocked_pipeline(monkeypatch, case="unavailable")
+    db = tmp_path / "failed.sqlite"
+    config = tmp_path / ".env.officers.local"
+    config.write_text(
+        json.dumps(
+            {
+                "officers": [
+                    {
+                        "id": "test:demo-officer",
+                        "token_sha256": hashlib.sha256(b"test-token").hexdigest(),
+                        "workflows": [],
+                        "workflow_prefix": "demo-",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    request = {
+        "idempotency_key": "failed-v1",
+        "quantity_kg": 1000,
+        "commodity": "demo-maize",
+        "variant": "dry-demo",
+        "grade": "DEMO-1",
+        "origin": "synthetic-region",
+        "sale_basis": "wholesale",
+        "as_of_date": "2026-10-10",
+        "markets": "Market A and Market B",
+    }
+    with TestClient(create_app(db, config)) as client:
+        workflow = client.post("/api/v1/requests", json=request, headers=auth("test-token")).json()[
+            "workflow_id"
+        ]
+        for _ in range(100):
+            run = client.get(f"/api/v1/runs/{workflow}", headers=auth("test-token")).json()
+            if run["status"] != "RUNNING":
+                break
+            time.sleep(0.1)
+        assert run["status"] == "FAILED"
+        assert run["error_code"] == "borrowed_retrieval_failed"
+        assert DraftStore(str(db)).counts(workflow)["drafts"] == 0
+        assert provider.requests == []
+
+
+def test_committed_start_recovers_after_api_restart(tmp_path, monkeypatch):
+    provider = mocked_pipeline(monkeypatch, provider=ScriptedProvider(quantity="500"))
+    db = tmp_path / "restart-start.sqlite"
+    config = tmp_path / ".env.officers.local"
+    config.write_text(
+        json.dumps(
+            {
+                "officers": [
+                    {
+                        "id": "test:demo-officer",
+                        "token_sha256": hashlib.sha256(b"test-token").hexdigest(),
+                        "workflows": [],
+                        "workflow_prefix": "demo-",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    request = {
+        "idempotency_key": "persisted-before-start",
+        "quantity_kg": 500,
+        "commodity": "demo-maize",
+        "variant": "dry-demo",
+        "grade": "DEMO-1",
+        "origin": "synthetic-region",
+        "sale_basis": "wholesale",
+        "as_of_date": "2026-10-10",
+        "markets": "Market A and Market B",
+    }
+    workflow = "demo-persisted-before-graph"
+    DraftStore(str(db)).create_run(workflow, "test:demo-officer", request)
+    with TestClient(create_app(db, config)) as client:
+        for _ in range(100):
+            run = client.get(f"/api/v1/runs/{workflow}", headers=auth("test-token")).json()
+            if run["status"] != "RUNNING":
+                break
+            time.sleep(0.1)
+        assert run["status"] == "PENDING_REVIEW", run
+        assert len(provider.requests) == 3
+        assert DraftStore(str(db)).counts(workflow)["drafts"] == 1

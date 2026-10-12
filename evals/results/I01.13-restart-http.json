@@ -1,0 +1,44 @@
+{
+  "label": "actual loopback API process restart, synthetic test identity, stored outcomes unchanged",
+  "timestamp": "2026-10-12T10:12:45.139043+00:00",
+  "states": {
+    "demo-f34ca8d7-6067-56dd-8a4e-1c4cf23d26d3": {
+      "status": "COMPLETED",
+      "outcome": "approved_internal_review",
+      "draft_status": "APPROVED"
+    },
+    "demo-http-reject-81580e0fb4e9478f965b60f376670b96": {
+      "status": "COMPLETED",
+      "outcome": "rejected",
+      "draft_status": "REJECTED"
+    }
+  },
+  "counts_before": {
+    "demo-f34ca8d7-6067-56dd-8a4e-1c4cf23d26d3": {
+      "drafts": 1,
+      "actions": 1,
+      "decisions": 1,
+      "audit": 2
+    },
+    "demo-http-reject-81580e0fb4e9478f965b60f376670b96": {
+      "drafts": 1,
+      "actions": 1,
+      "decisions": 1,
+      "audit": 2
+    }
+  },
+  "counts_after": {
+    "demo-f34ca8d7-6067-56dd-8a4e-1c4cf23d26d3": {
+      "drafts": 1,
+      "actions": 1,
+      "decisions": 1,
+      "audit": 2
+    },
+    "demo-http-reject-81580e0fb4e9478f965b60f376670b96": {
+      "drafts": 1,
+      "actions": 1,
+      "decisions": 1,
+      "audit": 2
+    }
+  }
+}
