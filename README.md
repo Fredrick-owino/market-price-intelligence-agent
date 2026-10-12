@@ -94,3 +94,16 @@ public API, frontend hosting or submission is performed by this setup.
 Historical KAMIS redistribution rights remain unresolved; repository visibility
 does not grant rights to ingest or redistribute those records. The running app
 uses only the labelled, project-authored synthetic fixture.
+
+
+## Verified fresh-checkout scope
+
+On 13 October 2026, a fresh remote clone of milestone 88b25a0 ran make demo
+on loopback port 8020 with new locked Python environments, node_modules,
+private credential pair and SQLite state. Existing package cache/model service
+were reused; no credentials or model weights copied. Actual 900 kg model/Fetch/
+own-MCP comparison and authenticated demo approval passed in 129.541 s to
+review. This same-host solo trial is not independent cross-machine verification.
+See [evidence](evals/results/I01.13-fresh-checkout-verification.json).
+Current unresolved feature: request-changes/revision through UI/API, reported
+as an evaluation failure. No public video, hosting or submission performed.

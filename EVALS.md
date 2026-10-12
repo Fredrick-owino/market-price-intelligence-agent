@@ -55,7 +55,10 @@ explicit model-visible schema returned valid summaries in two measured runs.
 The two final-schema runs took **138.603 / 138.577 s**. Their observed range
 is 0.026 s across only two attempts; this small sample is not a reliability or
 hardware-independent guarantee. Recorded UI/browser runtime overhead must still
-fit the 180-second limit. New continuous recording results are recorded separately.
+fit the 180-second limit. Actual continuous cases: 625 kg observed review 141.145 s; 650 kg 135.706 s.
+Final-schema observed range across these four successful attempts is
+135.706–141.145 s (5.439 s). Both native recordings reached demo approval;
+first retained for insufficient save-event dwell, second locally verified.
 
 ## Baseline profile and bounded improvements
 
@@ -88,9 +91,19 @@ schema tightening; final checks above cover the tightened schema. Regression
 model/network responses are labelled mocked where used, with actual MCP/state
 for relevant invariants. They are not 157 live-model tasks.
 
-Fresh-checkout one-command verification is a separate milestone using new
-private credentials/state and the existing shared model service. Results are
-added only after actual execution; this operator is still a solo reviewer.
+Fresh remote clone of tested milestone **88b25a0** ran documented
+`SOKOSIGNAL_PORT=8020 make demo` (existing package cache selected). New root
+and Fetch environments and node_modules installed from locks; new mode-0600
+private credential pair generated, distinct from original/task credentials.
+Separate .state/demo.sqlite; existing pinned model service/files reused without
+copy/download. Actual 900 kg Qwen/Fetch/own-MCP workflow reached review in
+**129.541 s**, correct net 34,000 / 32,500 KES and authenticated demo approval.
+Health 200, anonymous pending 401, valid pending 200; fresh Git status clean.
+Stopped only its temporary API afterwards; original API/model stayed healthy.
+[Setup/workflow evidence](evals/results/I01.13-fresh-checkout-verification.json),
+[preservation check](evals/results/I01.13-original-demo-preservation.json).
+This is a same-host, package-cache-backed fresh clone, not an independent
+reviewer/different-machine trial or uncached download benchmark.
 
 ## Evidence boundaries and remaining limitations
 
@@ -103,3 +116,18 @@ official cutoff/eligibility/form and release signoff remain outstanding.
 
 Earlier real Chrome approval/rejection, failures, service recovery and edited
 supplementary recording are retained in [historical evaluations](docs/runs/I01.13-evaluation-history.md) and their original linked evidence. No gate is completed by this solo report.
+
+
+## Final continuous video
+
+Native **650 kg** recording decoded duration **158.12 s**, request-to-review
+135.706 s, authenticated demo internal approval visible. Actual Fetch/search/
+compare/save inputs/outputs/timestamps appear live; save event held four
+seconds. Correct net 24,000 / 21,250 KES, advantage 2,750. No cuts, accelerated
+waiting, substituted footage or approval bypass. Credential entry concealed
+before document paint; no token/PIN/header screens. English UI, no audio.
+[Recording](evals/results/I01.13-continuous-video-2026-10-12T21-00-59-705Z.json),
+[actual recordings trace](evals/results/I01.13-continuous-recordings-trace.jsonl).
+The earlier 159.68 s native attempt and edited supplementary file are retained.
+Local duration/content checks are not organiser acceptance, independent
+practitioner validation, public playback or release-gate completion.

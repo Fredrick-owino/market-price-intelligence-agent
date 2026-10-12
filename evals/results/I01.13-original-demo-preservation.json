@@ -1,0 +1,26 @@
+{
+  "verified_at_nairobi": "2026-10-13T00:11:09.234702+03:00",
+  "original_pending_exactly_unchanged": true,
+  "original_decisions": 0,
+  "original_private_configuration_unchanged": true,
+  "connector_pids": [],
+  "original_api": {
+    "http_status": 200,
+    "result": {
+      "status": "ready"
+    }
+  },
+  "isolated_demo": {
+    "http_status": 200,
+    "result": {
+      "status": "ready"
+    }
+  },
+  "model": {
+    "http_status": 200,
+    "result": {
+      "version": "0.40.2"
+    }
+  },
+  "temporary_fresh_api_stopped": true
+}

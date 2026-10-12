@@ -259,5 +259,6 @@
   "continuous_capture": "Native Playwright video bytes retained unchanged; no post-processing",
   "visual_qa": "Request, fetch/search/compare, comparison, draft/hash, demo identity and approval visible; final save event was too brief before comparison scroll. Retained attempt; new continuous attempt holds real event 4 s.",
   "qualifying_recording_accepted_by_local_review": false,
-  "retained_as_attempt": true
+  "retained_as_attempt": true,
+  "durable_local_video_path": "/home/fred/Projects/market-intelligence-challenge/.state/video/I01.13-qualifying/continuous-625kg-attempt.webm"
 }

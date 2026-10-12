@@ -1,0 +1,265 @@
+{
+  "label": "Actual continuous local synthetic model/MCP and authenticated demo approval; no independent practitioner",
+  "started_at": "2026-10-12T21:00:59.868Z",
+  "quantity_kg": 650,
+  "edited": false,
+  "model_warming": "Existing pinned model reused after measured rehearsal; no tool results cached or replayed",
+  "cuts": 0,
+  "time_compression": false,
+  "substituted_footage": false,
+  "uploaded": false,
+  "submitted": false,
+  "workflow_id": "demo-4764c720-e723-5f28-a478-b6c83ddace43",
+  "request_to_review_seconds": 135.706,
+  "authenticated_decision": {
+    "decision": {
+      "draft_id": "f0066f36-3214-5122-b4f5-9e479ebc8113",
+      "version": 1,
+      "content_hash": "d71c529a5a3ae4eb17d39b4ae32c25b8c43cc1c1f7c667f803f442919b5e45ff",
+      "decision": "approve",
+      "reviewer_id": "test:local-demo-officer",
+      "workflow_id": "demo-4764c720-e723-5f28-a478-b6c83ddace43",
+      "idempotency_key": "39caaaef-107b-4d15-8e00-57b10f3dd8de",
+      "decided_at": "2026-10-12T21:03:33.063988+00:00"
+    },
+    "outcome": "approved_internal_review"
+  },
+  "request_to_approval_seconds": 149.841,
+  "sanitized_tool_events": [
+    {
+      "timestamp": "2026-10-12T21:01:03.277999+00:00",
+      "synthetic": true,
+      "tool": "fetch",
+      "server": "borrowed Fetch MCP",
+      "phase": "started",
+      "input": {
+        "source": "fixed commit-pinned public synthetic fixture"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:01:06.347634+00:00",
+      "synthetic": true,
+      "tool": "fetch",
+      "server": "borrowed Fetch MCP",
+      "phase": "completed",
+      "input": {
+        "source": "fixed commit-pinned public synthetic fixture"
+      },
+      "output": {
+        "sha256": "01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef",
+        "bytes": 9196,
+        "evidence_mode": "actual_public_http_real_mcp"
+      },
+      "elapsed_ms": 3069.649
+    },
+    {
+      "timestamp": "2026-10-12T21:01:06.759450+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 1
+    },
+    {
+      "timestamp": "2026-10-12T21:01:38.079101+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 31319.597,
+      "output": {
+        "selected_tool": "search_market_quotes",
+        "prompt_tokens": 914,
+        "generated_tokens": 146
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:01:38.079260+00:00",
+      "synthetic": true,
+      "tool": "search_market_quotes",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "commodity": "demo-maize",
+        "market_ids": [
+          "00000000-0000-4000-8000-000000000101",
+          "00000000-0000-4000-8000-000000000102"
+        ],
+        "variant": "dry-demo",
+        "sale_basis": "wholesale",
+        "grade": "DEMO-1",
+        "as_of_date": "2026-10-10"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:01:38.083214+00:00",
+      "synthetic": true,
+      "tool": "search_market_quotes",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "commodity": "demo-maize",
+        "market_ids": [
+          "00000000-0000-4000-8000-000000000101",
+          "00000000-0000-4000-8000-000000000102"
+        ],
+        "variant": "dry-demo",
+        "sale_basis": "wholesale",
+        "grade": "DEMO-1",
+        "as_of_date": "2026-10-10"
+      },
+      "elapsed_ms": 3.911,
+      "output": {
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "markets": [
+          "Market A",
+          "Market B"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:01:38.083427+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 2
+    },
+    {
+      "timestamp": "2026-10-12T21:02:28.029664+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 49946.112,
+      "output": {
+        "selected_tool": "compare_market_options",
+        "prompt_tokens": 1284,
+        "generated_tokens": 191
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:02:28.029801+00:00",
+      "synthetic": true,
+      "tool": "compare_market_options",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "quantity": "650",
+        "unit": "kg",
+        "loss_fraction": "0",
+        "as_of_date": "2026-10-10",
+        "policy_version": "I01.7-synthetic-v1"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:02:28.032748+00:00",
+      "synthetic": true,
+      "tool": "compare_market_options",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "snapshot_id": "00000000-0000-4000-8000-000000000300",
+        "quote_ids": [
+          "00000000-0000-4000-8000-000000000001",
+          "00000000-0000-4000-8000-000000000002"
+        ],
+        "quantity": "650",
+        "unit": "kg",
+        "loss_fraction": "0",
+        "as_of_date": "2026-10-10",
+        "policy_version": "I01.7-synthetic-v1"
+      },
+      "elapsed_ms": 2.908,
+      "output": {
+        "winner": "Market A",
+        "advantage_kes": "2750.00",
+        "net_proceeds": {
+          "Market A": "24000.00",
+          "Market B": "21250.00"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:02:28.032968+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "started",
+      "step": 3
+    },
+    {
+      "timestamp": "2026-10-12T21:03:17.664905+00:00",
+      "synthetic": true,
+      "tool": "model selection",
+      "server": "local pinned Qwen",
+      "phase": "completed",
+      "elapsed_ms": 49631.819,
+      "output": {
+        "selected_tool": "save_advisory_draft",
+        "prompt_tokens": 1296,
+        "generated_tokens": 182
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:03:17.665112+00:00",
+      "synthetic": true,
+      "tool": "save_advisory_draft",
+      "server": "own MCP",
+      "phase": "started",
+      "input": {
+        "winner": "Market A",
+        "net_proceeds": {
+          "Market A": "24000.00",
+          "Market B": "21250.00"
+        },
+        "advantage_kes": "2750.00"
+      }
+    },
+    {
+      "timestamp": "2026-10-12T21:03:17.669871+00:00",
+      "synthetic": true,
+      "tool": "save_advisory_draft",
+      "server": "own MCP",
+      "phase": "completed",
+      "input": {
+        "winner": "Market A",
+        "net_proceeds": {
+          "Market A": "24000.00",
+          "Market B": "21250.00"
+        },
+        "advantage_kes": "2750.00"
+      },
+      "elapsed_ms": 4.633,
+      "output": {
+        "draft_id": "f0066f36-3214-5122-b4f5-9e479ebc8113",
+        "version": 1,
+        "content_hash": "d71c529a5a3ae4eb17d39b4ae32c25b8c43cc1c1f7c667f803f442919b5e45ff",
+        "review_status": "PENDING_REVIEW"
+      }
+    }
+  ],
+  "status": "completed",
+  "recording_wall_seconds": 158.292,
+  "video_local_path": ".state/continuous-video/2026-10-12T21-00-59-705Z/page@46e108ff41faef96b8ff3a48b887cdd4.webm",
+  "credential_content_visible": false,
+  "completed_at": "2026-10-12T21:03:38.647Z",
+  "decoded_duration_seconds": 158.12,
+  "video_sha256": "efcda4a74fa65372db23cb226426bf4eb31edb85c37bff66cca31d63db5206ee",
+  "file_bytes": 30255683,
+  "under_180_seconds": true,
+  "continuous_capture": "Native Playwright recording retained unchanged; no post-processing",
+  "visual_qa": "Decoded samples inspected: credential-free start, actual fetch/search/compare/save inputs/outputs, save event held four seconds, comparison, pending version/hash/provenance, labelled demo reviewer and internal approval outcome. No cuts, compression or substituted footage.",
+  "qualifying_recording_accepted_by_local_review": true,
+  "durable_local_video_path": "/home/fred/Projects/market-intelligence-challenge/.state/video/I01.13-qualifying/continuous-650kg.webm",
+  "organiser_acceptance": "NOT_CLAIMED; local rule/content verification only",
+  "audio": "None; actual English UI/tool text"
+}

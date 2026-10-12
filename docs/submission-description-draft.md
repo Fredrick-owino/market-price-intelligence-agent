@@ -1,16 +1,17 @@
 # English submission description — provisional evidence draft
 
-I01.13 closeout, 12 October 2026. **Not submitted**. Narrative word count:
-297, counted by whitespace splitting. Actual form, named institution and
-practitioner remain missing; finalize against those inputs.
-[Field answers](submission-answers-draft.md) and [checklist](SUBMISSION_CHECKLIST.md).
+Updated 13 October 2026. **Not submitted**. Narrative word count 297;
+named institution/practitioner and actual form remain unconfirmed.
+[Field answers](submission-answers-draft.md), [checklist](SUBMISSION_CHECKLIST.md).
 
-SokoSignal is an Agriculture market access and price intelligence prototype for a proposed extension office or cooperative. The institution, practitioner and final crop and market scope remain unconfirmed. Demonstrations use invented maize prices, transport costs, capacity and markets. They make no claim about current prices, demand or farmer income.
+SokoSignal is an Agriculture market access and price intelligence prototype for a proposed extension office or cooperative. The institution, practitioner and final crop and market scope remain unconfirmed. Demonstrations use invented maize prices, transport costs, capacity and markets, without claims about current prices, demand or farmer income.
 
-An authenticated local test officer enters a kilogram quantity for a synthetic case. A pinned Qwen model runs through LangGraph and calls borrowed Fetch MCP to retrieve a public, commit pinned fixture. It selects three tools on our own MCP server: search_market_quotes, compare_market_options and save_advisory_draft. Software validates sources and computes gross proceeds, costs and estimated net proceeds. The model cannot override arithmetic or approve advice.
+A local demo officer enters a kilogram quantity. A pinned Qwen model runs through LangGraph; borrowed Fetch MCP retrieves a public commit pinned synthetic fixture. The model selects search_market_quotes, compare_market_options and save_advisory_draft on our own MCP server. Software validates sources and computes gross proceeds, explicit costs and estimated net proceeds. The model cannot override arithmetic or approve advice.
 
-SQLite preserves requests, immutable drafts, source provenance, checkpoints and decisions. Review pauses until an authenticated decision matches the exact draft version and hash. Approval means internal review; no farmer message, sale, payment or advisory delivery occurs. One API worker rejects overlapping new starts, preserves identical retries and serializes recovery. Status polling and independent review stay responsive.
+SQLite preserves immutable drafts, provenance, checkpoints and decisions. Review pauses until an authenticated decision matches the exact version and hash. Approval means internal review; no farmer message, sale, payment or advisory delivery occurs. One API worker rejects overlapping new starts, preserves identical retries and serializes recovery. Status polling and independent review remain available.
 
-Earlier actual Chrome workflows demonstrated synthetic approval and rejection, refresh, retries and arithmetic. Browser times to review were 234.38 and 246.07 seconds. A new recorded browser run reached pending review in 220.794 seconds. Its local captioned video lasts 110 seconds, explicitly shortens waiting and labels subsequent inspection of the same draft. No approval occurred in that recording. It does not satisfy the retained uninterrupted video requirement.
+Profiling found repeated model context dominated a retained 220.794 second run. Shorter prompts and tool results reduced fresh observed review times to 135.706–141.145 seconds across four successful final-schema attempts. One earlier invalid nested advisory failed validation and is retained. Actual sanitized tool events are visible in the interface.
 
-An owner restricted temporary preview expired automatically. Email login is owner reported; remote officer completion remains unverified. Local services and the original pending draft were restored after a later host power-off. Eight diverse evaluations, independent review, fresh clone reproduction, practitioner feedback, real data permission and official deadline clarification remain outstanding. Submission requires verified form answers and separately authorized durable public links.
+A continuous unedited 650 kilogram demonstration lasts 158.12 seconds and shows actual retrieval, model-selected tools, comparison, pending draft and authenticated demo approval. Ten distinct evaluation tasks report nine passes and one unresolved request-changes failure, separating actual model and deterministic tests. A fresh checkout completed documented one-command setup and real model/MCP approval with new credentials and state, using existing model files.
+
+The video remains local. Partner feedback, data rights, independent review, revision capability, official deadline and form verification remain outstanding. Remote officer completion is unverified. Public upload and submission require separate authorization.

@@ -25,7 +25,7 @@ beside each completed item. No check is complete merely because a document exist
 - [ ] Named officer approval enforced server-side; pending, reject, changes requested, revised version, unauthorized decision and restart checks pass.
 - [x] Advice remains a private review draft; no household delivery, order or credit flag exists. The preserved owner-test draft remains pending; no automatic approval.
 - [ ] Arithmetic, units, freshness, comparable grades/basis and absent-data behavior verified independently.
-- [ ] Eight or more actual-model tasks recorded honestly; critical gates pass; at least one observed unresolved failure and next step documented as required.
+- [ ] Eight or more distinct test tasks recorded honestly (live model, deterministic or labelled mocked modes); critical gates pass; at least one observed unresolved failure and next step documented as required.
 
 ## Repository and reproducibility
 
@@ -69,8 +69,8 @@ The full checklist above stays open where its broader acceptance is unfulfilled.
 | Public source repository | Fredrick's manual visibility change; anonymous API/raw README HTTP 200, [record](runs/I01.13-public-visibility.md). | Final SHA, final signed-out review, history/rights/licence review and release signoff. |
 | Actual model and MCP workflow | Two browser workflows with Qwen, borrowed Fetch and own tools; [report](runs/I01.13-browser-verification.md). | Diverse/repeated evaluations and independent technical review. |
 | Comparison and review UI | Synthetic 500 kg approval / 1,000 kg rejection; auth, provenance, refresh, retries and narrow layout verified. | Practitioner/named officer validation; changes-requested/revision UI and full gate evidence. |
-| Automated checks | Integrated 155 backend passes (112.52 s), frontend typecheck/build and Ruff; [summary](../EVALS.md). | Final reviewed SHA and reproducibility; these are not eight actual-model tasks. |
-| Video | Local **110 s** edited captioned recording, actual new browser latency **220.794 s**, live MCP evidence and labelled post-run inspection; [record](../evals/results/I01.13-local-video.json). | Edited local capture with measured latency is authorized. Qualifying uninterrupted recording or official edited-format clarification, named human decision, public URL and playback verification remain open; browser latency exceeds 180 s before review. |
+| Automated checks | Integrated 157 backend passes (113.64 s), frontend typecheck/build and Ruff; [summary](../EVALS.md). | Final reviewed SHA and reproducibility; tests are labelled separately from live-model runs. |
+| Video | Local **110 s** edited captioned recording, actual new browser latency **220.794 s**, live MCP evidence and labelled post-run inspection; [record](../evals/results/I01.13-local-video.json). | Native continuous 650 kg demo is locally verified at 158.12 s with actual tool calls and authenticated labelled demo approval. Public upload/processing/playback and official acceptance remain unperformed; edited 110 s file is supplementary only. |
 | Local Ubuntu operation | [Restart, concurrency and shutdown instructions](../infra/LOCAL_OPERATIONS.md) verified after host power-off; original dedicated pending draft preserved, pinned actual inference passed. | Operator rehearsal as needed; no inference-time shutdown or backup/restore trial claimed. |
 | Remote access/domain | Owner reports no domain; application remains loopback-only. | No remote setup is authorized in this task. The prior restricted tunnel expired; no new tunnel is authorized. Domain absence does not block local recording. |
 
@@ -88,9 +88,9 @@ placeholders as confirmed facts.
 | Institution and use case | Proposed extension-office/cooperative review workflow. | Exact named institution, practitioner/decision owner, selected origin/crop/markets and consented feedback. Do not invent a partner. |
 | Description (~300 English words) | Actual retrieval → deterministic comparison → private draft → exact-hash officer decision; all inputs labelled synthetic. | Final institution-specific text, counted/reviewed against actual evidence; no farmer-impact claim. |
 | Technology/reuse | Local pinned Qwen, LangGraph, three own MCP tools, isolated borrowed Fetch; [architecture](../ARCHITECTURE.md). | Final model/dataset hashes and upstream/data/model licence review; confirm private draft action meets official rule. |
-| Evaluation | Two browser variants, measured 234.38/246.07 s, retained HTTP timeout; [EVALS](../EVALS.md). | Eight-plus actual tasks, independently derived expectations, repeat denominators, manual baseline only if observed. |
-| Repository | `https://github.com/Fredrick-owino/market-price-intelligence-agent` is public. | Final exact commit/tag, source/history rights audit, independent fresh-clone result and one-command requirement (no `make demo` exists). |
-| Video | Local edited recording, shortened waiting explicitly disclosed, English captions; no remote hostname needed. | Qualifying public YouTube/Vimeo URL, actual duration, signed-out playback and secret review. |
+| Evaluation | Two browser variants, measured 234.38/246.07 s, retained HTTP timeout; [EVALS](../EVALS.md). | 10 distinct tasks recorded, 9 pass/1 observed unresolved revision failure; mode/expected/actual evidence in EVALS. Independent review and manual baseline remain separate. |
+| Repository | `https://github.com/Fredrick-owino/market-price-intelligence-agent` is public. | Final exact commit/tag, source/history rights audit, independent fresh-clone result and independent one-command review; same-host make demo trial passed. |
+| Video | Native 158.12 s continuous actual demo with on-screen tools and demo approval; earlier edited video supplementary only. | Qualifying public YouTube/Vimeo URL, actual duration, signed-out playback and secret review. |
 | Calendar/rules | Lead-reported build start 9 October; planning pack lists 15 October deadline. | Official exact cutoff time/timezone, eligibility/form requirements and post-deadline instructions with dated source. |
 | Submission/freeze | No submission performed. | Final signed-in form answers, link review, receipt, actual timestamp/timezone, frozen SHA and required signoff. |
 | Deployment URL, if asked | Local-only Ubuntu demonstration; no domain and no remote application URL. | Verify whether the actual form requires a hosted app; do not present loopback or GitHub as a remotely usable application. |
@@ -147,10 +147,10 @@ these answers; no receipt or submission exists.
 | Requirement | Concrete outstanding evidence |
 |---|---|
 | Practitioner/institution | Named consented extension office/cooperative and decision owner; selected crop/grade/origin/three markets; realistic prices, costs, capacity, freshness and units; usefulness/latency feedback. |
-| Evaluation/review | Eight diverse actual-model tasks with independently derived expected results and honest repeat counts; independent technical/officer review; revision UI/gate evidence. Two prior browser quantities and new recording attempts are not eight distinct tasks. |
-| Reproducibility/rights | Independent fresh-clone one-command trial; final upstream/model/data/history-rights review, including unresolved historical KAMIS redistribution. |
+| Evaluation/review | Distinct-task requirement documented: 10 tasks, 9 pass/1 unresolved request-changes failure. Actual-model attempts and labelled deterministic/mocked modes separated; independent review and revision capability still outstanding. |
+| Reproducibility/rights | Same-host fresh-clone one-command trial passed with new credentials/state and real model/MCP approval. Independent reviewer/different-host reproducibility and final upstream/model/data/history-rights review remain open. |
 | Deadline/eligibility/form | Dated official end-window and exact cutoff time/timezone, freeze instructions, permitted entrant/team eligibility, actual final form fields and required signoff. Planning-pack 15 October is not a confirmed cutoff. |
-| Qualifying video/link | Local edited video deliberately shortens waiting and performs no human approval. It needs official format acceptance or a new qualifying uninterrupted run with named review; then separately authorized public upload, processing and signed-out playback. |
+| Qualifying video/link | New native 650 kg recording locally verified at 158.12 s, with actual tool events and authenticated demo approval. Edited 110 s file remains supplementary. Public upload, processing and signed-out playback need separate authorization. |
 | Durable application link if required | Inspect form hosting requirement; no durable public app URL exists. Expired owner-only Quick Tunnel is not judge access or a submission link. No new exposure authorized. |
 | Submission/freeze | Final verified answers/links and authorized signed-in submission, retained receipt/timezone and frozen SHA. |
 
@@ -180,3 +180,25 @@ do not qualify. No edited-format exception is claimed or sought here.
 Evaluation requires at least eight distinct tasks; they may combine actual
 model, deterministic and labelled mocked tests. Eight live model tasks are
 not an official requirement. Publication/submission remain unauthorized.
+
+
+## Qualifying-demo/evaluation milestone — 13 October 2026
+
+- [x] Continuous local native recording under 180 s, actual Fetch and
+  model-selected own tools, comparison/private draft and authenticated labelled
+  demo approval visible: 158.12 s. No cuts/compression/substituted footage.
+- [x] Ten distinct evaluation tasks with expected/actual outcomes, mode labels
+  and evidence; nine pass, unresolved request-changes HTTP 422 with proposed fix.
+- [x] Original two pending drafts and original running demo preserved.
+- [ ] Public video upload, processing, signed-out playback and final link.
+- [ ] Practitioner/institution, rights/licence, independent technical review,
+  official calendar/eligibility/form, final submission and freeze signoff.
+
+Eight **live** model tasks and edited-format exemptions are not required or
+claimed. The actual Agriculture video rule remains continuous/unedited.
+
+
+- [x] Same-host fresh remote clone: make demo created independent locked
+  environments, UI build, fresh private credentials/state; actual 900 kg model/
+  MCP task and demo approval passed. No private credentials or weights copied.
+  This does not replace an independent reviewer/different-machine trial.

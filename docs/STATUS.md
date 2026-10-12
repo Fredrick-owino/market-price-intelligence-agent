@@ -358,3 +358,23 @@ frontend type/build and Ruff passed. EVALS now records 10 distinct tasks
 and deterministic/mocked cases. No gate, practitioner or independent review
 completion implied. Native recording and fresh setup results follow actual
 verification; no new exposure or upload.
+
+
+### I01.13 qualifying video and fresh setup evidence — 13 October 2026
+
+Final continuous native 650 kg video **158.12 s** with actual Fetch and
+model-selected own tools on screen, comparison, private draft and authenticated
+labelled demo approval. No cuts/compression/substituted footage; private
+pre-auth content concealed. Earlier 159.68 s native attempt retained for brief
+save-event visibility; edited 110 s file is supplementary only. No upload.
+
+Fresh remote clone of 88b25a0: documented make demo installed locked envs,
+built UI, generated new 0600 credentials and separate state; real 900 kg
+Qwen/borrowed/own-MCP task and internal demo approval passed, 129.541 s to
+review. Same host/cache/model service reused, not independent peer review.
+Only temporary fresh API stopped. Original API/model ready; two original
+exact pending drafts/config unchanged, zero decisions, no connector.
+EVALS records 10 distinct tasks, 9 pass/1 unresolved request-changes failure.
+Independent review, named practitioner/institution, rights/licences, exact
+official cutoff/eligibility/form, public video playback and final submission
+remain open. No release gate completed from solo verification.
