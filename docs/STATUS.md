@@ -10,7 +10,8 @@ remain open.
 - official_window_start_time_and_timezone: UNCONFIRMED
 - official_window_end: UNCONFIRMED
 - published_deadline_date: 2026-10-15
-- cutoff_time_and_timezone: UNCONFIRMED
+- cutoff_time_and_timezone: 2026-10-15 23:59 Africa/Nairobi (20:59 UTC) — owner-reported organiser information
+- cutoff_evidence_reference: Fredrick’s explicit deadline clarification in the I01.14 task conversation, 15 October 2026; original organiser notice not independently inspected. Supersedes any earlier noon interpretation.
 - official_evidence_reference: Lead-reported organiser confirmation supplied in the P02.1 user prompt, dated 2026-10-09; see [P02.1 handoff](handoffs/P02.1-A-2026-10-09.md). Original organiser message not independently inspected.
 - person_A: Fredrick Onyango — Git identity configured (name and email)
 - active_contributor: Fredrick Onyango — temporarily owns both workstreams
@@ -378,3 +379,18 @@ EVALS records 10 distinct tasks, 9 pass/1 unresolved request-changes failure.
 Independent review, named practitioner/institution, rights/licences, exact
 official cutoff/eligibility/form, public video playback and final submission
 remain open. No release gate completed from solo verification.
+
+
+## I01.14 cutoff clarification — 15 October 2026
+
+Fredrick reports organiser information that submission closes **15 October 2026
+at 23:59 Africa/Nairobi (20:59 UTC)**. This supersedes any earlier noon
+interpretation. This is owner-reported organiser information; the original
+organiser notice has not been independently inspected. The dated owner statement
+is the source, not an inference from the calendar or web page.
+
+At the owner’s direction, reviewed I01.14 dashboard changes may be committed,
+integrated into main and pushed before that cutoff. No commits/pushes at or after
+2026-10-15T20:59:00Z. Preserve the isolated recording snapshot and original service.
+This records the cutoff and authorized repository work only, not submission,
+acceptance, independent review or any passed project gate.

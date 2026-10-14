@@ -1,0 +1,94 @@
+{
+  "label": "Preservation after actual fresh preview model/MCP and exact-draft approval; row hashes only",
+  "databases": {
+    "original": {
+      "drafts": {
+        "before_rows": 7,
+        "after_rows": 7,
+        "all_preexisting_rows_unchanged": true
+      },
+      "decisions": {
+        "before_rows": 2,
+        "after_rows": 2,
+        "all_preexisting_rows_unchanged": true
+      },
+      "audit": {
+        "before_rows": 9,
+        "after_rows": 9,
+        "all_preexisting_rows_unchanged": true
+      },
+      "actions": {
+        "before_rows": 7,
+        "after_rows": 7,
+        "all_preexisting_rows_unchanged": true
+      },
+      "runs": {
+        "before_rows": 13,
+        "after_rows": 13,
+        "all_preexisting_rows_unchanged": true
+      },
+      "latest_run": {
+        "workflow_id": "quick-demo-4ee194ff-8f55-5d7d-b6d5-f98354557a6b",
+        "status": "PENDING_REVIEW",
+        "updated_at": "2026-10-14T22:01:02.783720+00:00"
+      },
+      "run_columns": [
+        "workflow_id",
+        "owner_id",
+        "request_json",
+        "request_hash",
+        "status",
+        "error_code",
+        "updated_at"
+      ],
+      "running_count": 0
+    },
+    "preview": {
+      "drafts": {
+        "before_rows": 9,
+        "after_rows": 10,
+        "all_preexisting_rows_unchanged": true
+      },
+      "decisions": {
+        "before_rows": 2,
+        "after_rows": 3,
+        "all_preexisting_rows_unchanged": true
+      },
+      "audit": {
+        "before_rows": 11,
+        "after_rows": 13,
+        "all_preexisting_rows_unchanged": true
+      },
+      "actions": {
+        "before_rows": 9,
+        "after_rows": 10,
+        "all_preexisting_rows_unchanged": true
+      },
+      "runs": {
+        "before_rows": 15,
+        "after_rows": 16,
+        "all_preexisting_rows_unchanged": true
+      },
+      "latest_run": {
+        "workflow_id": "quick-demo-71df281b-cff3-5c21-8a21-9e5633019453",
+        "status": "COMPLETED",
+        "updated_at": "2026-10-14T22:47:06.701924+00:00",
+        "started_at": "2026-10-14T22:44:50.930979+00:00",
+        "completed_at": "2026-10-14T22:47:06.643547+00:00"
+      },
+      "run_columns": [
+        "workflow_id",
+        "owner_id",
+        "request_json",
+        "request_hash",
+        "status",
+        "error_code",
+        "updated_at",
+        "started_at",
+        "completed_at"
+      ],
+      "running_count": 0
+    }
+  },
+  "new_workflow_absent_from_original": true
+}

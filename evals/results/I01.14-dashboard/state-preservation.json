@@ -1,0 +1,67 @@
+{
+  "check": "Original and snapshot immutable draft/decision/audit/action tables match exactly; no contents exported",
+  "databases": [
+    {
+      "database_role": "original",
+      "tables": {
+        "drafts": {
+          "rows": 7,
+          "sha256": "a82589cface6139fe71389fae044b105a43c7934fd6892af754751cd280d7c9f"
+        },
+        "decisions": {
+          "rows": 2,
+          "sha256": "c70aec3cb292e44c6a4f539072544dfc5e2c7f3fbc596fbb4754748fee3b02c7"
+        },
+        "audit": {
+          "rows": 9,
+          "sha256": "2bcf8a64032d0fed050f36dadad487f71e5944f3a606d3a5d7780faa09c042cc"
+        },
+        "actions": {
+          "rows": 7,
+          "sha256": "442adfa4a64113f8b4d63b97cb58cdac0fb802246dab4fef477030448581ad49"
+        }
+      },
+      "run_columns": [
+        "workflow_id",
+        "owner_id",
+        "request_json",
+        "request_hash",
+        "status",
+        "error_code",
+        "updated_at"
+      ]
+    },
+    {
+      "database_role": "preview",
+      "tables": {
+        "drafts": {
+          "rows": 7,
+          "sha256": "a82589cface6139fe71389fae044b105a43c7934fd6892af754751cd280d7c9f"
+        },
+        "decisions": {
+          "rows": 2,
+          "sha256": "c70aec3cb292e44c6a4f539072544dfc5e2c7f3fbc596fbb4754748fee3b02c7"
+        },
+        "audit": {
+          "rows": 9,
+          "sha256": "2bcf8a64032d0fed050f36dadad487f71e5944f3a606d3a5d7780faa09c042cc"
+        },
+        "actions": {
+          "rows": 7,
+          "sha256": "442adfa4a64113f8b4d63b97cb58cdac0fb802246dab4fef477030448581ad49"
+        }
+      },
+      "run_columns": [
+        "workflow_id",
+        "owner_id",
+        "request_json",
+        "request_hash",
+        "status",
+        "error_code",
+        "updated_at",
+        "started_at",
+        "completed_at"
+      ]
+    }
+  ]
+}

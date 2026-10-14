@@ -444,3 +444,35 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 | G6 submitted and frozen | R05–R11, actual receipt and final SHA |
 
 R12 is post-submission review preparation. Completion does not authorize a post-deadline push.
+
+## I01.14 — local date presentation and existing dashboard correction
+
+- Owner/reviewer: Fredrick, sole contributor; solo review, no independent signoff.
+- Assigned by owner on 15 October 2026; bounded continuation of verified I01.13,
+  I15/I16 interface behavior, not completion of I14 scaffolding or any gate.
+- Evidence: [investigation and checks](runs/I01.14-dashboard-dates.md),
+  [handoff](handoffs/I01.14-dashboard-dates-A-2026-10-15.md).
+- Local preparation/test complete: 160 backend passes, 4 frontend tests,
+  typecheck/build, actual Chrome desktop/mobile persisted-result inspection.
+- Exact organiser cutoff/timezone unresolved: no commit/push; preview on loopback
+  8001 uses a snapshot, original 8000 service/state preserved. Next dependency-ready
+  action is owner local review and cutoff/freeze clarification before publication.
+- Owner wording follow-up: professional header/intro/banner without “synthetic”
+  in those three requested lines, with sample-data disclosure retained. Typecheck,
+  preview build and actual desktop/mobile copy checks passed; local only.
+- Final copy clarification: `A clearer view of the market.` / `Officer judgement.`
+  plus crop-neutral market-options introduction. Typecheck/build and Chrome
+  desktop/mobile checks passed; no extra crop functionality or commit/push.
+- Actual isolated preview verification: [recording report](runs/I01.14-preview-recording-verification.md).
+  Fresh 650 kg real Qwen/Fetch/three own-MCP run plus authenticated exact-draft
+  demo approval passed; 134.06 s to review, 135.824 s to approval. All prior
+  original/preview rows preserved; port 8000 untouched. Owner may record a fresh
+  local run on 8001, but its uncommitted code does not yet match the repository;
+  no submission-readiness claim, commit or push until cutoff/version alignment.
+- Owner-authorized final review: [record](runs/I01.14-final-review.md). Deadline
+  15 October 2026 23:59 Africa/Nairobi / 20:59 UTC, owner-reported organiser info,
+  supersedes noon/unconfirmed interpretations. Scoped main integration/non-force
+  push permitted before cutoff only. Final 162 backend/four frontend checks,
+  typecheck/build/Ruff/read-only Chrome passed. Preserve unrelated package edits
+  and snapshot state; no automatic operational workflow/video/upload/submission.
+  Recording readiness requires remote and preview revision equality; no gate pass.

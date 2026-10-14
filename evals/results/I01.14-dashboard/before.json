@@ -1,0 +1,9 @@
+{
+  "stage": "before",
+  "workflow_id": "quick-demo-4ee194ff-8f55-5d7d-b6d5-f98354557a6b",
+  "status": "PENDING_REVIEW",
+  "created_at": "2026-10-14T22:01:02.662836+00:00",
+  "source_date": "2026-10-10",
+  "quantity": "650",
+  "errors": []
+}

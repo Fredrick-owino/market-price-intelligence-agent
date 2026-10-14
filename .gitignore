@@ -21,6 +21,7 @@ coverage/
 # Frontend dependencies and generated builds
 node_modules
 /frontend/dist/
+/frontend/dist-dashboard/
 /frontend/build/
 .next/
 .vite/

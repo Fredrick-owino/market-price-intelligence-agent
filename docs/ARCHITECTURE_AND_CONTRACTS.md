@@ -119,3 +119,18 @@ remain separate evidence. No headers, cookies, credentials or free model prose
 are exposed. Existing HTTP request/draft/decision schemas remain compatible;
 pending list adds backend-derived reviewer ID and demo label. Full draft
 content, exact hashes, pending/review semantics and source provenance unchanged.
+
+## I01.14 local timestamp presentation addendum
+
+Status responses add nullable `started_at`, `completed_at`, `advisory_created_at`,
+`officer_decision_at` and `officer_decision`. Events use persisted server UTC
+RFC3339 offsets. New run start and terminal times are stored once; historical
+start can resolve from persisted `pre_review_started_at`, but mutable `updated_at`
+is never historical completion evidence. Draft creation and decisions resolve
+from the exact current version. No decision means null decision/time. Source
+`as_of_date` remains the synthetic observation date. UI formats workflow/tool
+clock timestamps in Africa/Nairobi with EAT, uses `not available` for absent or
+naive times, and preserves date-only source dates. Immutable quantity/unit comes
+from the selected draft, never editable request state. See the
+[local-only evidence](runs/I01.14-dashboard-dates.md); this addendum does not
+change approvals, fixture, model, gate or release status.
