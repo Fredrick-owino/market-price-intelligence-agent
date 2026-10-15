@@ -1,45 +1,63 @@
-# Submission answers — evidence-based preparation draft
+# Prepared submission answers — supplied facts and actual evidence
 
-I01.13, Fredrick solo review. Actual final form is not inspected; headings below
-are project preparation fields, not a claimed form schema. No upload/submission
-or remote exposure is authorized. Keep eligibility/contact answers private.
+13 October 2026; no form filled/submitted by Codex. The official form requires
+Google sign-in. Owner now supplied its introduction and first required section;
+those exact fields are mapped below. Later sections remain uninspected. The horticultural export-licence
+application supplied while locating the form is unrelated and was not used as
+a challenge form or as evidence of an intended institution. This answer bank does not fabricate
+question labels in later sections. Enter private contact/eligibility
+values in the owner's browser, not public Git/chat.
 
-| Field | Prepared answer | Remaining input |
+Official form:
+https://docs.google.com/forms/d/e/1FAIpQLSeVEqZtEasdjqNjDfOqZnS5_XmT6fyz2nHmnPtX6xz0Ppc9FQ/viewform?track=agriculture
+
+## Exact supplied section: APPLICANT & PROJECT OVERVIEW
+
+| Required field | Supplied options/wording | Prepared answer |
 |---|---|---|
-| Project | SokoSignal | Confirm final title against form. |
-| Theme | Agriculture — market access and price intelligence | Verify exact form category. |
-| Institution | Proposed extension office/cooperative; **no named institution confirmed** | Consented named institution, practitioner and advisory owner. |
-| Problem | Compare comparable price evidence and explicit costs, then hold a private draft for exact-version human review. Current prices, capacity and costs are invented. | Practitioner-defined crop/grade, origin, three markets, quantities and costs. |
-| Workflow | Local officer request → borrowed public Fetch MCP → Qwen selects three own MCP tools → deterministic net comparison → immutable private draft → server-authenticated exact-hash officer review. Nothing is sent to farmers. | Institution-specific validation; revision/changes-requested UI remains incomplete. |
-| Built | FastAPI officer API; deterministic comparison; own search/comparison/private-draft tools; SQLite/checkpoints; React evidence/review UI; atomic overlapping-start rejection and idempotent retry/recovery. | Same-host fresh make demo trial passed; independent review/different-host trial remains missing. |
-| Reused | Qwen3 4b instruct model through Ollama; LangGraph; MCP SDK; isolated upstream Fetch server; React/Vite. | Final upstream/model/data licence and history-rights audit. |
-| Model | `qwen3:4b-instruct-2507-q4_K_M`, digest `0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0`. | Broader measured reliability; no universal latency promise. |
-| Data | Labelled project-authored synthetic maize fixture, commit-pinned public retrieval, snapshot SHA-256 `01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef`. No real-data integration. | Real-source permissions, normalization/comparability policy and historical KAMIS redistribution review. |
-| Local/browser success | Prior actual Chrome 500 kg approval and 1,000 kg rejection, refresh/retries and provenance. Browser request-to-review: 234.38/246.07 s. Dedicated preserved 500 kg loopback draft: 249.488 s, pending, no decision. New recorded browser run: 220.794 s, pending; first capture failed model_unavailable and is retained. | 10 distinct tasks documented (9 pass/1 unresolved revision failure), combining deterministic real-MCP/API tests and separately reported actual-model attempts. Independent review/manual baseline remains missing. |
-| Automated validation | Integrated backend 155 passed in 112.52 s; frontend type/build and Ruff passed. Concurrency/recovery tests use labelled mocked model/network with real MCP/state. | Independent gate review; automated tests are not live-model-task counts. |
-| Remote evidence | Expired one-hour owner-only connector; anonymous visitors redirected to email gate. Owner reported email verification and officer screen/access; zero stored decisions. | Remote officer completion and remote workflow success are **unverified**. No new remote test authorized. |
-| Source repository | https://github.com/Fredrick-owino/market-price-intelligence-agent — main integration `7432273f274ff10d8344191c9bd2d2469685a2c3` | Final preparation closeout SHA/release signoff; same-host fresh clone of 88b25a0 passed, independent reviewer/different-host verification pending. |
-| Local video | Actual synthetic browser/model/MCP recording; waiting explicitly shortened; on-screen English captions; no approval, credentials or PINs. [Video record](../evals/results/I01.13-local-video.json): final WebM **110.0 s**, measured new browser request-to-review **220.794 s**. Comparison/provenance shots are labelled post-run inspection. | Edited file is supplementary only. A new native continuous 650 kg recording is locally verified at 158.12 s with real tool events and authenticated demo approval. Separately authorized upload and signed-out public playback remain missing. |
-| Public video / durable demo | **No public video or durable application link.** Expired temporary hostname is unusable and owner-only. | Public qualifying YouTube/Vimeo link; inspect whether the actual form requires a durable hosted application or only public repository/video. Any new hosting requires authorization. |
-| Calendar | Lead-reported build start 9 October; planning pack lists 15 October. | Dated official cutoff time/timezone, end-window and post-deadline freeze instructions. Do not infer a cutoff. |
-| Entrants | Fredrick owns both workstreams; solo reviews are not independent peer review. | Actual final team/age/residency eligibility and colleague participation if required. |
-| Submission | No final form or receipt. | Inspect actual signed-in form, complete verified fields/links, record authorized submission receipt and freeze SHA. |
+| Applicant Type | Individual / Team | Individual if entering as the current sole contributor; Team only for an actual confirmed team. No inactive colleague is silently added. |
+| Team/Applicant Name | Team name for Team; full name for Individual | For Individual use the owner's full name (recorded contributor name: Fredrick Onyango). **SokoSignal is the project title, not the individual applicant name.** |
+| Which African country are you originating from? | Required country | Owner's actual country of origin; **not supplied**. Intended Kenyan users and timezone do not establish this answer. |
+| Team Lead / Applicant Contact | Full Name; Email; Phone/WhatsApp; Country | Owner enters actual contact details privately in the form. Recorded name may be used if correct; email/phone/contact country are not inferred from Git or tunnel configuration and are not stored here. |
 
-The [description draft](submission-description-draft.md), [checklist](SUBMISSION_CHECKLIST.md),
-[architecture](../ARCHITECTURE.md), [evaluations](../EVALS.md) and
-[practitioner questions](practitioner-feedback-preparation.md) are consistent
-preparation artifacts. Do not enter an unconfirmed institution, public video
-link, deadline or remote outcome as fact.
+The supplied portal introduction confirms repository/demo accessibility, MCP
+and appropriate human handoff, and truthful challenge-period work. It says
+post-window commits are not evaluated, but supplies no timestamp. The public
+track separately warns about disqualification for late commits. Keep both
+wordings recorded and seek the actual cutoff/policy; the generic congratulations
+text is not proof that the window has closed. No freeze is inferred.
 
+## Remaining answer bank — map only to actual later fields
 
-## Official Agriculture video rule correction
+| Answer | Prepared value | Genuinely missing / owner action |
+|---|---|---|
+| Project title | SokoSignal | None unless the actual form imposes another format. |
+| Track/sub-theme | Agriculture — Market access & price intelligence | Map to actual available form options. |
+| Entrant | Fredrick Onyango is the supplied sole active contributor. Solo entries are permitted. | Confirm entrant eligibility/single-project status and private form contact values; do not list an unconfirmed colleague. |
+| Intended users | Agricultural extension officers supporting smallholder maize farmers in Kenya. | None for intended user group; actual adoption is not claimed. |
+| Intended workflow/problem | Compare quoted market prices, harvest quantity, transport and other confirmed costs; calculate net proceeds; prepare a sourced advisory for officer review/approval. | No confirmed named office or collective. User states no partnership, endorsement or practitioner validation. |
+| Institution/office | **Not confirmed.** Intended target above; no institution name may be inserted as fact. | Actual named intended office/collective remains required for the office-specific description. No formal endorsement is invented or automatically demanded. |
+| Human role | Authenticated review/approval is separate from model tool selection. Recording uses automated `test:local-demo-officer`, not a named real person. | Named human reviewer and actual approval evidence have not been supplied. Do not attribute automated clicks to a person. |
+| Demonstrated task | New 650 kg synthetic maize case; actual borrowed Fetch, model-selected quote search/comparison/draft save, exact version/hash internal demo approval. A net 24,000; B 21,250; A advantage 2,750 KES. | No live price/capacity/field claim. Only quantity is editable in current UI; fixture supplies quotes/costs. |
+| Built/reused | Built own MCP tools, deterministic validation/calculation, immutable drafts, review API, recovery and React evidence/tool UI. Reused LangGraph, MCP SDK, upstream Fetch, Ollama/Qwen, React/Vite. | None for current implemented boundaries. |
+| Borrowed-server rationale | Reuse Fetch retrieval/robots/protocol handling rather than recreating it; our adapter restricts/validates the approved synthetic source. | None; stock upstream security is not overstated. |
+| Model | Local `qwen3:4b-instruct-2507-q4_K_M`; digest `0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0`; Apache-2.0 weights. | No universal speed or hardware guarantee. |
+| Data | Original synthetic two-market fixture; snapshot SHA-256 `01d764fe7226c8dd9d8cde68a70ccc5658b83876cbc6bed4c79078941396f9ef`; source commit `4f86aeafef2cb1b8d84ba7ed3a6aff6d218998fc`. No KAMIS runtime ingestion. | Broader real-data adoption/permission is not part of demonstrated evidence. Historical source-note question is disclosed separately. |
+| Evaluation | 10 distinct tasks: 9 pass/1 unresolved request-changes failure with next-step proposal. Modes and real model variation separated in EVALS. | The unfixed case is intentionally reported; it does not force another feature. |
+| Checks | 157 backend regression passes; frontend type/build and Ruff passed. Mocked provider/network tests labelled. | No new application code in package audit; those counts remain scoped to tested source. |
+| Reproduction | Same-host fresh remote clone of source milestone 88b25a0; make demo, new envs/config/state, actual 900 kg model/MCP approval, 129.541 s to review. Existing package cache/model files reused. | Do not claim independent-host/operator verification; that is an internal goal, not another official artifact. |
+| Repository | https://github.com/Fredrick-owino/market-price-intelligence-agent ; public, MIT; audit-start main `15725b73699776a624487f0bc6aeb7b1f5d4afd2`. | Final package revision comes from Git after push. No submitted/frozen SHA exists yet. |
+| Description | [Approximately 300-word text](submission-description-draft.md) uses intended users/workflow and explicit limits. | Cannot finish office/human-specific statements without the missing facts. |
+| Architecture / EVALS | [One-page architecture](../ARCHITECTURE.md), [actual evaluations](../EVALS.md). | None for prepared documents; see official audit for partial requirements. |
+| Video | Native continuous **158.12 s** recording; upload copy is byte-identical WebM. Actual tool calls, draft and authenticated demo approval visible; no audio/cuts/timing changes. | Public YouTube/Vimeo watch URL, processing and signed-out playback are unperformed. Current demo identity does not establish named-human review. |
+| Public application URL, only if asked | No durable hosted app; local loopback demo. Official artifact list asks for public code/video, not a hosted app. | Inspect actual form wording; do not paste loopback or expired tunnel as judge access. No new exposure authorised. |
+| Calendar | Official FAQ confirms **15 October 2026**. Lead previously reported organiser-confirmed start on 9 October. | Exact cutoff/timezone and communicated window timestamps missing; owner reports no clarification message. No midnight inference or early freeze. |
+| Receipt / previous entry | No receipt supplied; no submission executed here. FAQ says the existing form is the submission form, not separate registration. | First-section labels are supplied above; actual later-section labels and authorised submission/receipt are outstanding. |
 
-Source: owner's explicit rule clarification in this continuation. The
-110-second edited video is **supplementary only**. The required artifact is
-one continuous, unedited agent run **under three minutes**, with actual tool
-calls on screen, comparison/private draft and authenticated demo-identity
-internal approval. Cuts, accelerated waiting and substituted post-run footage
-do not qualify. No edited-format exception is claimed or sought here.
-Evaluation requires at least eight distinct tasks; they may combine actual
-model, deterministic and labelled mocked tests. Eight live model tasks are
-not an official requirement. Publication/submission remain unauthorized.
+Use [upload metadata/instructions](VIDEO_UPLOAD_PACKAGE.md) only after separate
+authorisation. [Official audit](SUBMISSION_READINESS.md) distinguishes mandatory
+items from internal goals. [Licence review](SUBMISSION_PUBLICATION_REVIEW.md).
+The named office/human/eligibility/window facts, country/contact inputs and
+uninspected later form questions are
+the genuine missing owner/organiser inputs; no interview, manual baseline,
+revision feature, extra crop/market or hosted app is automatically demanded.

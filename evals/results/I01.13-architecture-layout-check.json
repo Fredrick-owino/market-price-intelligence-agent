@@ -1,0 +1,8 @@
+{
+  "contentHeight": 776.140625,
+  "usableHeight": 1035,
+  "contentWidth": 706,
+  "referencePages": 1,
+  "source_sha256": "cd872d0346be47351a2dd96806c4459cb9a6762c72246ad89a0c578dce5246f8",
+  "note": "Chrome A4 reference layout, 10 pt, 44 px margins; Markdown pagination depends on renderer. All source paragraphs and diagram relationships rendered."
+}

@@ -1,0 +1,163 @@
+{
+  "direct_python": [
+    {
+      "name": "langgraph",
+      "version": "1.2.14",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "langgraph-1.2.14.dist-info/licenses/LICENSE",
+          "sha256": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7"
+        }
+      ]
+    },
+    {
+      "name": "langgraph-checkpoint",
+      "version": "4.2.0",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "langgraph_checkpoint-4.2.0.dist-info/licenses/LICENSE",
+          "sha256": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7"
+        }
+      ]
+    },
+    {
+      "name": "langgraph-checkpoint-sqlite",
+      "version": "3.1.1",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "langgraph_checkpoint_sqlite-3.1.1.dist-info/licenses/LICENSE",
+          "sha256": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7"
+        }
+      ]
+    },
+    {
+      "name": "mcp",
+      "version": "2.3.0",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "mcp-2.3.0.dist-info/licenses/LICENSE",
+          "sha256": "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d"
+        }
+      ]
+    },
+    {
+      "name": "aiosqlite",
+      "version": "0.22.1",
+      "license": null,
+      "notices": [
+        {
+          "path": "aiosqlite-0.22.1.dist-info/licenses/LICENSE",
+          "sha256": "ab0c171dc3ef8bf325a84bb77d855421f2611335ddf6e08816b2922c4edc0f76"
+        }
+      ],
+      "notice_license": "MIT; verified from installed licence text/classifier"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.143.0",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "fastapi-0.143.0.dist-info/licenses/LICENSE",
+          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e"
+        }
+      ]
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.0",
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "pydantic-2.14.0.dist-info/licenses/LICENSE",
+          "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+        }
+      ]
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1",
+      "license": "BSD-3-Clause",
+      "notices": [
+        {
+          "path": "httpx-0.28.1.dist-info/licenses/LICENSE.md",
+          "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d"
+        }
+      ]
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.54.0",
+      "license": "BSD-3-Clause",
+      "notices": [
+        {
+          "path": "uvicorn-0.54.0.dist-info/licenses/LICENSE.md",
+          "sha256": "efe1acf3e62fb99c288b0ec73e5a773b7268ef4320fe757ea994214e4b63c371"
+        }
+      ]
+    }
+  ],
+  "node_packages": [
+    {
+      "name": "react",
+      "version": "19.3.0",
+      "license": "MIT"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.3.0",
+      "license": "MIT"
+    },
+    {
+      "name": "vite",
+      "version": "7.3.7",
+      "license": "MIT"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "playwright-core",
+      "version": "1.64.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "5.2.0",
+      "license": "MIT"
+    }
+  ],
+  "source_data_files": [
+    "data/synthetic/I01.7-market-comparison.json"
+  ],
+  "source_data_history": [
+    "550b49c 2026-10-10 feat: verify synthetic comparison over real MCP stdio transport"
+  ],
+  "borrowed_fetch": {
+    "name": "mcp-server-fetch",
+    "version": "2026.8.18",
+    "license": "MIT",
+    "installed_license_sha256": "8cc7c6e33b24ed4ee8fcccc33eccf102549d04fa4cb9737cecc9770dad1080ff",
+    "retained_notice_byte_match": true,
+    "notice_path": "infra/borrowed-fetch/UPSTREAM-LICENSE"
+  },
+  "model_license": {
+    "publisher": "Qwen/Qwen3-4B-Instruct-2507",
+    "license": "Apache-2.0",
+    "installed_license_layer_sha256": "d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+    "layer_content_hash_match": true,
+    "weights_tracked": false
+  },
+  "ollama_runtime_license": {
+    "version": "0.40.2",
+    "upstream_tag_license": "MIT",
+    "source": "https://raw.githubusercontent.com/ollama/ollama/v0.40.2/LICENSE",
+    "runtime_distributed_in_repo": false
+  }
+}

@@ -407,6 +407,8 @@ Shared contracts, root lockfiles and STATUS have one designated editor. P05 inte
 - Acceptance evidence: Immutable release record corresponding to all final checks.
 - Actual report/commit/reviewer/date: **not recorded**.
 
+- I01.13 submission package audit (13 October): [official audit](SUBMISSION_READINESS.md) and [handoff](handoffs/I01.13-submission-package-A-2026-10-13.md). One-page architecture/297-word intended-workflow draft, full native video decode/identical upload copy, form answer bank and licence/notices review prepared. No upload/submission/freeze; internal goals distinguished from mandatory requirements; office/human/eligibility/window/form facts and public video/receipt remain open. Sole editor/reviewer Fredrick; no gate checkbox completed.
+
 ## R09 — Submit correct final form and retain receipt
 
 - [ ] Complete and peer-reviewed
@@ -476,3 +478,66 @@ R12 is post-submission review preparation. Completion does not authorize a post-
   typecheck/build/Ruff/read-only Chrome passed. Preserve unrelated package edits
   and snapshot state; no automatic operational workflow/video/upload/submission.
   Recording readiness requires remote and preview revision equality; no gate pass.
+
+## I01.15 — protected working-demonstration access preparation
+
+- Owner/reviewer: Fredrick, solo review; no independent gate signoff.
+- Assigned: 15 October 2026; current I01.14 published origin on loopback 8001.
+- [Configuration and verification plan](../infra/JUDGING_HTTPS_PLAN.md),
+  [handoff](handoffs/I01.15-judging-access-preparation-A-2026-10-15.md), sanitized
+  `evals/results/I01.15-judging-access/preparation.json`.
+- Prepared only: old authorization expired, new route forbidden. Exact judge
+  emails/dates absent; owner declines form connection. Current auth/version,
+  loopback listeners and local CLI/ingress verified; ten focused tests passed.
+- Seven-day window proposed with absolute expiry and separate thirty-minute
+  protection test; no exposure authorization/spend/credentials created or shared.
+- No HTTPS URL or readiness claim; next is owner/organiser access/window agreement
+  and explicit approval of the prepared protection test. No commit/push in task.
+
+
+## I01.16 — colleague UI review and local integration
+
+- Assigned by Fredrick on 15 October 2026; bounded I15/I16 interface continuation.
+- Retrieved [colleague PR #1](https://github.com/Fredrick-owino/market-price-intelligence-agent/pull/1),
+  head `aeb26c2300e172336b5897f3317854bba7987f0b`; integrated seven frontend files
+  locally on `task/I01.16-ui-integration` and refined disclosure, accessibility,
+  mobile order, review/trace hierarchy, loading and errors. Owner copy preserved.
+- [Handoff](handoffs/I01.16-ui-integration-A-2026-10-15.md),
+  `evals/results/I01.16-ui/checks.json` and five actual Chrome screenshots.
+- Locked install, four frontend tests, typecheck/build, script syntax, diff check
+  and actual read-only Chrome/API checks passed. Intermediate trace-placement
+  failure corrected and final browser check passed. Browser failure/progress
+  stubs explicitly labelled; no new model run, workflow or reviewer decision.
+- Local production preview: loopback 5174. Existing demo processes preserved.
+  Submission/access edits retained; no staging/commit/push/PR merge/deployment.
+- Fredrick solo review; no gate completed. Next: owner local design review, then
+  separately requested scoped main/version alignment before the recorded cutoff.
+
+
+### I01.16 follow-up — visible sample token helper
+
+- Owner explicitly requests demo code/instructions at the sign-in field.
+- [Handoff](handoffs/I01.16-public-demo-access-A-2026-10-15.md): opt-in public
+  sample code, click-to-fill help and isolated demo account/database; ordinary
+  officer credentials never returned. Real sample decisions are not verified
+  named-officer approvals. No existing private workflow grants.
+- 16 focused backend tests passed, Ruff/typecheck/build/frontend tests passed;
+  actual Chrome login, focus help, private-scope denial, refresh and desktop/mobile
+  checks passed. Evidence: evals/results/I01.16-public-demo/.
+- Local loopback preview 8002, no remote exposure/deployment/commit/push; previous
+  changes retained. No fresh model run or gate pass. Next: owner local review,
+  then separately scoped integration/remote judging-access verification.
+
+
+### I01.16 — owner-authorized commit and push
+
+- Owner requests all pending changes committed/pushed on 15 October 2026.
+- [Publication handoff](handoffs/I01.16-publication-A-2026-10-15.md) covers retained
+  submission/access preparation, colleague UI and isolated sample entry.
+- Final 19 focused backend/four frontend tests, typecheck/build and Ruff passed;
+  broad backend run interrupted after 128 passes, not a complete-suite pass.
+  Exact known private-value/key-pattern scan found no matches; ignored operational
+  state/builds/media excluded. No gate, remote hosting or form submission implied.
+- Integrate fast-forward only and verify actual local/remote SHA before cutoff;
+  final Git receipt reports outcome. Next: separately scoped remote demo activation
+  and actual judge-login/workflow checks, with existing state preserved.

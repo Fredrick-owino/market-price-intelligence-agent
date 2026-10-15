@@ -98,8 +98,27 @@ def load_officers(path: Path) -> list[dict]:
     return officers
 
 
-def create_app(db_path: Path, officers_path: Path) -> FastAPI:
+def create_app(
+    db_path: Path, officers_path: Path, *, public_demo_token: str | None = None
+) -> FastAPI:
     officers = load_officers(officers_path)
+    if public_demo_token is not None:
+        # Opt-in shared sample access must never publish an ordinary officer token.
+        digest = hashlib.sha256(public_demo_token.encode()).hexdigest()
+        if (
+            not public_demo_token
+            or len(public_demo_token) > 256
+            or officers
+            != [
+                {
+                    "id": "test:public-demo",
+                    "token_sha256": digest,
+                    "workflows": [],
+                    "workflow_prefix": "public-demo-",
+                }
+            ]
+        ):
+            raise ValueError("Public demo requires its own restricted test-officer roster.")
     store = DraftStore(str(db_path))
     app = FastAPI(title="SokoSignal local officer review", version="1")
     locks: dict[str, asyncio.Lock] = {}
@@ -260,6 +279,12 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
         return {"status": "ready"}
 
     Officer = Annotated[dict, Depends(authenticate)]
+
+    @app.get("/api/v1/demo-access")
+    def demo_access():
+        if public_demo_token is None:
+            return {"enabled": False}
+        return {"enabled": True, "token": public_demo_token, "shared": True}
 
     @app.get("/api/v1/drafts/pending")
     def pending(officer: Officer):

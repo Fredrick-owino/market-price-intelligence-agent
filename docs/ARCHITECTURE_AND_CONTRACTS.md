@@ -134,3 +134,19 @@ naive times, and preserves date-only source dates. Immutable quantity/unit comes
 from the selected draft, never editable request state. See the
 [local-only evidence](runs/I01.14-dashboard-dates.md); this addendum does not
 change approvals, fixture, model, gate or release status.
+
+
+## I01.16 shared demo access — owner-requested follow-up
+
+The owner explicitly requests a visible demo code and click-to-fill help on the
+sign-in page. Opt-in `GET /api/v1/demo-access` returns only `enabled: false` in
+ordinary officer mode. The explicit public demo factory returns a deliberately
+public sample code. It uses a separate `.state/public-demo/demo.sqlite` and a
+roster consisting only of `test:public-demo`, no explicit workflow grants and
+`public-demo-` scope. Publication refuses any other roster, including normal
+reviewers or existing-workflow grants. The visible code is not a private officer
+credential and conveys no verified human identity. Shared sample decisions are
+labelled demonstrations, not authenticated named-officer/practitioner approval.
+Normal application authorization and exact pending draft/version/hash checks
+remain in force. This authorized sample entry does not enable network exposure,
+change existing private credentials or pass any gate.

@@ -1,7 +1,7 @@
 # SokoSignal evaluations — actual evidence and limitations
 
-I01.13 qualifying-demo continuation; Fredrick, solo review. Official Agriculture
-rules require at least eight distinct tasks; they need not all use a live model.
+I01.13 qualifying-demo continuation; Fredrick, solo review. The [official Agriculture brief](https://agentic-africa-challenge.lovable.app/tracks/agriculture)
+requires at least eight distinct tasks; they need not all use a live model.
 The 110-second edited video is supplementary only, not a qualifying artifact.
 All cases below use labelled synthetic fixtures. Expected arithmetic/policies
 were recorded before the deterministic run; no independent peer review is implied.
@@ -29,10 +29,11 @@ practitioner decision. [Matrix](evals/results/I01.13-distinct-task-matrix.json),
 [observed revision failure](evals/results/I01.13-unresolved-revision-task.json).
 
 **Unresolved failure and improvement:** request-changes/revision cannot be
-performed through the decision UI/API. A separate bounded task should implement
-exact-version request-changes, an immutable revised draft and fresh named review,
-with old-approval invalidation/recovery tests. Current unsupported state remains
-visible; no feature is silently invented for this evaluation.
+performed through the decision UI/API. If that capability is prioritised later, the proposed improvement is an
+exact-version request-changes path, immutable revised drafts and fresh review,
+with old-approval invalidation/recovery tests. This is a disclosed limitation
+relative to the internal full-workflow plan, not an automatic official
+eligibility blocker or a requirement to add a feature before submission.
 
 ## Actual model measurements and preserved variation
 
@@ -131,3 +132,14 @@ before document paint; no token/PIN/header screens. English UI, no audio.
 The earlier 159.68 s native attempt and edited supplementary file are retained.
 Local duration/content checks are not organiser acceptance, independent
 practitioner validation, public playback or release-gate completion.
+
+
+Submission audit clarification: synthetic data is permitted by the official
+Agriculture brief. Intended users/workflow are Kenyan maize extension officers
+comparing quotes and confirmed costs; no named office or practitioner validation
+exists. Recorded approvals are automated test identities, not proof of a named
+human officer. Same-host fresh-clone evidence is genuine but not independent
+host/operator review. The official EVALS requirement deliberately includes an
+unfixed failure and next proposal; retaining T10 is compliant reporting, not a
+promise to implement revision support. Public video and office-specific
+submission information remain outstanding.

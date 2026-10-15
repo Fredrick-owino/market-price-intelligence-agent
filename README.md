@@ -1,17 +1,26 @@
 # SokoSignal — local synthetic market demo
 
 This repository contains a **synthetic** market comparison and private officer
-review workflow. Prices, costs, markets and capacity are invented. Approval
+review workflow. The recorded review uses an authenticated automated demo
+identity; no named real officer approval has been established. Prices, costs,
+markets and capacity are invented. Approval
 changes internal status; it does not send an advisory. No real KAMIS data is
-ingested.
+ingested. Intended users are extension officers supporting smallholder maize
+farmers in Kenya. The intended workflow compares quoted prices, harvest quantity,
+transport and other confirmed costs, and prepares a sourced advisory for review.
+No named office, partnership, endorsement, adoption or practitioner validation
+is confirmed. The demo edits quantity only; prices/costs come from its invented
+fixture, not a general live quote/cost entry system.
 
 ## Run locally
 
 Prerequisites: Python 3.12, `uv`, Node 22, npm 9–10 and the existing pinned
 Ollama model `qwen3:4b-instruct-2507-q4_K_M` with digest
 `0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0`.
-The borrowed Fetch server has its own lock and environment because its MCP SDK
-version differs from the application SDK. Do not mix them.
+We reuse upstream Fetch retrieval/robots behavior instead of recreating its MCP
+protocol and text parsing; our wrapper restricts destination and verifies the
+public synthetic snapshot. Fetch has a separate lock/environment because its
+MCP SDK differs from the application SDK. Do not mix them.
 
 ```sh
 # First start an existing complete Ollama runtime on 127.0.0.1:11434.
@@ -48,8 +57,10 @@ demo identity, not independent officer validation. Read `.env.token.local`
 locally and enter it into the UI. The token remains in page memory and is not
 bundled or persisted by the frontend. Keep the config and token files private.
 
-Start Ollama separately on `127.0.0.1:11434` with the pinned model available in
-its local model directory. Then run:
+After `make demo`, the API is already running in that terminal; open the
+browser below. Do not start a second API. For a later restart, once that API
+has exited and dependencies/UI are already prepared, leave the pinned model
+service on loopback and use this launcher:
 
 ```sh
 bash infra/run-local-demo.sh
@@ -63,10 +74,30 @@ The UI accepts whole quantities from 1 to 1,000 kg for the one approved
 synthetic fixture: demo maize, DEMO-1, synthetic region, wholesale, Market A and
 Market B, observed 10 October 2026. It displays gross proceeds, costs, net
 proceeds, source/provenance, limitations, pending draft version/hash and officer
-decision. Actual sanitized tool events appear live with inputs, outputs and timestamps.
-New overlapping starts reject; identical retries remain idempotent. Model work may take minutes. A failed run remains failed and visible;
+decision. Actual sanitized tool events show inputs, outputs and timestamps.
+New overlapping starts reject; identical retries remain idempotent. Model work
+may take minutes. A failed run remains failed and visible;
 start a new attempt after resolving its cause. Refresh requires reentering the
 token; the workflow ID alone stays in session storage.
+
+### Shared demonstration sign-in
+
+To offer the intentionally visible sample code, stop any previous instance on
+port 8002 and start the separate sample workspace after installing the above
+prerequisites and building the frontend:
+
+```sh
+.venv/bin/python -m uvicorn infra.public_demo:local_app --factory --host 127.0.0.1 --port 8002 --workers 1
+```
+
+Open `http://127.0.0.1:8002`. Focus **Officer token** or select **Try the demo**,
+then **Use demo token** and **Open review desk**. The deliberately public
+`SOKO-DEMO` code accesses only the shared `test:public-demo` sample workspace in
+`.state/public-demo/`; it cannot access existing officer workflows. Anyone with
+the code can review its sample drafts. Demo decisions do not establish verified
+officer identity or endorsement. Ordinary private mode never exposes its token.
+This command binds locally; publishing a remote route remains a separate action.
+Only one local demonstration should use the shared model at a time.
 
 ## Checks
 
@@ -107,3 +138,15 @@ review. This same-host solo trial is not independent cross-machine verification.
 See [evidence](evals/results/I01.13-fresh-checkout-verification.json).
 Current unresolved feature: request-changes/revision through UI/API, reported
 as an evaluation failure. No public video, hosting or submission performed.
+
+
+Submission package: [official-requirement audit](docs/SUBMISSION_READINESS.md),
+[prepared form answers](docs/submission-answers-draft.md),
+[video metadata/upload instructions](docs/VIDEO_UPLOAD_PACKAGE.md), and
+[third-party notices](THIRD_PARTY_NOTICES.md). A documented unresolved evaluation
+case is intentionally retained; it does not automatically require another
+feature. Independent peer/different-host trials are internal goals, not extra
+requirements added to the official submission list. No upload/submission/freeze
+has been recorded. The owner reports the organiser cutoff as 15 October 2026,
+23:59 Africa/Nairobi (20:59 UTC); original organiser notice was not independently
+inspected. See [current status](docs/STATUS.md) for the evidence distinction.

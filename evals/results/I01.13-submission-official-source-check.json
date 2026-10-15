@@ -1,0 +1,45 @@
+{
+  "verified_at_nairobi": "2026-10-13T01:14:12.148613+03:00",
+  "official_brief": "https://agentic-africa-challenge.lovable.app/tracks/agriculture",
+  "official_faq": "https://agentic-africa-challenge.lovable.app/",
+  "official_form": "https://docs.google.com/forms/d/e/1FAIpQLSeVEqZtEasdjqNjDfOqZnS5_XmT6fyz2nHmnPtX6xz0Ppc9FQ/viewform?track=agriculture",
+  "form_readonly_result": {
+    "final_host": "accounts.google.com",
+    "title": "Google Forms: Sign-in",
+    "actual_questions_visible": false,
+    "credentials_entered": false,
+    "answers_entered": false,
+    "submitted": false
+  },
+  "deadline_date_primary_verified": "2026-10-15",
+  "cutoff_time_timezone": "UNCONFIRMED",
+  "official_window_timestamps": "Track still unspecified; lead-reported 9 October start retained, no original organiser message inspected",
+  "synthetic_data_allowed": true,
+  "evaluation_tasks_need_not_all_be_live_model": true,
+  "unfixed_failure_is_required_to_be_reported_not_automatically_implemented": true,
+  "hosted_application_not_listed_as_mandatory_in_published_artifacts": true,
+  "intended_users_owner_supplied": "Agricultural extension officers supporting smallholder maize farmers in Kenya",
+  "intended_workflow_owner_supplied": "Compare quoted prices, harvest quantity, transport/other confirmed costs; net proceeds and sourced advisory for officer review",
+  "named_office": "NOT_CONFIRMED",
+  "named_human_approver": "NOT_SUPPLIED; recorded automation is a test identity",
+  "eligibility": "NOT_CONFIRMED",
+  "partnership_endorsement_adoption_practitioner_validation": false,
+  "receipt_supplied": false,
+  "history_rewritten": false,
+  "repository_frozen": false,
+  "scope_note": "Published rules re-read; exact private signed-in form fields not available. No complete organiser acceptance or legal certification claimed.",
+  "form_first_section_owner_supplied": {
+    "title": "The African Agentic Design Challenge",
+    "section": "APPLICANT & PROJECT OVERVIEW",
+    "required_fields": [
+      "Applicant Type: Individual / Team",
+      "Team/Applicant Name: full name for Individual, team name for Team",
+      "Which African country are you originating from?",
+      "Team Lead / Applicant Contact: Full Name, Email, Phone/WhatsApp, Country"
+    ],
+    "later_sections_inspected": false,
+    "private_values_stored": false
+  },
+  "form_window_wording_owner_supplied": "Commits after official 7-day build-window deadline will not be evaluated; no timestamp supplied",
+  "window_policy_discrepancy": "Public track says late commits can disqualify; supplied form says not evaluated. No exact-time or closure inference."
+}

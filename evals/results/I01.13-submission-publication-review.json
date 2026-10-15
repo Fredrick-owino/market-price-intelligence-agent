@@ -1,0 +1,7 @@
+{
+  "scope": "All reachable local Git refs; exact current credential/private allowlist literals only, not a complete secret scanner",
+  "blob_count": 326,
+  "exact_secret_matches": [],
+  "tracked_private_file_names": [],
+  "history_rewritten": false
+}

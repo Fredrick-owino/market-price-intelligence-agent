@@ -1,6 +1,6 @@
 # Project status — update from execution evidence
 
-Last evidence update: 12 October 2026 (I01.13 local preparation addendum). Synthetic
+Last evidence update: 13 October 2026 (I01.13 submission package audit). Synthetic
 local demo implementation and HTTP evidence are recorded on main; release gates
 remain open.
 
@@ -381,6 +381,45 @@ official cutoff/eligibility/form, public video playback and final submission
 remain open. No release gate completed from solo verification.
 
 
+### Submission classification/package audit — 13 October 2026
+
+[Current official audit](SUBMISSION_READINESS.md) separates published requirements
+from internal task-board goals. Primary brief/FAQ re-read: own synthetic data
+allowed; EVALS needs 8+ tasks and an unfixed failure/proposal, not eight live
+model tasks or automatic revision implementation. Official FAQ verifies
+15 October 2026; exact cutoff/timezone still absent, track window timestamps
+still unspecified. No freeze enacted or message invented.
+
+Owner supplies intended users/workflow: extension officers supporting Kenyan
+smallholder maize farmers, comparing quotes/quantity/confirmed costs and
+preparing a sourced advisory. No named office, partnership, endorsement,
+adoption or practitioner validation. No named human approver supplied; filmed
+approval is automated test identity, so genuine named-human evidence is not
+claimed. Eligibility and signed-in form question labels remain unconfirmed.
+Official linked form read-only attempt reached Google sign-in, no answers
+entered. An unrelated export-licence application was not used as institution
+or submission evidence.
+
+Native 650 kg original and upload-ready WebM copy have identical SHA-256;
+158.12 s, all 3,953 frames decoded successfully, Chrome initial playback
+verified. No transcode/cuts/overlays/timing change. Metadata/instructions
+prepared but no upload/submission. Direct licence/notices reviewed; existing
+MIT source and exact Fetch notice match confirmed, model Apache-2.0 verified.
+Historical aggregate-price audit notes remain explicitly distinguished from
+synthetic runtime; no history rewrite or blanket permissions claim.
+Internal gates remain historical/unpassed and are not all mandatory submission
+blockers. [Final checklist](SUBMISSION_CHECKLIST.md), [answer bank](submission-answers-draft.md).
+
+
+Owner subsequently supplied the correct portal introduction and first required
+applicant section: Individual/Team, Team/Applicant Name, African country of
+origin, and contact name/email/phone/country. Answer bank maps these exact
+labels, correcting project title versus individual full name. No contact
+values or country were inferred; later sections remain uninspected. The form
+says late commits are not evaluated, while the public track warns disqualification;
+no timestamp supplied and no closure inferred from its congratulations text.
+
+
 ## I01.14 cutoff clarification — 15 October 2026
 
 Fredrick reports organiser information that submission closes **15 October 2026
@@ -394,3 +433,15 @@ integrated into main and pushed before that cutoff. No commits/pushes at or afte
 2026-10-15T20:59:00Z. Preserve the isolated recording snapshot and original service.
 This records the cutoff and authorized repository work only, not submission,
 acceptance, independent review or any passed project gate.
+
+
+## I01.16 — owner-authorized combined source publication, 15 October 2026
+
+Fredrick requests committing and pushing all pending project changes: retained
+I01.13 submission documents/evidence, I01.15 disabled judging-access preparation,
+and I01.16 colleague UI integration plus isolated shared sample sign-in. The
+visible sample code is intentionally public only for test:public-demo in its
+separate database; ordinary officer credentials/state stay private. No remote
+access launch, video upload or form submission is included. Solo review; all
+G0–G6 states unchanged. Publication checks/outcomes are recorded in the
+[I01.16 publication handoff](handoffs/I01.16-publication-A-2026-10-15.md).

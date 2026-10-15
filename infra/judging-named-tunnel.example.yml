@@ -1,0 +1,10 @@
+# PREPARATION ONLY. Domain/account/Access policy and exposure window are unapproved.
+# Apply deny-by-default Access to the entire hostname BEFORE publishing the route.
+# Placeholder hostname is reserved example.org, not an existing submission URL.
+tunnel: REPLACE_WITH_NAMED_TUNNEL_UUID
+credentials-file: /home/fred/Projects/market-intelligence-challenge/.env.judging-tunnel-credentials.local.json
+metrics: 127.0.0.1:20242
+ingress:
+  - hostname: judging.example.org
+    service: http://127.0.0.1:8001
+  - service: http_status:404

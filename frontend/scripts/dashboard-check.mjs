@@ -17,16 +17,16 @@ try {
  await inbox.click()
  await page.getByRole('heading',{name:'Draft version 1'}).waitFor()
  await page.getByRole('heading',{name:'Market options'}).waitFor()
- const id=await page.locator('.status').locator('..').locator('.mono').innerText()
+ const id=await page.locator('.run-id').innerText()
  const api=async suffix=>page.evaluate(async ({url,token})=>{const r=await fetch(url,{headers:{Authorization:`Bearer ${token}`}}); if(!r.ok)throw Error(`HTTP ${r.status}`);return r.json()}, {url:`/api/v1/runs/${id}${suffix}`,token})
  const run=await api(''), draft=await api('/draft')
  const evidence={stage,workflow_id:id,status:run.status,created_at:draft.created_at,source_date:run.comparison.as_of_date,quantity:draft.content.calculation.quantity,errors}
  if(stage==='copy') {
   assert.equal(await page.locator('.hero h1').innerText(), 'A clearer view of the market.\nOfficer judgement.')
-  assert.equal(await page.locator('.topright').innerText(), 'Market intelligence')
+  assert.equal(await page.locator('.appbar-id small').innerText(), 'Market intelligence')
   assert((await page.locator('.hero').innerText()).includes('Compare market options, assess costs, and review the evidence before approving an advisory.'))
-  assert((await page.locator('.banner').innerText()).includes('SAMPLE DATA'))
-  assert((await page.locator('.banner').innerText()).includes('Illustrative prices and costs'))
+  assert((await page.locator('.notice').innerText()).includes('SAMPLE DATA'))
+  assert((await page.locator('.notice').innerText()).includes('Illustrative prices and costs'))
   assert(!/synthetic|UI I01\.14/i.test(await page.locator('.hero').innerText()))
  }
  if(stage==='after') {
@@ -72,7 +72,7 @@ try {
   const nextDraft=await page.evaluate(async({token,id})=>(await fetch(`/api/v1/runs/${id}/draft`,{headers:{Authorization:`Bearer ${token}`}})).json(),{token,id:nextId})
   await page.getByText(`ID ${nextDraft.draft_id}`,{exact:false}).waitFor()
   assert((await page.locator('.comparison-summary').innerText()).includes(`${nextDraft.content.calculation.quantity} kg`))
-  assert.equal(await page.locator('.status').locator('..').locator('.mono').innerText(),nextId)
+  assert.equal(await page.locator('.run-id').innerText(),nextId)
   await page.unroute(`**/api/v1/runs/${id}/draft`)
   evidence.selection_check='passed; delayed real previous-draft response cannot replace the newly selected run'
   // A previously recorded decision, read-only; no reviewer action is taken.

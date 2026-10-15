@@ -64,7 +64,7 @@ async function awaitDraft(page, quantity) {
     assert.match(await card.innerText(), new RegExp(amount(market.gross).replace('.', '\\.') ))
     assert.match(await card.innerText(), new RegExp(amount(market.cost).replace('.', '\\.') ))
   }
-  const text = await page.locator('section.full').filter({ has: page.getByRole('heading', { name: 'Market options' }) }).innerText()
+  const text = await page.locator('section.panel').filter({ has: page.getByRole('heading', { name: 'Market options' }) }).innerText()
   assert(text.includes(`${exp.winner} leads by`))
   assert(text.includes('synthetic://sokosignal/I01.7'))
   const grossLeader = [...exp.markets].sort((a, b) => b.gross - a.gross)[0].market
@@ -72,7 +72,7 @@ async function awaitDraft(page, quantity) {
   await page.getByRole('heading', { name: 'Source & provenance' }).waitFor()
   assert((await page.locator('.evidence').innerText()).includes('actual_public_http_real_mcp'))
   scenario.expected = exp
-  scenario.workflow_id = await page.locator('.status').locator('..').locator('.mono').first().innerText()
+  scenario.workflow_id = await page.locator('.run-id').first().innerText()
   scenario.snapshot_sha256 = createHash('sha256').update(await readFile(path.join(root, 'data/synthetic/I01.7-market-comparison.json'))).digest('hex')
   return scenario
 }
@@ -106,7 +106,7 @@ try {
 
   step = 'anonymous and invalid authentication'
   await page.goto(base)
-  await page.locator('.banner').waitFor()
+  await page.locator('.notice').waitFor()
   await page.getByLabel('Officer token').fill('invalid-browser-test')
   await page.getByRole('button', { name: 'Open review desk' }).click()
   await page.getByRole('alert').getByText('Credential missing or invalid.').waitFor()

@@ -1,0 +1,14 @@
+{
+  "label": "Actual isolated local demo login; no model run, request or reviewer decision",
+  "checked_at": "2026-10-15T19:34:09.777Z",
+  "checks": [
+    "Focus reveals sample code and instructions",
+    "Click fills public demo token",
+    "Real API login under test:public-demo",
+    "No existing private drafts visible",
+    "Anonymous access 401; private workflow 403",
+    "Refresh clears entered token",
+    "Desktop/mobile no horizontal overflow"
+  ],
+  "errors": []
+}

@@ -1,0 +1,21 @@
+{
+  "launch_authorized": false,
+  "old_one_hour_authorization_reusable": false,
+  "origin": "http://127.0.0.1:8001",
+  "expected_revision": "629ffbdae8a9fd06c67dd940fb9e0dbf4bc29a01",
+  "proposed_judging_duration_seconds": 604800,
+  "approved_start_utc": null,
+  "approved_end_utc": null,
+  "approved_viewer_emails": [],
+  "allow_wildcards": false,
+  "expose_ollama": false,
+  "api_workers": 1,
+  "state_file": ".state/dashboard-preview.sqlite",
+  "quick_tunnel_config_file": ".env.judging-quick-config.local.yml",
+  "private_judge_token_file": ".env.token.judge-001.local",
+  "private_judge_email_file": ".env.judging-mail.local",
+  "provider_cost_cap_usd": "0.00",
+  "account_or_domain_purchase_authorized": false,
+  "hostname_change_accepted_by_organiser": null,
+  "form_allows_access_instructions": null
+}

@@ -1,0 +1,11 @@
+{
+  "repository": {
+    "http_status": 200,
+    "private": false,
+    "visibility": "public",
+    "license_spdx": "MIT"
+  },
+  "readme": {
+    "http_status": 200
+  }
+}

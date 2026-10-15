@@ -1,0 +1,43 @@
+{
+  "verified_original": "/home/fred/Projects/market-intelligence-challenge/.state/video/I01.13-qualifying/continuous-650kg.webm",
+  "upload_ready_copy": "/home/fred/Projects/market-intelligence-challenge/.state/submission-package/SokoSignal-Agriculture-650kg-Unedited.webm",
+  "sha256_original": "efcda4a74fa65372db23cb226426bf4eb31edb85c37bff66cca31d63db5206ee",
+  "sha256_upload_copy": "efcda4a74fa65372db23cb226426bf4eb31edb85c37bff66cca31d63db5206ee",
+  "byte_identical": true,
+  "file_bytes": 30255683,
+  "duration_seconds": 158.12,
+  "fps": 25,
+  "dimensions": [
+    1440,
+    1000
+  ],
+  "codec": "VP9 / WebM",
+  "decoded_frames": 3953,
+  "full_decode_exit_code": 0,
+  "decoded_png_stream_bytes": 2393392634,
+  "decode_elapsed_seconds": 41.399,
+  "frame_changes": 0,
+  "timing_changes": false,
+  "uploaded": false,
+  "workflow_id": "demo-4764c720-e723-5f28-a478-b6c83ddace43",
+  "initial_verifier_attempt": "image2pipe output muxer unavailable in local helper, exit 1; corrected verification command without altering media",
+  "retained_evidence_match": {
+    "video_sha_duration_match": true,
+    "workflow_decision_ids_match": true,
+    "actual_completed_tools": [
+      "fetch",
+      "search_market_quotes",
+      "compare_market_options",
+      "save_advisory_draft"
+    ],
+    "net_proceeds": {
+      "Market A": "24000.00",
+      "Market B": "21250.00"
+    },
+    "advantage_kes": "2750.00",
+    "decision_draft_hash_match": true,
+    "reviewer_id": "test:local-demo-officer",
+    "named_human_review_not_established": true,
+    "edited": false
+  }
+}

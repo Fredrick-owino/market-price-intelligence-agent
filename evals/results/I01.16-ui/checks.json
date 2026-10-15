@@ -1,0 +1,12 @@
+{
+  "label": "Actual Chrome and read-only persisted synthetic API; labelled browser stubs; no model run or decisions",
+  "base": "http://127.0.0.1:5174",
+  "checks": [
+    "Real API: invalid/valid authentication, pending draft, exact hash, EAT timestamps, server monetary values, recorded quantity independent of request input",
+    "Persisted trace expands on demand; draft review appears before completed tool log",
+    "Actual Chrome responsive layout at 1440/1024/768/390/320; no horizontal overflow; mobile results before inbox",
+    "Explicit browser stubs: failed run removes stale approval controls; running state disables start",
+    "Reduced motion disables loading animation"
+  ],
+  "errors": []
+}

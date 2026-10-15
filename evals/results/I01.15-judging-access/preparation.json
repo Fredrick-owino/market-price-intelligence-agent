@@ -1,0 +1,50 @@
+{
+  "task": "I01.15",
+  "checked_at_utc": "2026-10-14T23:31:53.889366+00:00",
+  "status": "PREPARED_NOT_ACTIVATED",
+  "live_public_url": null,
+  "verified_origin": "http://127.0.0.1:8001",
+  "backend_sha": "629ffbdae8a9fd06c67dd940fb9e0dbf4bc29a01",
+  "frontend_sha": "629ffbdae8a9fd06c67dd940fb9e0dbf4bc29a01",
+  "cloudflared_running": false,
+  "cloudflared_version": "2026.10.0",
+  "binary_sha256": "d33ff2d14475178d2012c2c56beba87389ac5ded27649519f198a7d3134a99db",
+  "origin_bind": "127.0.0.1:8001",
+  "model_bind": "127.0.0.1:11434",
+  "auth_observed": {
+    "anonymous": 401,
+    "invalid": 401,
+    "valid": 200
+  },
+  "old_authorization": "expired; no reuse",
+  "judge_emails": "not supplied by owner",
+  "judging_dates": "not supplied by owner",
+  "form_instructions_acceptance": "unverified; owner declines form connection and says fields are filled",
+  "checks": {
+    "named_ingress_validation": "OK",
+    "two_exact_email_quick_cli_help": "passed; no launch",
+    "disabled_example_policy": "passed",
+    "existing_state_and_private_files": "all original and pre-existing preview rows unchanged; credential and officer files unchanged",
+    "focused_tests": "10 passed in 8.56s"
+  },
+  "proposed_window_seconds": 604800,
+  "provider_spend_proposed_usd": "0.00",
+  "route_launched": false,
+  "credentials_created_or_shared": false,
+  "committed": false,
+  "pushed": false,
+  "additional_preview_workflow_observed": {
+    "workflow_id": "quick-demo-dd5e6178-b1d1-5987-ba44-f613998a1b7e",
+    "created_at": "2026-10-14T23:29:26.269756+00:00",
+    "decided_at": "2026-10-14T23:30:09.519198+00:00",
+    "status": "APPROVED",
+    "initiated_or_approved_by_this_task": false,
+    "preserved": true
+  },
+  "current_counts": {
+    "original_drafts": 7,
+    "original_decisions": 2,
+    "preview_drafts": 11,
+    "preview_decisions": 4
+  }
+}

@@ -1,0 +1,3 @@
+# Copy to ignored .env.judging-quick-config.local.yml only during authorized activation.
+# Must remain empty: no inherited ingress, token or unrelated default tunnel.
+{}

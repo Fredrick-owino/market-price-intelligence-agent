@@ -1,0 +1,6 @@
+{
+  "id": "test:judge-001",
+  "token_sha256": "REPLACE_WITH_SHA256_OF_NEW_PRIVATE_RANDOM_TOKEN",
+  "workflows": [],
+  "workflow_prefix": "judge-001-"
+}

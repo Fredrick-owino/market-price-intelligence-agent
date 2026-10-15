@@ -107,7 +107,7 @@ try {
   assert.equal(result.comparison.markets[0].estimated_net_proceeds, '18000.00')
   assert.equal(result.comparison.markets[1].estimated_net_proceeds, '14500.00')
   for (const tool of ['borrowed-fetch', 'search_market_quotes', 'compare_market_options', 'save_advisory_draft']) assert(seen.has(tool), `Missing actual tool ${tool}`)
-  await page.locator('.market-grid').evaluate(el => el.scrollIntoView({ block: 'start' }))
+  await page.locator('.markets').evaluate(el => el.scrollIntoView({ block: 'start' }))
   await capture(10, `Measured request-to-review: ${measured.toFixed(3)} seconds`, 'Waiting was shortened. This is an edited local demonstration, not an uninterrupted sub-three-minute agent run. Previous browser measurements: 234.38 s and 246.07 s.')
   await capture(14, 'Higher gross does not imply higher net', '500 kg: A gross KES 20,000 − transport 2,000 = net 18,000. B gross 22,500 − transport 8,000 = net 14,500. Market A leads by KES 3,500; fees, handling and loss are explicit zero assumptions.')
   await page.getByRole('heading', { name: 'Draft version 1' }).evaluate(el => el.scrollIntoView({ block: 'start' }))

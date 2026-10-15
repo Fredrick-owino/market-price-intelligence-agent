@@ -1,17 +1,17 @@
-# English submission description — provisional evidence draft
+# English submission description — evidence-bound draft
 
-Updated 13 October 2026. **Not submitted**. Narrative word count 297;
-named institution/practitioner and actual form remain unconfirmed.
-[Field answers](submission-answers-draft.md), [checklist](SUBMISSION_CHECKLIST.md).
+Updated 13 October 2026. **Not submitted; named office/human remain missing.**
+Narrative word count: 297 (whitespace split).
+[Answer bank](submission-answers-draft.md), [official audit](SUBMISSION_READINESS.md).
 
-SokoSignal is an Agriculture market access and price intelligence prototype for a proposed extension office or cooperative. The institution, practitioner and final crop and market scope remain unconfirmed. Demonstrations use invented maize prices, transport costs, capacity and markets, without claims about current prices, demand or farmer income.
+SokoSignal is an Agriculture market access and price intelligence prototype for extension officers supporting smallholder maize farmers in Kenya. Its intended workflow compares quoted prices, harvest quantity, transport costs and other confirmed costs, calculates net proceeds and prepares a sourced advisory for review. No named office, adoption, partnership, endorsement or practitioner validation is confirmed.
 
-A local demo officer enters a kilogram quantity. A pinned Qwen model runs through LangGraph; borrowed Fetch MCP retrieves a public commit pinned synthetic fixture. The model selects search_market_quotes, compare_market_options and save_advisory_draft on our own MCP server. Software validates sources and computes gross proceeds, explicit costs and estimated net proceeds. The model cannot override arithmetic or approve advice.
+The demonstration uses invented two-market maize data; only quantity is editable. A pinned local Qwen model runs through LangGraph and selects three own MCP tools: search_market_quotes, compare_market_options and save_advisory_draft. Borrowed Fetch MCP retrieves a public synthetic fixture with hash verification. Deterministic software validates references and computes gross, costs and net. The model cannot override arithmetic or approve advice.
 
-SQLite preserves immutable drafts, provenance, checkpoints and decisions. Review pauses until an authenticated decision matches the exact version and hash. Approval means internal review; no farmer message, sale, payment or advisory delivery occurs. One API worker rejects overlapping new starts, preserves identical retries and serializes recovery. Status polling and independent review remain available.
+SQLite preserves immutable drafts, provenance, checkpoints and decisions. Review pauses until authenticated approval or rejection matches the exact draft version and hash. No farmer message, order, payment or credit action occurs. One model workflow, idempotent retries and serialized recovery keep status and unrelated review available. Recorded approval used an automated demo identity; no named human officer has been established.
 
-Profiling found repeated model context dominated a retained 220.794 second run. Shorter prompts and tool results reduced fresh observed review times to 135.706–141.145 seconds across four successful final-schema attempts. One earlier invalid nested advisory failed validation and is retained. Actual sanitized tool events are visible in the interface.
+The continuous unedited 650 kg recording lasts 158.12 seconds, with actual retrieval and model-selected tool inputs, outputs and timestamps visible. Comparison, pending draft and authenticated internal approval appear without cuts, altered timing or substituted footage. The English screen recording has no audio and remains local.
 
-A continuous unedited 650 kilogram demonstration lasts 158.12 seconds and shows actual retrieval, model-selected tools, comparison, pending draft and authenticated demo approval. Ten distinct evaluation tasks report nine passes and one unresolved request-changes failure, separating actual model and deterministic tests. A fresh checkout completed documented one-command setup and real model/MCP approval with new credentials and state, using existing model files.
+Ten distinct evaluation tasks record nine passes and an unresolved request-changes failure, separating actual model, deterministic and mocked evidence. Shorter model context produced successful review times of 135.706–141.145 seconds. A same-host fresh clone ran one-command setup and a real model/MCP workflow with new credentials/state and existing model files/cache.
 
-The video remains local. Partner feedback, data rights, independent review, revision capability, official deadline and form verification remain outstanding. Remote officer completion is unverified. Public upload and submission require separate authorization.
+The named office, human reviewer, eligibility, exact cutoff and actual form questions remain outstanding. Public upload, signed-out playback and submission are unperformed. No institutional adoption, farmer-income improvement or remote officer success is claimed.
