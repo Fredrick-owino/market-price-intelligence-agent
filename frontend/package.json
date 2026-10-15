@@ -11,7 +11,8 @@
     "build": "vite build",
     "browser:check": "node scripts/browser-check.mjs",
     "dev": "vite",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "react": ">=19 <20",

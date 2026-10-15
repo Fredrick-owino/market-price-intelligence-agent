@@ -1,0 +1,371 @@
+{
+  "label": "Read-only baseline before fresh verification; row hashes only, no record contents",
+  "databases": {
+    "original": {
+      "relative_path": ".state/quick-demo.sqlite",
+      "tables": {
+        "drafts": [
+          {
+            "rowid": 1,
+            "sha256": "eb992b504816353ebb5c7709041636de86ea2310d0d3f5fa8f668497614f597f"
+          },
+          {
+            "rowid": 2,
+            "sha256": "edc9f63a58171ea9df0df83fae648f562ce1c58bdf5b7a7ea3db47bbf5030845"
+          },
+          {
+            "rowid": 3,
+            "sha256": "2a841a89d5e024c9dca736e18ae1c7737fe2cda4320dcacb013058d6ee41a0f6"
+          },
+          {
+            "rowid": 4,
+            "sha256": "c3f40185a7722b3de496aef4674fd058015349b00358446f1dcb2181ae445367"
+          },
+          {
+            "rowid": 5,
+            "sha256": "310c8d56b82a86d3725e0220c8593630ccac6521c1104a130a0b3bea21d5ec28"
+          },
+          {
+            "rowid": 6,
+            "sha256": "0d9dac23482275cfe891fc916848833189face061ad7878c98c39498da8993f2"
+          },
+          {
+            "rowid": 7,
+            "sha256": "1bcbc56c7d73c383770ba5b0d98915dfb627960413b2b5a94ed60b5490f0b1c2"
+          }
+        ],
+        "decisions": [
+          {
+            "rowid": 1,
+            "sha256": "eac1283d07b3514d19e9eeeb0db07f94a4bfdcf89771d81b552985e412119a56"
+          },
+          {
+            "rowid": 2,
+            "sha256": "5bb662eadb64441bcb7f1215bc8f67d60d2dd58eda9ac230f25b98e719b71e57"
+          }
+        ],
+        "audit": [
+          {
+            "rowid": 1,
+            "sha256": "05248166122f44bf8cef80429ae99157864ad82f799824508536c74c54c4b742"
+          },
+          {
+            "rowid": 2,
+            "sha256": "476ed688991cf56b197622ff19c05fdaf32a915cdbff84261409a966187360aa"
+          },
+          {
+            "rowid": 3,
+            "sha256": "4fc537380955c764c2cfee593b6b69dad239e3355819016396a3c799fe903c80"
+          },
+          {
+            "rowid": 4,
+            "sha256": "6885ab2e47874d35ca24f04802ad140e2bcb6d08b1576abb2ac99f350273429b"
+          },
+          {
+            "rowid": 5,
+            "sha256": "277ddae010fd66fbdd6bb4d04c3f19867e9feadb040a8342a87e4648a3fe6824"
+          },
+          {
+            "rowid": 6,
+            "sha256": "ecbc2f1b008bac9d02442aa2035d0b3747af67662e3a486ba931b3f8d2891120"
+          },
+          {
+            "rowid": 7,
+            "sha256": "465e523721b42ce2d9a55cec99bf218caca5b33a3a75ef5d6eaf636520869922"
+          },
+          {
+            "rowid": 8,
+            "sha256": "ff2281c33e447a9603e1544f8ec5666458d906f7fdf5de79d7258e56cfec8525"
+          },
+          {
+            "rowid": 9,
+            "sha256": "c1c07b6bcd7fd7c48445cbc2c14ce24555b6ec9bdee1e3d2d8b541c34b7f9e17"
+          }
+        ],
+        "actions": [
+          {
+            "rowid": 1,
+            "sha256": "c65f817074ba7dcf77992712533788d9f74fb1c6348fc80e338d346bf946a478"
+          },
+          {
+            "rowid": 2,
+            "sha256": "0afc7dcd4251e9ac3c4dd7a1ed1a3e63c78f3b5c1686bc5da40a8afaee7716cc"
+          },
+          {
+            "rowid": 3,
+            "sha256": "16092094f3cf40b5753796c009c44ae21e97c33d1c128f8b7eb91f5dfaca22c3"
+          },
+          {
+            "rowid": 4,
+            "sha256": "dcd3ced7b8f3fdb368305f8e198afa421147a63f4bcff1c6cad060cb91de0645"
+          },
+          {
+            "rowid": 5,
+            "sha256": "e07a1d39631db92e15b26bf540a1e0e9c239c540e9eb5713c30dd05a71a1fe28"
+          },
+          {
+            "rowid": 6,
+            "sha256": "94d59ec16da96afd1ffc4c0cc6814ade37c188090407eb61567f817464c98bbc"
+          },
+          {
+            "rowid": 7,
+            "sha256": "52c2edec03943145d9c8a1364e5da2b15e6ae84ca6ec3b7bbf2ac901cc28244c"
+          }
+        ],
+        "runs": [
+          {
+            "rowid": 1,
+            "sha256": "976f65dd636b2ab3eee6e0c3c1a74b9ed433a22e7deba44fcc6a3258d59f6f2b"
+          },
+          {
+            "rowid": 2,
+            "sha256": "fdf5bff2b9de358104871487a8cf45c01b5e4b435ed3a7c0080e2217e188533d"
+          },
+          {
+            "rowid": 3,
+            "sha256": "d635c4e9499dedf26efd61eff3d5db942032a491d64404934a0c5abf93b31ccd"
+          },
+          {
+            "rowid": 4,
+            "sha256": "5bd3cd7bca249de093358e634033d068b0f4dc0e100deb33cfe6ebcaa899f760"
+          },
+          {
+            "rowid": 5,
+            "sha256": "c698c104137e15360a7c0eb29b612204bb9b54d8d7e0f6629ce1eafeb88f8228"
+          },
+          {
+            "rowid": 6,
+            "sha256": "c56ee09fa2c3a47610ba7dd19c5410f8357b74713eb685323750521c1584d314"
+          },
+          {
+            "rowid": 7,
+            "sha256": "3a8396db0fa1adecc5000c9cfce00177e9fc4371c2c71a7754a3a9705fbd1c5b"
+          },
+          {
+            "rowid": 8,
+            "sha256": "82e81840f7337ec55dd07188d8c38baa563c5ac1728a97a84639c785a8c64728"
+          },
+          {
+            "rowid": 9,
+            "sha256": "f7c4da75c46f08b1fe232ff7d2cc263bce7e1cda1e9506a152e9f786cf194527"
+          },
+          {
+            "rowid": 10,
+            "sha256": "7f54cfc8237785703a2357929a3fd273218b7781f08018043366a4ebf6bd4714"
+          },
+          {
+            "rowid": 11,
+            "sha256": "eaa822cb79a250338cfe7503e6bf6218d88800b7cbde30487ff38f711060faa3"
+          },
+          {
+            "rowid": 12,
+            "sha256": "6b48d7e81505d4ff72ac4f23249db4e4f8f307e6e1ec305325ecdfa5eaefc7f0"
+          },
+          {
+            "rowid": 13,
+            "sha256": "a3f62ae28a2591b6dda0a8d5524e345549e6bb9562da62992ff6f508b7863c3b"
+          }
+        ]
+      }
+    },
+    "preview": {
+      "relative_path": ".state/dashboard-preview.sqlite",
+      "tables": {
+        "drafts": [
+          {
+            "rowid": 1,
+            "sha256": "eb992b504816353ebb5c7709041636de86ea2310d0d3f5fa8f668497614f597f"
+          },
+          {
+            "rowid": 2,
+            "sha256": "edc9f63a58171ea9df0df83fae648f562ce1c58bdf5b7a7ea3db47bbf5030845"
+          },
+          {
+            "rowid": 3,
+            "sha256": "2a841a89d5e024c9dca736e18ae1c7737fe2cda4320dcacb013058d6ee41a0f6"
+          },
+          {
+            "rowid": 4,
+            "sha256": "c3f40185a7722b3de496aef4674fd058015349b00358446f1dcb2181ae445367"
+          },
+          {
+            "rowid": 5,
+            "sha256": "310c8d56b82a86d3725e0220c8593630ccac6521c1104a130a0b3bea21d5ec28"
+          },
+          {
+            "rowid": 6,
+            "sha256": "0d9dac23482275cfe891fc916848833189face061ad7878c98c39498da8993f2"
+          },
+          {
+            "rowid": 7,
+            "sha256": "1bcbc56c7d73c383770ba5b0d98915dfb627960413b2b5a94ed60b5490f0b1c2"
+          },
+          {
+            "rowid": 8,
+            "sha256": "e1a2acdf63ba229d157ddec04d9a4ebf251040e59fe4181a5c99b6186dd50cd5"
+          },
+          {
+            "rowid": 9,
+            "sha256": "c950c8a2e03d8269acfe27fffd064c0801cf54effce50f91c58acba3f8663e5e"
+          }
+        ],
+        "decisions": [
+          {
+            "rowid": 1,
+            "sha256": "eac1283d07b3514d19e9eeeb0db07f94a4bfdcf89771d81b552985e412119a56"
+          },
+          {
+            "rowid": 2,
+            "sha256": "5bb662eadb64441bcb7f1215bc8f67d60d2dd58eda9ac230f25b98e719b71e57"
+          }
+        ],
+        "audit": [
+          {
+            "rowid": 1,
+            "sha256": "05248166122f44bf8cef80429ae99157864ad82f799824508536c74c54c4b742"
+          },
+          {
+            "rowid": 2,
+            "sha256": "476ed688991cf56b197622ff19c05fdaf32a915cdbff84261409a966187360aa"
+          },
+          {
+            "rowid": 3,
+            "sha256": "4fc537380955c764c2cfee593b6b69dad239e3355819016396a3c799fe903c80"
+          },
+          {
+            "rowid": 4,
+            "sha256": "6885ab2e47874d35ca24f04802ad140e2bcb6d08b1576abb2ac99f350273429b"
+          },
+          {
+            "rowid": 5,
+            "sha256": "277ddae010fd66fbdd6bb4d04c3f19867e9feadb040a8342a87e4648a3fe6824"
+          },
+          {
+            "rowid": 6,
+            "sha256": "ecbc2f1b008bac9d02442aa2035d0b3747af67662e3a486ba931b3f8d2891120"
+          },
+          {
+            "rowid": 7,
+            "sha256": "465e523721b42ce2d9a55cec99bf218caca5b33a3a75ef5d6eaf636520869922"
+          },
+          {
+            "rowid": 8,
+            "sha256": "ff2281c33e447a9603e1544f8ec5666458d906f7fdf5de79d7258e56cfec8525"
+          },
+          {
+            "rowid": 9,
+            "sha256": "c1c07b6bcd7fd7c48445cbc2c14ce24555b6ec9bdee1e3d2d8b541c34b7f9e17"
+          },
+          {
+            "rowid": 10,
+            "sha256": "3f6fb1bf0a2299a5573bfade8cc7b3b515341254f524f9dc4884ad6a343df42b"
+          },
+          {
+            "rowid": 11,
+            "sha256": "fdf3d037cfc373e78bdfd8706891289148be8d8618ab1fe5e613e4f1794ddd2e"
+          }
+        ],
+        "actions": [
+          {
+            "rowid": 1,
+            "sha256": "c65f817074ba7dcf77992712533788d9f74fb1c6348fc80e338d346bf946a478"
+          },
+          {
+            "rowid": 2,
+            "sha256": "0afc7dcd4251e9ac3c4dd7a1ed1a3e63c78f3b5c1686bc5da40a8afaee7716cc"
+          },
+          {
+            "rowid": 3,
+            "sha256": "16092094f3cf40b5753796c009c44ae21e97c33d1c128f8b7eb91f5dfaca22c3"
+          },
+          {
+            "rowid": 4,
+            "sha256": "dcd3ced7b8f3fdb368305f8e198afa421147a63f4bcff1c6cad060cb91de0645"
+          },
+          {
+            "rowid": 5,
+            "sha256": "e07a1d39631db92e15b26bf540a1e0e9c239c540e9eb5713c30dd05a71a1fe28"
+          },
+          {
+            "rowid": 6,
+            "sha256": "94d59ec16da96afd1ffc4c0cc6814ade37c188090407eb61567f817464c98bbc"
+          },
+          {
+            "rowid": 7,
+            "sha256": "52c2edec03943145d9c8a1364e5da2b15e6ae84ca6ec3b7bbf2ac901cc28244c"
+          },
+          {
+            "rowid": 8,
+            "sha256": "654443d6018332717ab11a57a264ed512619144bc1bc32f8539557182a90e58e"
+          },
+          {
+            "rowid": 9,
+            "sha256": "84ce49c4bf2165848fbff554daa3e6edd1855938bb0478c910ee275f506de13a"
+          }
+        ],
+        "runs": [
+          {
+            "rowid": 1,
+            "sha256": "99450a2840e6c5106e516d6babbac7f620e0281a5bf562cb679674bc71344f53"
+          },
+          {
+            "rowid": 2,
+            "sha256": "bb38e839a9089a0e734eae2fd4523de31361a018cb3d1d39b8708fb8b69c8bc2"
+          },
+          {
+            "rowid": 3,
+            "sha256": "92574e39e2532cdaddb04c3abeaea42eb515bccdc618a4120ab1f31e499c65e5"
+          },
+          {
+            "rowid": 4,
+            "sha256": "7ca3b3f54c5eab659e0ff7ae6e73e3f04b288247831ebe335aa912e155779b1b"
+          },
+          {
+            "rowid": 5,
+            "sha256": "af94ad415fb76e96eace804c4cbd8cb7e2c1f5fbc43b08d3f1dbb6f679847a22"
+          },
+          {
+            "rowid": 6,
+            "sha256": "e4baff2944803705da827de5eb54654eedbbd74f890c53fdc814c5f24723d545"
+          },
+          {
+            "rowid": 7,
+            "sha256": "793807647f319de71277e006126904ec4f4100cbd36fd3b33d3f64abee7838c6"
+          },
+          {
+            "rowid": 8,
+            "sha256": "af7e1449c62798d17c26e9ffecf5be954e81886437ec3fbfeda157c9c32cd4f1"
+          },
+          {
+            "rowid": 9,
+            "sha256": "167cdf3cbabe4a0573feb60a59237cd9f2c3322b15e886510f492404775a4190"
+          },
+          {
+            "rowid": 10,
+            "sha256": "3b7b9aa45a981e2075b0345d2b39df18398d86fc9ff17d8f6d4378ef346af4ac"
+          },
+          {
+            "rowid": 11,
+            "sha256": "9ebb7280f99ff7df03af01bc9f43605378dfdec01402a75982189a978e08ceaf"
+          },
+          {
+            "rowid": 12,
+            "sha256": "103f7f8205c85a168a6338aec49c330556fc8469adcf1a7a544c8fbb97937fd0"
+          },
+          {
+            "rowid": 13,
+            "sha256": "0b0e6a774e4210e8bdf52b5a3a93edff24be39dc98280e7b12aeb32efc238af8"
+          },
+          {
+            "rowid": 14,
+            "sha256": "81bc35ce859a8cda211b4e38a6e193501cc6b166dc8d650a25d302645ab87911"
+          },
+          {
+            "rowid": 15,
+            "sha256": "2974144de37392f61223502daaff8cd648374028bbe5b9482286ce70adff4a44"
+          }
+        ]
+      }
+    }
+  }
+}

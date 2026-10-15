@@ -239,6 +239,22 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
         except StoreConflict as error:
             raise HTTPException(409, str(error)) from error
 
+    def timestamps(workflow_id: str, run: dict | None, snapshot=None) -> dict:
+        # Never treat mutable updated_at or polling time as historical completion.
+        values = snapshot.values if snapshot is not None else {}
+        current = store.current_draft(workflow_id)
+        try:
+            decision = store.decision(workflow_id)
+        except StoreConflict:
+            decision = None
+        return {
+            "started_at": (run or {}).get("started_at") or values.get("pre_review_started_at"),
+            "completed_at": (run or {}).get("completed_at"),
+            "advisory_created_at": current["created_at"] if current else None,
+            "officer_decision_at": decision["decided_at"] if decision else None,
+            "officer_decision": decision["decision"] if decision else None,
+        }
+
     @app.get("/health")
     def health():
         return {"status": "ready"}
@@ -305,6 +321,7 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     "workflow_id": workflow_id,
                     "status": "RUNNING",
                     "error_code": None,
+                    **timestamps(workflow_id, run),
                     "phase": [
                         "retrieval_and_model"
                         if active_model_workflow == workflow_id
@@ -326,16 +343,19 @@ def create_app(db_path: Path, officers_path: Path) -> FastAPI:
                     "workflow_id": workflow_id,
                     "status": run["status"],
                     "error_code": run["error_code"],
+                    **timestamps(workflow_id, run, snapshot),
                     "phase": list(snapshot.next),
                     "outcome": snapshot.values.get("outcome"),
                 }
             if run is not None and result["status"] in {"APPROVED", "REJECTED"}:
                 await asyncio.to_thread(store.update_run, workflow_id, "COMPLETED")
+                run = await asyncio.to_thread(store.run, workflow_id)
             return {
                 "workflow_id": workflow_id,
                 "status": "COMPLETED"
                 if result["status"] in {"APPROVED", "REJECTED"}
                 else "PENDING_REVIEW",
+                **timestamps(workflow_id, run, snapshot),
                 "draft_id": result["draft_id"],
                 "version": result["version"],
                 "content_hash": result["content_hash"],

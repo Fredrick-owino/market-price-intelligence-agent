@@ -1,0 +1,36 @@
+{
+  "task": "I01.14",
+  "verified_at": "2026-10-14T22:20:18.104657+00:00",
+  "base_sha": "15725b73699776a624487f0bc6aeb7b1f5d4afd2",
+  "branch": "task/I01.14-dashboard-dates",
+  "commit": null,
+  "push": false,
+  "backend": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider backend/tests",
+    "passed": 160,
+    "seconds": 114.48,
+    "execution": "approved outside sandbox; initial affected sandbox run interrupted, not a pass"
+  },
+  "frontend": {
+    "focused_tests_passed": 4,
+    "typecheck": "passed",
+    "production_build": "passed",
+    "output": "frontend/dist-dashboard",
+    "javascript": "index-CQIHm2Q-.js"
+  },
+  "ruff": "check and format check passed on changed backend files",
+  "diff_check": "passed",
+  "browser": "actual Chrome persisted-result/decision, desktop/mobile, quantities/arithmetic, delayed selection; polling progress separately stubbed",
+  "clock": {
+    "timezone": "Africa/Nairobi",
+    "zone": "EAT",
+    "offset": "+03:00",
+    "synchronized": true,
+    "ntp": "active",
+    "verified_local": "2026-10-15T01:15:53+03:00",
+    "verified_utc": "2026-10-14T22:15:53+00:00"
+  },
+  "preview": "http://127.0.0.1:8001",
+  "original_service": "preserved on loopback 8000",
+  "cutoff": "exact timestamp/timezone unconfirmed; local only"
+}

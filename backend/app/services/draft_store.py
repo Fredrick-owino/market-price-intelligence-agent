@@ -51,6 +51,11 @@ class DraftStore:
                 """
             )
 
+            columns = {row["name"] for row in db.execute("PRAGMA table_info(runs)")}
+            for column in ("started_at", "completed_at"):
+                if column not in columns:
+                    db.execute(f"ALTER TABLE runs ADD COLUMN {column} TEXT")
+
     def connect(self):
         db = sqlite3.connect(self.path, timeout=10, isolation_level=None)
         db.row_factory = sqlite3.Row
@@ -382,8 +387,10 @@ class DraftStore:
                     "A model workflow is already running. Wait before starting another."
                 )
             db.execute(
-                "INSERT OR IGNORE INTO runs VALUES(?,?,?,?,?,?,?)",
-                (workflow_id, officer_id, body, digest, "RUNNING", None, now()),
+                "INSERT OR IGNORE INTO runs "
+                "(workflow_id,owner_id,request_json,request_hash,status,error_code,updated_at,started_at) "
+                "VALUES(?,?,?,?,?,?,?,?)",
+                (workflow_id, officer_id, body, digest, "RUNNING", None, now(), now()),
             )
             prior = db.execute("SELECT * FROM runs WHERE workflow_id=?", (workflow_id,)).fetchone()
             db.execute("COMMIT")
@@ -414,8 +421,11 @@ class DraftStore:
             raise ValueError("Invalid run status.")
         with self.connect() as db:
             db.execute(
-                "UPDATE runs SET status=?, error_code=?, updated_at=? WHERE workflow_id=?",
-                (status, error_code, now(), workflow_id),
+                "UPDATE runs SET completed_at=CASE "
+                "WHEN status NOT IN ('COMPLETED','FAILED') AND ? IN ('COMPLETED','FAILED') "
+                "THEN COALESCE(completed_at,?) ELSE completed_at END, "
+                "status=?, error_code=?, updated_at=? WHERE workflow_id=?",
+                (status, now(), status, error_code, now(), workflow_id),
             )
 
     def validate_review(self, workflow_id: str, draft: dict, review: dict) -> dict:
